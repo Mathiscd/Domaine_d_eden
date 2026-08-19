@@ -11,25 +11,13 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ------------------------------------------------------------------
-     1. Rideau d'ouverture + cascade du hero
+     1. Rideau d'ouverture
+     Le script de garde en <head> en a la charge : lui seul sait, avant le
+     premier paint, s'il s'agit de l'arrivée sur le site ou d'une simple
+     navigation interne. Il n'attend plus le chargement des images. On ne
+     garde ici qu'un filet de sécurité s'il n'a pas tourné.
      ------------------------------------------------------------------ */
-  function openCurtain() {
-    root.classList.add('is-loaded');
-  }
-
-  if (reduce) {
-    openCurtain();
-  } else {
-    var opened = false;
-    var open = function () {
-      if (opened) return;
-      opened = true;
-      openCurtain();
-    };
-    window.addEventListener('load', function () { setTimeout(open, 420); });
-    // filet de sécurité : jamais plus de 2,2 s de rideau
-    setTimeout(open, 2200);
-  }
+  setTimeout(function () { root.classList.add('is-loaded'); }, 2400);
 
   /* ------------------------------------------------------------------
      2. Header : solide au scroll, escamotable, jauge de lecture
@@ -66,8 +54,8 @@
      3. Menu mobile
      ------------------------------------------------------------------ */
   if (toggle && nav) {
-    Array.prototype.forEach.call(nav.querySelectorAll('a'), function (a, i) {
-      a.style.setProperty('--i', i);
+    Array.prototype.forEach.call(nav.children, function (a, i) {
+      if (a.tagName === 'A') a.style.setProperty('--i', i);
     });
 
     var closeNav = function () {
@@ -102,9 +90,12 @@
   /* Un élément en « volet » a un clip-path replié : son aire d'intersection est nulle,
      l'observateur ne se déclencherait jamais. On observe donc son parent à sa place. */
   function watchTarget(el) {
-    return el.getAttribute('data-reveal') === 'mask' && el.parentElement
-      ? el.parentElement
-      : el;
+    if (el.getAttribute('data-reveal') !== 'mask') return el;
+    // <picture> est en display:contents : il n'a pas de boite, donc pas d'aire
+    // d'intersection. On remonte jusqu'au premier parent qui en a une.
+    var p = el.parentElement;
+    while (p && p.tagName === 'PICTURE') p = p.parentElement;
+    return p || el;
   }
 
   if ('IntersectionObserver' in window && !reduce) {
@@ -146,24 +137,48 @@
   if (pxItems.length && !reduce && window.matchMedia('(min-width: 900px)').matches) {
     var pxTicking = false;
 
-    var runParallax = function () {
+    /* Deux pièges à éviter ici.
+       1. Mesurer l'image elle-même : son rect inclut la translation qu'on vient de
+          lui appliquer, donc le décalage se cumule d'un cadre à l'autre. On mesure
+          donc un parent, que la parallaxe ne bouge jamais (en sautant les <picture>,
+          qui sont en display:contents et n'ont pas de boîte).
+       2. Mémoriser les positions une fois pour toutes : les images en chargement
+          différé déplacent la page après coup, et le repère devient faux. On relit
+          donc à chaque cadre — mais toutes les lectures d'abord, toutes les
+          écritures ensuite, pour n'imposer qu'un seul calcul de mise en page. */
+    var mesures = pxItems.map(function (el) {
+      var ref = el.parentElement;
+      while (ref && ref.tagName === 'PICTURE') ref = ref.parentElement;
+      return { el: el, ref: ref || el, vitesse: parseFloat(el.getAttribute('data-parallax')) || 0.1 };
+    });
+
+    var bouge = function () {
       var vh = window.innerHeight;
-      pxItems.forEach(function (el) {
-        var r = el.getBoundingClientRect();
-        if (r.bottom < -200 || r.top > vh + 200) return;
-        var speed = parseFloat(el.getAttribute('data-parallax')) || 0.1;
+      var i, o;
+      for (i = 0; i < mesures.length; i++) {          // lectures groupées
+        o = mesures[i];
+        var r = o.ref.getBoundingClientRect();
+        o.haut = r.top;
+        o.demi = r.height / 2;
+      }
+      for (i = 0; i < mesures.length; i++) {          // puis écritures groupées
+        o = mesures[i];
+        if (o.haut > vh + 200 || o.haut + o.demi * 2 < -200) continue;
         // -1 (au-dessus) → 1 (en dessous)
-        var pos = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2);
-        el.style.transform = 'translate3d(0,' + (pos * speed * 100).toFixed(2) + 'px,0)';
-      });
+        var pos = (o.haut + o.demi - vh / 2) / (vh / 2 + o.demi);
+        o.el.style.transform = 'translate3d(0,' + (pos * o.vitesse * 100).toFixed(2) + 'px,0)';
+      }
       pxTicking = false;
     };
 
-    window.addEventListener('scroll', function () {
-      if (!pxTicking) { pxTicking = true; window.requestAnimationFrame(runParallax); }
-    }, { passive: true });
-    window.addEventListener('resize', runParallax, { passive: true });
-    runParallax();
+    var planifie = function () {
+      if (!pxTicking) { pxTicking = true; window.requestAnimationFrame(bouge); }
+    };
+
+    window.addEventListener('scroll', planifie, { passive: true });
+    window.addEventListener('resize', planifie, { passive: true });
+    window.addEventListener('load', planifie);
+    bouge();
   }
 
   /* ------------------------------------------------------------------
@@ -188,6 +203,10 @@
     }, { rootMargin: '-45% 0px -50% 0px' });
 
     targets.forEach(function (t) { spy.observe(t); });
+    // la nav signale qu'un scroll-spy la pilote : le lien « page courante »
+    // s'efface au profit de la section réellement lue
+    var navEl = document.querySelector('.main-nav');
+    if (targets.length && navEl) navEl.setAttribute('data-spy', '');
   }
 
   /* ------------------------------------------------------------------
@@ -199,7 +218,89 @@
   });
 
   /* ------------------------------------------------------------------
-     8. Galerie : visionneuse plein écran
+     8. Diaporama du hero : fondu enchaîné lent, dérive sur la vue active
+     ------------------------------------------------------------------ */
+  var show = document.querySelector('[data-slideshow]');
+
+  if (show) {
+    var slides = Array.prototype.slice.call(show.querySelectorAll('.hero-slide'));
+    var dots = Array.prototype.slice.call(document.querySelectorAll('.hero-dots button'));
+    var idx = 0;
+    var timer = null;
+    var demande = 0;
+    var DUREE = 6800; // temps d'affichage d'une vue, fondu compris
+
+    /* Les vues sont empilées en absolu : toutes sont « dans le viewport », si bien
+       que loading="lazy" ne les différerait pas — les cinq images partaient d'un coup.
+       On les appelle donc à la main, chacune juste avant son tour. */
+    var charge = function (n) {
+      var vue = slides[(n + slides.length) % slides.length];
+      var img = vue.querySelector('img[data-src]');
+      if (!img) return;
+      // les <source> d'abord : c'est eux qui decident du format retenu
+      Array.prototype.forEach.call(vue.querySelectorAll('[data-srcset]'), function (s) {
+        s.setAttribute('srcset', s.getAttribute('data-srcset'));
+        s.removeAttribute('data-srcset');
+      });
+      img.setAttribute('fetchpriority', 'low');
+      img.src = img.getAttribute('data-src');
+      img.removeAttribute('data-src');
+    };
+
+    var applique = function (n) {
+      idx = n;
+      slides.forEach(function (s, k) { s.classList.toggle('is-active', k === idx); });
+      dots.forEach(function (d, k) { d.setAttribute('aria-current', k === idx ? 'true' : 'false'); });
+      charge(idx + 1); // la suivante s'amorce pendant que celle-ci est à l'écran
+    };
+
+    var goTo = function (i) {
+      var n = (i + slides.length) % slides.length;
+      var jeton = ++demande;
+      charge(n);
+      var img = slides[n].querySelector('img');
+      // saut direct sur une vue pas encore arrivée (clic sur une puce lointaine) :
+      // on l'attend plutôt que de fondre vers du vide
+      if (img && !img.complete) {
+        var passe = function () { if (jeton === demande) applique(n); };
+        img.addEventListener('load', passe, { once: true });
+        img.addEventListener('error', passe, { once: true });
+        return;
+      }
+      applique(n);
+    };
+
+    var play = function () {
+      if (timer) clearInterval(timer);
+      timer = setInterval(function () { goTo(idx + 1); }, DUREE);
+    };
+
+    dots.forEach(function (d, n) {
+      d.addEventListener('click', function () { goTo(n); play(); });
+    });
+
+    if (slides.length > 1 && !reduce) {
+      // on ne fait défiler que si l'onglet est visible : pas d'images qui sautent au retour
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) { clearInterval(timer); timer = null; }
+        else play();
+      });
+      /* La deuxième vue s'amorce après le chargement de la page, puis au premier
+         temps mort : plus tôt, elle se disputerait la bande passante avec l'image
+         de tete, qui est le LCP. La première bascule n'a lieu qu'à 6,8 s. */
+      var amorce = function () { charge(1); };
+      var auCalme = function () {
+        if ('requestIdleCallback' in window) requestIdleCallback(amorce, { timeout: 2000 });
+        else setTimeout(amorce, 600);
+      };
+      if (document.readyState === 'complete') auCalme();
+      else window.addEventListener('load', auCalme);
+      play();
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     9. Galerie : visionneuse plein écran
      ------------------------------------------------------------------ */
   var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
 
@@ -224,6 +325,10 @@
     function show(i) {
       current = (i + figures.length) % figures.length;
       var src = figures[current].querySelector('img');
+      // plein ecran : on rejoue le srcset avec sizes=92vw pour obtenir une grande
+      // variante, au lieu de reafficher la vignette deja en cache
+      var ss = src.getAttribute('srcset');
+      if (ss) { lbImg.setAttribute('sizes', '92vw'); lbImg.setAttribute('srcset', ss); }
       lbImg.src = src.currentSrc || src.src;
       lbImg.alt = src.alt || '';
       lbCap.textContent = src.alt || '';

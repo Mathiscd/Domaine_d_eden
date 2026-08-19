@@ -7,10 +7,66 @@
 <meta name="description" content="Composez votre séjour au Château les Tourelles : choisissez votre chambre, vos dates, et envoyez votre demande. Réponse sous 24 heures.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap"></noscript>
 <link rel="stylesheet" href="assets/css/styles.css">
+<script>
+/* Rideau d'ouverture : une seule fois par visite, décidé avant le premier paint. */
+(function () {
+  var d = document.documentElement, KEY = 'eden:visite', vu = false;
+  try {
+    vu = sessionStorage.getItem(KEY) === '1';
+    if (!vu) sessionStorage.setItem(KEY, '1');
+  } catch (e) {
+    /* sessionStorage indisponible (file://, navigation privée) : on se rabat sur le référent */
+    vu = location.origin !== 'null' && document.referrer.indexOf(location.origin) === 0;
+  }
+  if (vu || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    d.classList.add('no-curtain', 'is-loaded');
+    return;
+  }
+  /* Le rideau joue : on le lève 1,4 s après son apparition, sans attendre les images. */
+  var leve = function () { d.classList.add('is-loaded'); };
+  var arme = function () {
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { setTimeout(leve, 1250); });
+    });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', arme);
+  else arme();
+  setTimeout(leve, 3000); /* filet de sécurité */
+})();
+</script>
 </head>
 <body class="resa-page">
+
+<!-- Rideau d'ouverture : deux volets qui s'écartent sur un dessin du château -->
+<div class="curtain" aria-hidden="true">
+  <span class="curtain__panel curtain__panel--l"></span>
+  <span class="curtain__panel curtain__panel--r"></span>
+  <div class="curtain__inner">
+    <svg class="curtain__draw" viewBox="0 0 240 190" fill="none" aria-hidden="true" focusable="false">
+      <g stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+        <path class="cd" style="--d:70ms"  pathLength="1" d="M9 60h95M136 60h95M12.5 63.5h91.5M136 63.5h91.5"/>
+        <path class="cd" style="--d:130ms" pathLength="1" d="M12.5 63.5V160M227.5 63.5V160"/>
+        <path class="cd" style="--d:0ms"   pathLength="1" d="M4 160h232"/>
+        <path class="cd" style="--d:170ms" pathLength="1" d="M104.8 55 105.8 101M135.2 55 134.2 101"/>
+        <path class="cd" style="--d:200ms" pathLength="1" d="M12.5 101h91M136.5 101h91M12.5 104.5h91M136.5 104.5h91"/>
+        <path class="cd" style="--d:220ms" pathLength="1" d="M104 52 120 16 136 52"/>
+        <path class="cd" style="--d:250ms" pathLength="1" d="M104.6 101h30.8M105.8 101C107 112 112 124.5 120 126c8-1.5 13-14 14.2-25"/>
+        <path class="cd" style="--d:250ms" pathLength="1" d="M29 70h21v23H29zM65 70h21v23H65zM154 70h21v23h-21zM190 70h21v23h-21zM29 116h21v23H29zM65 116h21v23H65zM154 116h21v23h-21zM190 116h21v23h-21z"/>
+        <path class="cd" style="--d:270ms" pathLength="1" d="M101.5 52h37M101.5 52q18.5 4.5 37 0"/>
+        <path class="cd" style="--d:300ms" pathLength="1" d="M39.5 70v23M75.5 70v23M164.5 70v23M200.5 70v23M39.5 116v23M75.5 116v23M164.5 116v23M200.5 116v23M29 76h21M65 76h21M154 76h21M190 76h21M29 122h21M65 122h21M154 122h21M190 122h21"/>
+        <path class="cd" style="--d:340ms" pathLength="1" d="M115.5 64h9v12h-9zM115.5 67.5h9"/>
+        <path class="cd" style="--d:380ms" pathLength="1" d="M120 3v13M116.5 8h7"/>
+      </g>
+    </svg>
+    <span class="curtain__mark">Domaine d’Éden</span>
+    <span class="curtain__rule"></span>
+    <span class="curtain__sub">Château les Tourelles</span>
+  </div>
+</div>
 
 <header class="site-header resa-header">
   <div class="container">
@@ -72,7 +128,7 @@
             <label class="room-choice">
               <input type="radio" name="chambre" value="Suite du Roi et de la Reine" data-slug="suite-roi-reine">
               <span class="rc-body">
-                <img src="assets/img/chambre-suite.jpg" alt="">
+                <picture><source type="image/avif" srcset="assets/img/chambre-suite-240.avif 240w, assets/img/chambre-suite-480.avif 480w, assets/img/chambre-suite-1000.avif 1000w" sizes="78px"><source type="image/webp" srcset="assets/img/chambre-suite-240.webp 240w, assets/img/chambre-suite-480.webp 480w, assets/img/chambre-suite-1000.webp 1000w" sizes="78px"><img srcset="assets/img/chambre-suite-240.jpg 240w, assets/img/chambre-suite-480.jpg 480w, assets/img/chambre-suite-1000.jpg 1000w" sizes="78px" src="assets/img/chambre-suite-1000.jpg" width="1000" height="750" alt=""></picture>
                 <span><span class="rc-name">Suite du Roi et de la Reine</span>
                 <span class="rc-sub">La majestueuse · dès 90 €</span></span>
               </span>
@@ -80,7 +136,7 @@
             <label class="room-choice">
               <input type="radio" name="chambre" value="Antichambre de la Nuit" data-slug="antichambre-nuit">
               <span class="rc-body">
-                <img src="assets/img/chambre-nuit.jpg" alt="">
+                <picture><source type="image/avif" srcset="assets/img/chambre-nuit-240.avif 240w, assets/img/chambre-nuit-480.avif 480w, assets/img/chambre-nuit-1000.avif 1000w" sizes="78px"><source type="image/webp" srcset="assets/img/chambre-nuit-240.webp 240w, assets/img/chambre-nuit-480.webp 480w, assets/img/chambre-nuit-1000.webp 1000w" sizes="78px"><img srcset="assets/img/chambre-nuit-240.jpg 240w, assets/img/chambre-nuit-480.jpg 480w, assets/img/chambre-nuit-1000.jpg 1000w" sizes="78px" src="assets/img/chambre-nuit-1000.jpg" width="1000" height="750" alt=""></picture>
                 <span><span class="rc-name">Antichambre de la Nuit</span>
                 <span class="rc-sub">L’énigmatique · dès 90 €</span></span>
               </span>
@@ -88,7 +144,7 @@
             <label class="room-choice">
               <input type="radio" name="chambre" value="Boudoir des Rêves" data-slug="boudoir-reves">
               <span class="rc-body">
-                <img src="assets/img/chambre-boudoir.jpg" alt="">
+                <picture><source type="image/avif" srcset="assets/img/chambre-boudoir-240.avif 240w, assets/img/chambre-boudoir-480.avif 480w, assets/img/chambre-boudoir-1000.avif 1000w" sizes="78px"><source type="image/webp" srcset="assets/img/chambre-boudoir-240.webp 240w, assets/img/chambre-boudoir-480.webp 480w, assets/img/chambre-boudoir-1000.webp 1000w" sizes="78px"><img srcset="assets/img/chambre-boudoir-240.jpg 240w, assets/img/chambre-boudoir-480.jpg 480w, assets/img/chambre-boudoir-1000.jpg 1000w" sizes="78px" src="assets/img/chambre-boudoir-1000.jpg" width="1000" height="750" alt=""></picture>
                 <span><span class="rc-name">Boudoir des Rêves</span>
                 <span class="rc-sub">Le délicat · dès 90 €</span></span>
               </span>
@@ -96,7 +152,7 @@
             <label class="room-choice">
               <input type="radio" name="chambre" value="Refuge des Brumes" data-slug="refuge-brumes">
               <span class="rc-body">
-                <img src="assets/img/chambre-brumes.jpg" alt="">
+                <picture><source type="image/avif" srcset="assets/img/chambre-brumes-240.avif 240w, assets/img/chambre-brumes-480.avif 480w, assets/img/chambre-brumes-1000.avif 1000w" sizes="78px"><source type="image/webp" srcset="assets/img/chambre-brumes-240.webp 240w, assets/img/chambre-brumes-480.webp 480w, assets/img/chambre-brumes-1000.webp 1000w" sizes="78px"><img srcset="assets/img/chambre-brumes-240.jpg 240w, assets/img/chambre-brumes-480.jpg 480w, assets/img/chambre-brumes-1000.jpg 1000w" sizes="78px" src="assets/img/chambre-brumes-1000.jpg" width="1000" height="750" alt=""></picture>
                 <span><span class="rc-name">Refuge des Brumes</span>
                 <span class="rc-sub">L’apaisant · vue montagne · dès 99 €</span></span>
               </span>
@@ -104,7 +160,7 @@
             <label class="room-choice">
               <input type="radio" name="chambre" value="Repaire des Songes" data-slug="repaire-songes">
               <span class="rc-body">
-                <img src="assets/img/chambre-songes.jpg" alt="">
+                <picture><source type="image/avif" srcset="assets/img/chambre-songes-240.avif 240w, assets/img/chambre-songes-480.avif 480w, assets/img/chambre-songes-1000.avif 1000w" sizes="78px"><source type="image/webp" srcset="assets/img/chambre-songes-240.webp 240w, assets/img/chambre-songes-480.webp 480w, assets/img/chambre-songes-1000.webp 1000w" sizes="78px"><img srcset="assets/img/chambre-songes-240.jpg 240w, assets/img/chambre-songes-480.jpg 480w, assets/img/chambre-songes-1000.jpg 1000w" sizes="78px" src="assets/img/chambre-songes-1000.jpg" width="1000" height="750" alt=""></picture>
                 <span><span class="rc-name">Repaire des Songes</span>
                 <span class="rc-sub">Le mystérieux · dès 90 €</span></span>
               </span>
@@ -112,7 +168,7 @@
             <label class="room-choice">
               <input type="radio" name="chambre" value="Peu importe — conseillez-moi" data-slug="conseil" checked>
               <span class="rc-body">
-                <img src="assets/img/salon.jpg" alt="">
+                <picture><source type="image/avif" srcset="assets/img/salon-240.avif 240w, assets/img/salon-480.avif 480w, assets/img/salon-768.avif 768w, assets/img/salon-1200.avif 1200w" sizes="78px"><source type="image/webp" srcset="assets/img/salon-240.webp 240w, assets/img/salon-480.webp 480w, assets/img/salon-768.webp 768w, assets/img/salon-1200.webp 1200w" sizes="78px"><img srcset="assets/img/salon-240.jpg 240w, assets/img/salon-480.jpg 480w, assets/img/salon-768.jpg 768w, assets/img/salon-1200.jpg 1200w" sizes="78px" src="assets/img/salon-1200.jpg" width="1200" height="900" alt=""></picture>
                 <span><span class="rc-name">Peu importe</span>
                 <span class="rc-sub">Conseillez-moi selon mes dates</span></span>
               </span>
@@ -264,7 +320,7 @@
         soient utilisées pour répondre à ma demande. Elles ne servent à rien d’autre,
         ne sont transmises à personne, et vous pouvez en demander la suppression à tout moment.</label>
       </div>
-      <p class="error-msg" id="rgpd-error" style="color: #8C3B2E; font-size: 0.8rem; display: none">
+      <p class="error-msg" id="rgpd-error" style="color: var(--erreur); font-size: 0.8rem; display: none">
       Merci de cocher la case pour nous permettre de vous répondre.</p>
 
       <div class="step-nav">
@@ -279,7 +335,7 @@
       <h2>Votre demande est entre nos mains</h2>
       <p>Merci ! Grégory et Thomas vous répondent personnellement sous 24 heures.
       Un email de confirmation vient de partir vers votre boîte.</p>
-      <p>Une question d’ici là ? <a href="tel:+33665329261" style="border-bottom: 1px solid var(--laiton); color: var(--encre)">06 65 32 92 61</a></p>
+      <p>Une question d’ici là ? <a href="tel:+33665329261" style="border-bottom: 1px solid var(--vert); color: var(--encre)">06 65 32 92 61</a></p>
       <p style="margin-top: 2.5rem"><a class="link-arrow" href="index.html">Retourner sur le site</a></p>
     </section>
 

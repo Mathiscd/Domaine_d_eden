@@ -7,8 +7,9 @@ et lieu événementiel à Beaulieu (Haute-Loire, Auvergne), tenue par Grégory e
 Prestation cadrée par la proposition commerciale MarketFrame
 ([proposition-domaine-eden-onepage.pdf](proposition-domaine-eden-onepage.pdf)) validée par le client.
 
-**Livrable** : un site one-page éditorial + une page de réservation dédiée avec
-formulaire multi-étapes. Statique (HTML/CSS/JS vanilla), sans framework, sans build.
+**Livrable** : un site éditorial de **quatre pages** — accueil (le déroulé complet),
+chambres, événements — plus une page de réservation dédiée avec formulaire multi-étapes.
+Statique (HTML/CSS/JS vanilla), sans framework, sans build.
 
 ## Règle d'or du design
 
@@ -17,7 +18,11 @@ source de contenu** (textes, infos, photos). Son design — cercles verts criard
 composition chargée — est le contre-exemple : le nouveau site doit être
 **diamétralement opposé**. La référence esthétique est
 [grandlauron.com](https://www.grandlauron.com/) : éditorial, épuré, photographique,
-serif élégante, beaucoup de blanc.
+serif élégante, beaucoup de blanc — c'est aussi elle qui dicte la structure du header
+(réseaux à gauche, signature centrée, téléphone à droite, nav en second rang).
+
+**La couleur, en revanche, est celle du client** : le vert `#74963D` relevé sur ses
+captures. C'est la seule teinte du site — aucun brun, laiton ni vert olive vif en aplat.
 
 Toute décision visuelle se prend contre [docs/CHARTE-GRAPHIQUE.md](docs/CHARTE-GRAPHIQUE.md).
 La structure et les contenus sont dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
@@ -26,11 +31,13 @@ La structure et les contenus sont dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.
 
 ```
 site/
-  index.html           one-page principale (toutes les sections)
+  index.html           accueil : toutes les sections du déroulé
+  chambres.html        les 5 chambres en détail (ancres #suite-roi-reine, #boudoir-reves…)
+  evenements.html      les formats, le cadre, le déroulé, la table
   reservation.html     formulaire de demande multi-étapes (cible de tous les CTA)
   assets/
     css/styles.css     styles globaux (variables CSS en tête de fichier)
-    js/main.js         animations scroll, header, navigation
+    js/main.js         animations scroll, header, navigation, diaporama du hero
     js/reservation.js  logique du formulaire multi-étapes
     img/               photos optimisées, noms sémantiques
     img/src/           photos sources 1500px (Gîtes de France) — ne pas livrer
@@ -63,7 +70,8 @@ Comparer l'intention à la charte avant toute itération de design.
 - Les photos actuelles proviennent de la fiche Gîtes de France du client (une seule
   chambre photographiée) : plusieurs cartes chambres réutilisent des angles de la même
   pièce **en attendant les photos définitives du client** — signalé dans ARCHITECTURE.md.
-- Espace Soreï : site séparé, uniquement un lien sortant. Ne pas réintégrer son contenu.
+- Espace Soreï : site séparé (<https://thomasploton.fr/>), uniquement un lien sortant.
+  Ne pas réintégrer son contenu.
 - Un seul geste attendu du visiteur : **envoyer une demande** (pas de paiement en ligne,
   pas de calendrier de disponibilités). La réservation reste gérée par les hôtes.
 - Coordonnées : 2562 Avenue de Bazac, 43800 Beaulieu · 06 65 32 92 61 ·

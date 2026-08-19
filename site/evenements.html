@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Événements &amp; réceptions — Domaine d’Éden · Château les Tourelles</title>
+<meta name="description" content="Mariages intimistes, cousinades, séminaires et privatisation du domaine jusqu’à 30 personnes au Château les Tourelles, en Haute-Loire. Un seul événement à la fois, cinq chambres sur place, formule traiteur locale.">
+<meta name="theme-color" content="#161B14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap"></noscript>
+<link rel="preload" as="image" type="image/avif" fetchpriority="high"
+      imagesrcset="assets/img/chateau-angle-240.avif 240w, assets/img/chateau-angle-480.avif 480w, assets/img/chateau-angle-768.avif 768w, assets/img/chateau-angle-1100.avif 1100w, assets/img/chateau-angle-1400.avif 1400w"
+      imagesizes="100vw">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script>
+/* Rideau d'ouverture : une seule fois par visite, décidé avant le premier paint. */
+(function () {
+  var d = document.documentElement, KEY = 'eden:visite', vu = false;
+  try {
+    vu = sessionStorage.getItem(KEY) === '1';
+    if (!vu) sessionStorage.setItem(KEY, '1');
+  } catch (e) {
+    /* sessionStorage indisponible (file://, navigation privée) : on se rabat sur le référent */
+    vu = location.origin !== 'null' && document.referrer.indexOf(location.origin) === 0;
+  }
+  if (vu || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    d.classList.add('no-curtain', 'is-loaded');
+    return;
+  }
+  /* Le rideau joue : on le lève 1,4 s après son apparition, sans attendre les images. */
+  var leve = function () { d.classList.add('is-loaded'); };
+  var arme = function () {
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { setTimeout(leve, 1250); });
+    });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', arme);
+  else arme();
+  setTimeout(leve, 3000); /* filet de sécurité */
+})();
+</script>
+</head>
+<body>
+
+<!-- Rideau d'ouverture : deux volets qui s'écartent sur un dessin du château -->
+<div class="curtain" aria-hidden="true">
+  <span class="curtain__panel curtain__panel--l"></span>
+  <span class="curtain__panel curtain__panel--r"></span>
+  <div class="curtain__inner">
+    <svg class="curtain__draw" viewBox="0 0 240 190" fill="none" aria-hidden="true" focusable="false">
+      <g stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+        <path class="cd" style="--d:70ms"  pathLength="1" d="M9 60h95M136 60h95M12.5 63.5h91.5M136 63.5h91.5"/>
+        <path class="cd" style="--d:130ms" pathLength="1" d="M12.5 63.5V160M227.5 63.5V160"/>
+        <path class="cd" style="--d:0ms"   pathLength="1" d="M4 160h232"/>
+        <path class="cd" style="--d:170ms" pathLength="1" d="M104.8 55 105.8 101M135.2 55 134.2 101"/>
+        <path class="cd" style="--d:200ms" pathLength="1" d="M12.5 101h91M136.5 101h91M12.5 104.5h91M136.5 104.5h91"/>
+        <path class="cd" style="--d:220ms" pathLength="1" d="M104 52 120 16 136 52"/>
+        <path class="cd" style="--d:250ms" pathLength="1" d="M104.6 101h30.8M105.8 101C107 112 112 124.5 120 126c8-1.5 13-14 14.2-25"/>
+        <path class="cd" style="--d:250ms" pathLength="1" d="M29 70h21v23H29zM65 70h21v23H65zM154 70h21v23h-21zM190 70h21v23h-21zM29 116h21v23H29zM65 116h21v23H65zM154 116h21v23h-21zM190 116h21v23h-21z"/>
+        <path class="cd" style="--d:270ms" pathLength="1" d="M101.5 52h37M101.5 52q18.5 4.5 37 0"/>
+        <path class="cd" style="--d:300ms" pathLength="1" d="M39.5 70v23M75.5 70v23M164.5 70v23M200.5 70v23M39.5 116v23M75.5 116v23M164.5 116v23M200.5 116v23M29 76h21M65 76h21M154 76h21M190 76h21M29 122h21M65 122h21M154 122h21M190 122h21"/>
+        <path class="cd" style="--d:340ms" pathLength="1" d="M115.5 64h9v12h-9zM115.5 67.5h9"/>
+        <path class="cd" style="--d:380ms" pathLength="1" d="M120 3v13M116.5 8h7"/>
+      </g>
+    </svg>
+    <span class="curtain__mark">Domaine d’Éden</span>
+    <span class="curtain__rule"></span>
+    <span class="curtain__sub">Château les Tourelles</span>
+  </div>
+</div>
+
+<header class="site-header" id="top">
+
+  <!-- Rang 1 : réseaux · signature · téléphone -->
+  <div class="header-top">
+    <div class="container">
+      <ul class="header-social">
+        <li><a class="icon-btn" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Le Domaine d’Éden sur Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.59-.01-4.86-.07c-1.17-.06-1.81-.26-2.23-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.05-1.26-.06-1.65-.06-4.84s.02-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42 1.28-.05 1.65-.06 4.86-.06zM12 0C8.74 0 8.33.02 7.05.07c-1.28.06-2.15.26-2.91.56-.79.3-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.02 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.02 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.05-1.28.07-1.69.07-4.95s-.02-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13-.67-.67-1.34-1.08-2.13-1.38-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a></li>
+        <li><a class="icon-btn" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Le Domaine d’Éden sur Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.02 24V13.05h3.68l.55-4.27h-4.23V6.05c0-1.24.34-2.08 2.12-2.08h2.26V.17A30.3 30.3 0 0 0 15.1 0c-3.26 0-5.5 1.99-5.5 5.64v3.14H5.91v4.27H9.6V24z"/></svg></a></li>
+      </ul>
+      <a class="brand" href="index.html" aria-label="Domaine d’Éden — accueil">
+        <span class="brand-name">Domaine d’Éden</span>
+        <span class="brand-sub">Château les Tourelles</span>
+      </a>
+      <a class="header-phone" href="tel:+33665329261"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02z"/></svg><span>06 65 32 92 61</span></a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Rang 2 : navigation -->
+  <div class="header-nav">
+    <div class="container">
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="index.html#domaine">Le domaine</a>
+        <a href="chambres.html">Les chambres</a>
+        <a href="evenements.html" aria-current="page">Événements</a>
+        <a href="index.html#galerie">Galerie</a>
+        <a href="index.html#contact">Contact</a>
+        <a class="nav-cta" href="reservation.html">Réserver</a>
+        <div class="nav-extra">
+          <a class="header-phone" href="tel:+33665329261"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02z"/></svg><span>06 65 32 92 61</span></a>
+          <ul class="header-social">
+        <li><a class="icon-btn" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Le Domaine d’Éden sur Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.59-.01-4.86-.07c-1.17-.06-1.81-.26-2.23-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.05-1.26-.06-1.65-.06-4.84s.02-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42 1.28-.05 1.65-.06 4.86-.06zM12 0C8.74 0 8.33.02 7.05.07c-1.28.06-2.15.26-2.91.56-.79.3-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.02 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.02 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.05-1.28.07-1.69.07-4.95s-.02-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13-.67-.67-1.34-1.08-2.13-1.38-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a></li>
+        <li><a class="icon-btn" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Le Domaine d’Éden sur Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.02 24V13.05h3.68l.55-4.27h-4.23V6.05c0-1.24.34-2.08 2.12-2.08h2.26V.17A30.3 30.3 0 0 0 15.1 0c-3.26 0-5.5 1.99-5.5 5.64v3.14H5.91v4.27H9.6V24z"/></svg></a></li>
+      </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <span class="scroll-progress" aria-hidden="true"></span>
+</header>
+
+<main>
+
+  <!-- ======================= BANDEAU DE TITRE ======================= -->
+  <section class="page-hero">
+    <div class="bg"><picture><source type="image/avif" srcset="assets/img/chateau-angle-240.avif 240w, assets/img/chateau-angle-480.avif 480w, assets/img/chateau-angle-768.avif 768w, assets/img/chateau-angle-1100.avif 1100w, assets/img/chateau-angle-1400.avif 1400w" sizes="100vw"><source type="image/webp" srcset="assets/img/chateau-angle-240.webp 240w, assets/img/chateau-angle-480.webp 480w, assets/img/chateau-angle-768.webp 768w, assets/img/chateau-angle-1100.webp 1100w, assets/img/chateau-angle-1400.webp 1400w" sizes="100vw"><img srcset="assets/img/chateau-angle-240.jpg 240w, assets/img/chateau-angle-480.jpg 480w, assets/img/chateau-angle-768.jpg 768w, assets/img/chateau-angle-1100.jpg 1100w, assets/img/chateau-angle-1400.jpg 1400w" sizes="100vw" src="assets/img/chateau-angle-1400.jpg" width="1400" height="1050" alt="" aria-hidden="true" fetchpriority="high"></picture></div>
+    <div class="container">
+      <p class="crumb"><a href="index.html">Accueil</a><span>·</span>Événements</p>
+      <p class="eyebrow">L’événementiel</p>
+      <h1><span class="ln"><span>Vos plus beaux jours,</span></span><span class="ln"><span><em>entre parc et tourelles</em></span></span></h1>
+      <p class="lede">Le domaine se privatise jusqu’à 30 personnes.
+      Une journée, un week-end, et la maison est à vous.</p>
+    </div>
+  </section>
+
+  <!-- ======================= L'ESPRIT ======================= -->
+  <section class="section">
+    <div class="container">
+      <span class="folio" aria-hidden="true">01</span>
+      <div class="editorial">
+        <div class="editorial-media">
+          <picture><source type="image/avif" srcset="assets/img/salon-piano-240.avif 240w, assets/img/salon-piano-480.avif 480w, assets/img/salon-piano-768.avif 768w, assets/img/salon-piano-1200.avif 1200w" sizes="(min-width: 1025px) 510px, (min-width: 901px) 430px, (min-width: 641px) 730px, 81vw"><source type="image/webp" srcset="assets/img/salon-piano-240.webp 240w, assets/img/salon-piano-480.webp 480w, assets/img/salon-piano-768.webp 768w, assets/img/salon-piano-1200.webp 1200w" sizes="(min-width: 1025px) 510px, (min-width: 901px) 430px, (min-width: 641px) 730px, 81vw"><img srcset="assets/img/salon-piano-240.jpg 240w, assets/img/salon-piano-480.jpg 480w, assets/img/salon-piano-768.jpg 768w, assets/img/salon-piano-1200.jpg 1200w" sizes="(min-width: 1025px) 510px, (min-width: 901px) 430px, (min-width: 641px) 730px, 81vw" class="photo-main" src="assets/img/salon-piano-1200.jpg" width="1200" height="900" alt="Le salon de musique et son piano" loading="lazy" decoding="async" data-reveal="mask"></picture>
+          <picture><source type="image/avif" srcset="assets/img/cour-roues-240.avif 240w, assets/img/cour-roues-480.avif 480w, assets/img/cour-roues-768.avif 768w, assets/img/cour-roues-1000.avif 1000w" sizes="(min-width: 1025px) 310px, (min-width: 901px) 260px, (min-width: 641px) 450px, 50vw"><source type="image/webp" srcset="assets/img/cour-roues-240.webp 240w, assets/img/cour-roues-480.webp 480w, assets/img/cour-roues-768.webp 768w, assets/img/cour-roues-1000.webp 1000w" sizes="(min-width: 1025px) 310px, (min-width: 901px) 260px, (min-width: 641px) 450px, 50vw"><img srcset="assets/img/cour-roues-240.jpg 240w, assets/img/cour-roues-480.jpg 480w, assets/img/cour-roues-768.jpg 768w, assets/img/cour-roues-1000.jpg 1000w" sizes="(min-width: 1025px) 310px, (min-width: 901px) 260px, (min-width: 641px) 450px, 50vw" class="photo-inset" src="assets/img/cour-roues-1000.jpg" width="1000" height="750" alt="La cour du domaine et ses roues de charrette" loading="lazy" decoding="async" data-reveal="mask" style="--reveal-delay: 260ms"></picture>
+        </div>
+        <div data-reveal="up" style="--reveal-delay: 120ms">
+          <p class="eyebrow"><span class="section-index">01</span> Recevoir ici</p>
+          <h2>
+            <span class="ln"><span>Un lieu entier,</span></span>
+            <span class="ln"><span><em>rien qu’à vous</em></span></span>
+          </h2>
+          <div class="prose" style="margin-top: 2rem">
+            <p class="dropcap">Nous ne recevons qu’un événement à la fois. Le parc, la cour, les
+            salons, la grande salle à manger et les cinq chambres : pendant votre séjour, le
+            domaine ne reçoit personne d’autre.</p>
+            <p>Ce n’est pas une salle des fêtes, et cela se voit. Les tables se dressent sous les
+            arbres ou sous les poutres, la musique s’arrête à une heure raisonnable, et le
+            lendemain matin on se retrouve autour d’un café dans la cour.</p>
+          </div>
+          <p class="signature">Grégory &amp; Thomas
+            <small>Vos hôtes, présents du premier message au dernier départ</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= LES FORMATS ======================= -->
+  <section class="section section--warm">
+    <div class="container">
+      <span class="folio folio--left" aria-hidden="true">02</span>
+      <div class="section-head section-head--center" data-reveal="up">
+        <p class="eyebrow eyebrow--center"><span class="section-index">02</span> Les formats</p>
+        <h2><span class="ln"><span>Quatre façons</span></span><span class="ln"><span><em>de réunir les vôtres</em></span></span></h2>
+      </div>
+      <div class="formats-grid">
+        <article class="format-card" data-reveal="up">
+          <p class="idx">i.</p>
+          <h3>Mariages intimistes</h3>
+          <p>Une cérémonie dans le parc, un dîner sous les arbres, une nuit sur place pour les
+          mariés et leurs proches. Format court, invités choisis, aucune course contre la montre.</p>
+          <ul>
+            <li>jusqu’à 30 personnes</li>
+            <li>cérémonie laïque dans le parc</li>
+            <li>5 chambres pour la nuit</li>
+          </ul>
+        </article>
+        <article class="format-card" data-reveal="up" style="--reveal-delay: 110ms">
+          <p class="idx">ii.</p>
+          <h3>Cousinades &amp; anniversaires</h3>
+          <p>Toute la famille sous un même toit, du vendredi soir au dimanche midi. Les enfants
+          courent dans la cour, les grands s’installent au salon, et personne ne prend la voiture.</p>
+          <ul>
+            <li>week-end complet</li>
+            <li>table d’hôtes sur réservation</li>
+            <li>parking privé gratuit</li>
+          </ul>
+        </article>
+        <article class="format-card" data-reveal="up" style="--reveal-delay: 220ms">
+          <p class="idx">iii.</p>
+          <h3>Séminaires &amp; journées d’équipe</h3>
+          <p>Une salle claire, du silence, du réseau et de la place pour marcher entre deux
+          sessions. À 17 km du Puy-en-Velay, mais à cent lieues d’une salle de réunion.</p>
+          <ul>
+            <li>journée ou séminaire résidentiel</li>
+            <li>salle de travail &amp; salons</li>
+            <li>déjeuner de produits locaux</li>
+          </ul>
+        </article>
+        <article class="format-card" data-reveal="up" style="--reveal-delay: 330ms">
+          <p class="idx">iv.</p>
+          <h3>Privatisation complète</h3>
+          <p>Le domaine entier, avec ou sans hébergement, pour un tournage, un stage, une
+          retraite ou une fête que vous seuls saurez nommer.</p>
+          <ul>
+            <li>domaine privatisé</li>
+            <li>avec ou sans nuitées</li>
+            <li>devis sur mesure</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= LES CHIFFRES ======================= -->
+  <section class="section section--dark">
+    <div class="container">
+      <span class="folio" aria-hidden="true">03</span>
+      <div class="section-head" data-reveal="up">
+        <p class="eyebrow"><span class="section-index">03</span> Le cadre</p>
+        <h2><span class="ln"><span>Ce que le domaine</span></span><span class="ln"><span><em>met à votre disposition</em></span></span></h2>
+      </div>
+      <div class="facts-grid">
+        <div class="fact" data-reveal="up">
+          <p class="k">30</p>
+          <h3>Personnes reçues</h3>
+          <p>C’est la capacité du domaine en réception, assis ou debout, dans le parc comme
+          à l’intérieur.</p>
+        </div>
+        <div class="fact" data-reveal="up" style="--reveal-delay: 110ms">
+          <p class="k">5</p>
+          <h3>Chambres sur place</h3>
+          <p>Pour loger les mariés, la famille venue de loin ou l’équipe qui reste dormir —
+          petit-déjeuner compris.</p>
+        </div>
+        <div class="fact" data-reveal="up" style="--reveal-delay: 220ms">
+          <p class="k">1</p>
+          <h3>Événement à la fois</h3>
+          <p>Aucune autre réservation pendant la vôtre. Le parc, la cour et les salons ne
+          se partagent pas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= LE DÉROULÉ ======================= -->
+  <section class="section section--dark" style="padding-top: 0">
+    <div class="container">
+      <div class="section-head" data-reveal="up">
+        <p class="eyebrow">Comment ça se passe</p>
+        <h2><span class="ln"><span>Quatre temps,</span></span><span class="ln"><span><em>sans mauvaise surprise</em></span></span></h2>
+      </div>
+      <div class="steps-flow">
+        <div data-reveal="up">
+          <h3>Votre message</h3>
+          <p>Vous nous dites la date envisagée, le nombre d’invités et l’esprit de la journée.</p>
+        </div>
+        <div data-reveal="up" style="--reveal-delay: 110ms">
+          <h3>La visite</h3>
+          <p>Sur place ou en visio, nous parcourons le domaine ensemble et regardons ce qui est possible.</p>
+        </div>
+        <div data-reveal="up" style="--reveal-delay: 220ms">
+          <h3>Le devis</h3>
+          <p>Un document clair : privatisation, nuitées, table, options. Sans engagement.</p>
+        </div>
+        <div data-reveal="up" style="--reveal-delay: 330ms">
+          <h3>Le jour J</h3>
+          <p>Nous sommes là, discrets mais présents, du montage des tables au dernier café.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= LA TABLE ======================= -->
+  <section class="section section--lin">
+    <div class="container">
+      <span class="folio folio--left" aria-hidden="true">04</span>
+      <div class="aside-band" data-reveal="up">
+        <figure><picture><source type="image/avif" srcset="assets/img/salle-a-manger-240.avif 240w, assets/img/salle-a-manger-480.avif 480w, assets/img/salle-a-manger-768.avif 768w, assets/img/salle-a-manger-1200.avif 1200w" sizes="(min-width: 1025px) 480px, (min-width: 901px) 400px, (min-width: 641px) 830px, 93vw"><source type="image/webp" srcset="assets/img/salle-a-manger-240.webp 240w, assets/img/salle-a-manger-480.webp 480w, assets/img/salle-a-manger-768.webp 768w, assets/img/salle-a-manger-1200.webp 1200w" sizes="(min-width: 1025px) 480px, (min-width: 901px) 400px, (min-width: 641px) 830px, 93vw"><img srcset="assets/img/salle-a-manger-240.jpg 240w, assets/img/salle-a-manger-480.jpg 480w, assets/img/salle-a-manger-768.jpg 768w, assets/img/salle-a-manger-1200.jpg 1200w" sizes="(min-width: 1025px) 480px, (min-width: 901px) 400px, (min-width: 641px) 830px, 93vw" src="assets/img/salle-a-manger-1200.jpg" width="1200" height="900" alt="La grande salle à manger du château dressée pour un repas" loading="lazy" decoding="async"></picture></figure>
+        <div class="aside-band-text">
+          <p class="eyebrow">À table</p>
+          <h3>Une formule simple,<br>des produits d’ici</h3>
+          <p style="margin-top: 1.3rem">Planches apéritives, charcuteries et fromages de la région,
+          plats préparés à la maison : la formule traiteur reste volontairement simple et
+          gourmande. Vous préférez votre propre traiteur ? C’est possible aussi — dites-le nous.</p>
+          <span class="badge-2027">Table d’hôtes 25 € / personne — sur réservation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= CTA FINAL ======================= -->
+  <section class="final-cta">
+    <div class="bg"><picture><source type="image/avif" srcset="assets/img/jardin-240.avif 240w, assets/img/jardin-480.avif 480w, assets/img/jardin-768.avif 768w, assets/img/jardin-1000.avif 1000w" sizes="100vw"><source type="image/webp" srcset="assets/img/jardin-240.webp 240w, assets/img/jardin-480.webp 480w, assets/img/jardin-768.webp 768w, assets/img/jardin-1000.webp 1000w" sizes="100vw"><img srcset="assets/img/jardin-240.jpg 240w, assets/img/jardin-480.jpg 480w, assets/img/jardin-768.jpg 768w, assets/img/jardin-1000.jpg 1000w" sizes="100vw" src="assets/img/jardin-1000.jpg" width="1000" height="750" alt="" loading="lazy" decoding="async" aria-hidden="true" data-parallax="0.18"></picture></div>
+    <div class="container" data-reveal="up">
+      <p class="eyebrow eyebrow--center">Parlons de votre projet</p>
+      <h2><span class="ln"><span>Une date en tête ?</span></span><span class="ln"><span><em>Écrivez-nous</em></span></span></h2>
+      <p class="lede">Nous répondons sous 24 heures, avec un premier devis et une proposition de visite.</p>
+      <a class="btn btn--light" href="reservation.html?motif=evenement">Demander un devis</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="brand-name">Domaine d’Éden</span><br>
+        <span class="brand-sub serif" style="font-style: italic">Château les Tourelles</span>
+        <p>Maison d’hôtes &amp; lieu de réception au cœur de la Haute-Loire.
+        Un château pour rêver, un domaine pour se ressourcer.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Le site</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="index.html#domaine">Le domaine</a></li>
+          <li><a href="chambres.html">Les chambres</a></li>
+          <li><a href="evenements.html">Événements</a></li>
+          <li><a href="index.html#galerie">Galerie</a></li>
+          <li><a href="reservation.html">Demander une disponibilité</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+33665329261">06 65 32 92 61</a></li>
+          <li><a href="mailto:chateaulestourelles43@gmail.com">chateaulestourelles43@gmail.com</a></li>
+          <li>2562 Avenue de Bazac<br>43800 Beaulieu</li>
+          <li style="margin-top: 1.2rem">
+            <span class="footer-social">
+              <a class="icon-btn" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.02 24V13.05h3.68l.55-4.27h-4.23V6.05c0-1.24.34-2.08 2.12-2.08h2.26V.17A30.3 30.3 0 0 0 15.1 0c-3.26 0-5.5 1.99-5.5 5.64v3.14H5.91v4.27H9.6V24z"/></svg></a>
+              <a class="icon-btn" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.59-.01-4.86-.07c-1.17-.06-1.81-.26-2.23-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.05-1.26-.06-1.65-.06-4.84s.02-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42 1.28-.05 1.65-.06 4.86-.06zM12 0C8.74 0 8.33.02 7.05.07c-1.28.06-2.15.26-2.91.56-.79.3-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.02 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.02 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.05-1.28.07-1.69.07-4.95s-.02-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13-.67-.67-1.34-1.08-2.13-1.38-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Domaine d’Éden — Château les Tourelles</span>
+      <span>Mentions légales · Site réalisé par MarketFrame</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
