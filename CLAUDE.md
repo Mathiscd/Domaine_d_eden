@@ -39,8 +39,11 @@ site/
     css/styles.css     styles globaux (variables CSS en tête de fichier)
     js/main.js         animations scroll, header, navigation, diaporama du hero
     js/reservation.js  logique du formulaire multi-étapes
-    img/               photos optimisées, noms sémantiques
-    img/src/           photos sources 1500px (Gîtes de France) — ne pas livrer
+    img/               variantes responsives `<nom>-<largeur>.{avif,webp,jpg}`
+photos-sources/        photos sources 1500px (Gîtes de France) — hors `site/`,
+                       donc versionnées mais jamais publiées
+tools/
+  generer-images.py    régénère les variantes depuis photos-sources/ (voir « Images »)
 docs/
   CHARTE-GRAPHIQUE.md  couleurs, typos, espacements, composants, ton
   ARCHITECTURE.md      plan des pages, sections, contenus validés
@@ -55,7 +58,59 @@ docs/
   point d'entrée unique dans `reservation.js` (`submitRequest()`).
 - **Responsive** : mobile d'abord vérifié à 390px, desktop à 1440px. Menu burger sous 900px.
 - **Accessibilité** : contrastes AA sur le texte, focus visibles, `prefers-reduced-motion` respecté.
-- **Performance** : images `loading="lazy"` hors hero, pas de librairie JS externe.
+- **Performance** : pas de librairie JS externe. Voir « Images » et « Pièges » ci-dessous.
+
+## Images
+
+Chaque photo est livrée en AVIF, WebP et JPEG, à plusieurs largeurs, via un
+`<picture>` : `<source type="image/avif">`, puis WebP, puis l'`<img>` JPEG en
+dernier recours. Nommage `assets/img/<nom>-<largeur>.<ext>`.
+
+**Régénérer** (le jour où le client fournit ses vraies photos) :
+
+```
+python tools/generer-images.py            # simulation
+python tools/generer-images.py --ecrire   # produit les fichiers
+```
+
+Le script cherche la qualité par bissection, image par image et format par format
+— la plus basse qui tienne le plancher SSIM (0,97 ; 0,95 en 240px, largeur qui ne
+sert qu'aux vignettes 78px de la réservation). Ne pas remplacer ça par une qualité
+fixe : un ciel uni et un intérieur sombre n'ont pas les mêmes besoins.
+
+Trois règles à ne pas casser :
+
+- **Encoder depuis `photos-sources/`, jamais depuis un JPEG déjà compressé** —
+  sinon les bits partent à reproduire les artefacts du fichier intermédiaire.
+- **`speed=4` pour l'AVIF** (le défaut de Pillow est 6) : ~3 % de moins à qualité
+  égale. Changer ce réglage oblige à régénérer tout le jeu.
+- **Un srcset doit rester monotone** : une variante plus lourde qu'une plus grande
+  ferait télécharger plus d'octets pour moins de pixels. Le script élague ces
+  cas format par format ; c'est pourquoi certaines images n'ont pas toutes les largeurs.
+
+Les `sizes` sont calés sur les largeurs **réellement rendues**, mesurées aux
+breakpoints du CSS (1024 / 940 / 900 / 640). Si la mise en page change, il faut
+les remesurer : sous-estimer rend flou, sur-estimer gaspille.
+
+## Pièges — ne pas « nettoyer » sans comprendre
+
+- **`picture { display: contents }`** : sans ça le `<picture>` s'interpose entre
+  l'image et son conteneur, et tous les `height:100%` + `object-fit:cover`, plus
+  les `.photo-inset` en absolu, perdent leur référence de calcul.
+- **Les doublures de police** (`Cormorant secours`, `Jost secours`, avec
+  `size-adjust` / `ascent-override`) : Cormorant fait 87 % de la largeur de
+  Georgia, son italique 77 %. Sans ces doublures, tout le texte se remet en page
+  à l'arrivée des webfonts — c'était l'essentiel du CLS. Les valeurs sont mesurées,
+  pas devinées ; les modifier au jugé casse la compensation.
+- **Le diaporama du hero charge ses vues à la main** (`data-src` / `data-srcset`,
+  promus par `main.js`). Elles sont empilées en absolu, donc « dans le viewport » :
+  `loading="lazy"` ne les différerait pas et les cinq partiraient d'un coup.
+- **Le rideau d'ouverture ne joue qu'à l'arrivée sur le site**, pas à chaque page.
+  Un script de garde dans le `<head>` tranche avant le premier paint (sessionStorage,
+  repli sur le référent) et pose `no-curtain` + `is-loaded` sur `<html>`. Il doit
+  rester inline et en `<head>` : ailleurs, le rideau apparaîtrait puis disparaîtrait.
+- **La parallaxe mesure un parent, pas l'image** : le rect de l'image inclut la
+  translation qu'on vient de lui appliquer, donc le décalage se cumulerait.
 
 ## Vérification visuelle
 
