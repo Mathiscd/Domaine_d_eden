@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demander une disponibilité — Domaine d’Éden</title>
+<meta name="description" content="Composez votre séjour au Château les Tourelles : choisissez votre chambre, vos dates, et envoyez votre demande. Réponse sous 24 heures.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="resa-page">
+
+<header class="site-header resa-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="brand-name">Domaine d’Éden</span>
+      <span class="brand-sub">Château les Tourelles</span>
+    </a>
+    <a class="resa-back" href="index.html">Retour au site</a>
+  </div>
+</header>
+
+<main class="resa-main">
+
+  <div class="resa-intro">
+    <p class="eyebrow eyebrow--center">Demande de disponibilité</p>
+    <h1 style="font-size: clamp(2.4rem, 5vw, 3.6rem)">Composer votre séjour</h1>
+    <p class="lede">Trois petites étapes, une réponse sous 24 heures.<br>
+    Vous ne payez rien maintenant — la réservation se confirme avec vos hôtes.</p>
+    <p class="rule-orn" aria-hidden="true"><span>✦</span></p>
+  </div>
+
+  <!-- Progression -->
+  <div class="steps-bar" aria-hidden="true">
+    <div class="step-dot is-active" data-step-dot="1"><span class="n">i.</span> Votre séjour</div>
+    <div class="step-dot" data-step-dot="2"><span class="n">ii.</span> Vos coordonnées</div>
+    <div class="step-dot" data-step-dot="3"><span class="n">iii.</span> Récapitulatif</div>
+  </div>
+
+  <form id="resa-form" novalidate>
+
+    <!-- ================= ÉTAPE 1 : le séjour ================= -->
+    <section class="step-panel is-active" data-step="1" aria-label="Étape 1 : votre séjour">
+
+      <div class="field">
+        <span class="field-legend">Quelle est votre envie ?</span>
+        <div class="choice-grid" role="radiogroup" aria-label="Motif de la demande">
+          <label class="choice-card">
+            <input type="radio" name="motif" value="sejour" checked>
+            <span class="card-body">
+              <span class="card-title">Séjour en chambre d’hôtes</span>
+              <span class="card-sub">Une nuit ou plus, en couple ou en solo — petit-déjeuner compris.</span>
+            </span>
+          </label>
+          <label class="choice-card">
+            <input type="radio" name="motif" value="evenement">
+            <span class="card-body">
+              <span class="card-title">Événement ou groupe</span>
+              <span class="card-sub">Mariage, cousinade, séminaire… jusqu’à 30 personnes.</span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Bloc séjour -->
+      <div data-bloc="sejour">
+        <div class="field">
+          <span class="field-legend">Votre chambre</span>
+          <div class="room-choice-grid" role="radiogroup" aria-label="Choix de la chambre">
+            <label class="room-choice">
+              <input type="radio" name="chambre" value="Suite du Roi et de la Reine" data-slug="suite-roi-reine">
+              <span class="rc-body">
+                <img src="assets/img/chambre-suite.jpg" alt="">
+                <span><span class="rc-name">Suite du Roi et de la Reine</span>
+                <span class="rc-sub">La majestueuse · dès 90 €</span></span>
+              </span>
+            </label>
+            <label class="room-choice">
+              <input type="radio" name="chambre" value="Antichambre de la Nuit" data-slug="antichambre-nuit">
+              <span class="rc-body">
+                <img src="assets/img/chambre-nuit.jpg" alt="">
+                <span><span class="rc-name">Antichambre de la Nuit</span>
+                <span class="rc-sub">L’énigmatique · dès 90 €</span></span>
+              </span>
+            </label>
+            <label class="room-choice">
+              <input type="radio" name="chambre" value="Boudoir des Rêves" data-slug="boudoir-reves">
+              <span class="rc-body">
+                <img src="assets/img/chambre-boudoir.jpg" alt="">
+                <span><span class="rc-name">Boudoir des Rêves</span>
+                <span class="rc-sub">Le délicat · dès 90 €</span></span>
+              </span>
+            </label>
+            <label class="room-choice">
+              <input type="radio" name="chambre" value="Refuge des Brumes" data-slug="refuge-brumes">
+              <span class="rc-body">
+                <img src="assets/img/chambre-brumes.jpg" alt="">
+                <span><span class="rc-name">Refuge des Brumes</span>
+                <span class="rc-sub">L’apaisant · vue montagne · dès 99 €</span></span>
+              </span>
+            </label>
+            <label class="room-choice">
+              <input type="radio" name="chambre" value="Repaire des Songes" data-slug="repaire-songes">
+              <span class="rc-body">
+                <img src="assets/img/chambre-songes.jpg" alt="">
+                <span><span class="rc-name">Repaire des Songes</span>
+                <span class="rc-sub">Le mystérieux · dès 90 €</span></span>
+              </span>
+            </label>
+            <label class="room-choice">
+              <input type="radio" name="chambre" value="Peu importe — conseillez-moi" data-slug="conseil" checked>
+              <span class="rc-body">
+                <img src="assets/img/salon.jpg" alt="">
+                <span><span class="rc-name">Peu importe</span>
+                <span class="rc-sub">Conseillez-moi selon mes dates</span></span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="arrivee">Arrivée</label>
+            <input type="date" id="arrivee" name="arrivee">
+            <p class="error-msg">Choisissez une date d’arrivée à venir.</p>
+          </div>
+          <div class="field">
+            <label for="depart">Départ</label>
+            <input type="date" id="depart" name="depart">
+            <p class="error-msg">Le départ doit suivre l’arrivée.</p>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="adultes">Adultes</label>
+            <select id="adultes" name="adultes">
+              <option>1</option><option selected>2</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="enfants">Enfants</label>
+            <select id="enfants" name="enfants">
+              <option selected>0</option><option>1</option><option>2</option>
+            </select>
+            <p class="hint">Lit bébé sur demande (0–3 ans).</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="field-legend">La table d’hôtes vous tente ?</span>
+          <div class="choice-grid">
+            <label class="choice-card">
+              <input type="radio" name="table" value="oui">
+              <span class="card-body">
+                <span class="card-title">Avec plaisir</span>
+                <span class="card-sub">Saveurs locales, 25 € par personne — sur réservation.</span>
+              </span>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="table" value="non" checked>
+              <span class="card-body">
+                <span class="card-title">Pas cette fois</span>
+                <span class="card-sub">De bonnes tables vous attendent à quelques minutes.</span>
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloc événement -->
+      <div data-bloc="evenement" hidden>
+        <div class="field">
+          <label for="type-evenement">Type d’événement</label>
+          <select id="type-evenement" name="type_evenement">
+            <option>Mariage</option>
+            <option>Cousinade / fête de famille</option>
+            <option>Anniversaire</option>
+            <option>Séminaire / journée d’équipe</option>
+            <option>Stage / retraite</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="date-evenement">Date envisagée</label>
+            <input type="date" id="date-evenement" name="date_evenement">
+            <p class="hint">Même approximative — nous en parlerons ensemble.</p>
+          </div>
+          <div class="field">
+            <label for="nb-personnes">Nombre de personnes</label>
+            <input type="number" id="nb-personnes" name="nb_personnes" min="2" max="30" placeholder="jusqu’à 30">
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-legend">Avec hébergement sur place ?</span>
+          <div class="choice-grid">
+            <label class="choice-card">
+              <input type="radio" name="hebergement_evt" value="oui" checked>
+              <span class="card-body"><span class="card-title">Oui</span>
+              <span class="card-sub">Les cinq chambres du château pour vos proches.</span></span>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="hebergement_evt" value="non">
+              <span class="card-body"><span class="card-title">Non</span>
+              <span class="card-sub">Le lieu seul, en journée ou en soirée.</span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-nav">
+        <span></span>
+        <button type="button" class="btn btn--primary" data-next>Continuer</button>
+      </div>
+    </section>
+
+    <!-- ================= ÉTAPE 2 : coordonnées ================= -->
+    <section class="step-panel" data-step="2" aria-label="Étape 2 : vos coordonnées">
+      <div class="field-row">
+        <div class="field">
+          <label for="prenom">Prénom</label>
+          <input type="text" id="prenom" name="prenom" autocomplete="given-name">
+          <p class="error-msg">Votre prénom nous manque.</p>
+        </div>
+        <div class="field">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" name="nom" autocomplete="family-name">
+          <p class="error-msg">Votre nom nous manque.</p>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email">
+          <p class="error-msg">Un email valide est nécessaire pour vous répondre.</p>
+        </div>
+        <div class="field">
+          <label for="telephone">Téléphone</label>
+          <input type="tel" id="telephone" name="telephone" autocomplete="tel">
+          <p class="hint">Facultatif — pour vous joindre plus vite.</p>
+        </div>
+      </div>
+      <div class="field">
+        <label for="message">Un mot pour vos hôtes ?</label>
+        <textarea id="message" name="message" placeholder="Demandes particulières, heure d’arrivée, occasion spéciale…"></textarea>
+      </div>
+
+      <div class="step-nav">
+        <button type="button" class="btn-prev" data-prev>← Revenir</button>
+        <button type="button" class="btn btn--primary" data-next>Voir le récapitulatif</button>
+      </div>
+    </section>
+
+    <!-- ================= ÉTAPE 3 : récapitulatif ================= -->
+    <section class="step-panel" data-step="3" aria-label="Étape 3 : récapitulatif">
+      <ul class="recap-rows" id="recap"></ul>
+
+      <div class="field consent">
+        <input type="checkbox" id="rgpd" name="rgpd">
+        <label for="rgpd" style="all: unset; cursor: pointer">J’accepte que ces informations
+        soient utilisées pour répondre à ma demande. Elles ne servent à rien d’autre,
+        ne sont transmises à personne, et vous pouvez en demander la suppression à tout moment.</label>
+      </div>
+      <p class="error-msg" id="rgpd-error" style="color: #8C3B2E; font-size: 0.8rem; display: none">
+      Merci de cocher la case pour nous permettre de vous répondre.</p>
+
+      <div class="step-nav">
+        <button type="button" class="btn-prev" data-prev>← Revenir</button>
+        <button type="submit" class="btn btn--primary">Envoyer la demande</button>
+      </div>
+    </section>
+
+    <!-- ================= CONFIRMATION ================= -->
+    <section class="step-panel confirm-panel" data-step="4" aria-label="Confirmation">
+      <p class="orn">✻</p>
+      <h2>Votre demande est entre nos mains</h2>
+      <p>Merci ! Grégory et Thomas vous répondent personnellement sous 24 heures.
+      Un email de confirmation vient de partir vers votre boîte.</p>
+      <p>Une question d’ici là ? <a href="tel:+33665329261" style="border-bottom: 1px solid var(--laiton); color: var(--encre)">06 65 32 92 61</a></p>
+      <p style="margin-top: 2.5rem"><a class="link-arrow" href="index.html">Retourner sur le site</a></p>
+    </section>
+
+  </form>
+</main>
+
+<script src="assets/js/reservation.js"></script>
+</body>
+</html>
