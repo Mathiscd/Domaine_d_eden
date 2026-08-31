@@ -128,6 +128,21 @@ a { color: var(--vert-fonce); text-decoration: none; }
 
 :focus-visible { outline: 2px solid var(--vert); outline-offset: 3px; }
 
+/* Complément de libellé réservé aux lecteurs d'écran (« — faire une
+   demande » derrière le titre d'une carte format). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 .container {
   max-width: var(--container);
   margin-inline: auto;
@@ -277,6 +292,12 @@ h2 em, h1 em, .em-italic {
 .folio--left { right: auto; left: var(--gutter); }
 .section--dark .folio { color: var(--vert-clair); opacity: 0.13; }
 
+/* Cibles des liens d'ancre de la nav (index.html#galerie…). Le header est
+   fixe sur deux rangs : sans cette marge, l'arrivée depuis une autre page
+   posait le titre de la section juste dessous. Même valeur que .room-detail. */
+.section[id],
+#top { scroll-margin-top: clamp(6.5rem, 12vw, 10rem); }
+
 /* ---------- Boutons ---------- */
 
 .btn {
@@ -377,7 +398,7 @@ h2 em, h1 em, .em-italic {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  height: 62px;
+  height: 74px;
   gap: 1.5rem;
 }
 
@@ -432,15 +453,45 @@ h2 em, h1 em, .em-italic {
 .header-phone svg { width: 14px; height: 14px; fill: currentColor; opacity: 0.75; }
 .header-phone:hover { color: var(--vert-clair); }
 
-/* — Signature centrée — */
+/* — La marque — */
+/* Le château du client, redessiné en vectoriel (tools/generer-logo.py). Chaque
+   page en porte une seule copie, en <symbol> ; en-tête, pied de page et rideau
+   l'appellent par <use>. La couleur suit donc `color`, comme le texte voisin.
+
+   `--eden-trait` compense optiquement la réduction : le trait fait 6,3 unités
+   sur une marque haute de 291, soit un demi-pixel une fois ramenée à 38 px de
+   haut — le dessin virerait au gris. On l'épaissit d'autant qu'on rapetisse. */
+.eden-marque {
+  display: block;
+  width: auto;
+  height: 100%;
+  overflow: visible;
+  /* doublure : le <symbol> porte déjà stroke-width="var(--eden-trait, 6.3)",
+     mais si un moteur refusait la variable dans un attribut de présentation,
+     la valeur retomberait sur celle héritée d'ici plutôt que sur 1. */
+  stroke-width: var(--eden-trait, 6.3);
+}
+
+/* — Signature centrée : la marque, puis le nom sur deux lignes — */
 .brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  justify-items: center;
   line-height: 1.2;
   position: relative;
   text-align: center;
 }
+
+/* L'emblème coiffe la signature sans jamais toucher le filet du rang : 26 + 3 +
+   deux lignes à 17,3 = 64 px dans un rang de 74. Il descend sous les 40 px de la
+   charte, d'où le trait forcé à 9 pour qu'il ne vire pas au gris. */
+.brand-mark {
+  height: 26px;
+  margin-bottom: 3px;
+  --eden-trait: 9;
+  transition: color 0.5s var(--ease-out);
+}
+
+.brand-mark { color: var(--ivoire); }
 
 .brand-name {
   font-family: var(--sans);
@@ -553,6 +604,7 @@ h2 em, h1 em, .em-italic {
 }
 
 .site-header.is-solid .header-top { border-bottom-color: var(--encre-12); }
+.site-header.is-solid .brand-mark { color: var(--vert-txt); }
 .site-header.is-solid .brand-name { color: var(--encre); }
 .site-header.is-solid .brand-sub { color: var(--vert-txt); }
 .site-header.is-solid .header-phone { color: var(--encre); }
@@ -564,6 +616,29 @@ h2 em, h1 em, .em-italic {
 .site-header.is-solid .main-nav > a.is-current,
 .site-header.is-solid .main-nav > a[aria-current="page"] { color: var(--vert-txt); }
 .site-header.is-solid .nav-cta { border-color: var(--encre-24); }
+
+
+/* — Page de réservation : pas de hero, donc pas de header transparent —
+   Elle reprend telle quelle l'apparence « au scroll » des autres pages.
+   `.scroll-progress` est déjà couvert plus haut par `.is-solid`. */
+.resa-page .site-header {
+  background: rgba(250, 250, 248, 0.92);
+  backdrop-filter: blur(14px) saturate(1.15);
+  box-shadow: 0 1px 0 var(--encre-12);
+}
+
+.resa-page .site-header .header-top { border-bottom-color: var(--encre-12); }
+.resa-page .site-header .brand-mark { color: var(--vert-txt); }
+.resa-page .site-header .brand-name { color: var(--encre); }
+.resa-page .site-header .brand-sub { color: var(--vert-txt); }
+.resa-page .site-header .header-phone { color: var(--encre); }
+.resa-page .site-header .header-phone:hover { color: var(--vert-txt); }
+.resa-page .site-header .icon-btn { border-color: var(--encre-24); color: var(--encre); }
+.resa-page .site-header .icon-btn:hover { color: var(--ivoire); border-color: var(--vert); }
+.resa-page .site-header .main-nav > a { color: var(--encre-88); }
+.resa-page .site-header .main-nav > a::after { background: var(--vert); }
+.resa-page .site-header .main-nav > a[aria-current="page"] { color: var(--vert-txt); }
+.resa-page .site-header .nav-cta { border-color: var(--encre-24); }
 
 /* Burger */
 .nav-toggle {
@@ -600,7 +675,7 @@ h2 em, h1 em, .em-italic {
 
 @media (max-width: 940px) {
   .nav-toggle { display: block; }
-  .header-top .container { grid-template-columns: 1fr; justify-items: center; height: 68px; }
+  .header-top .container { grid-template-columns: 1fr; justify-items: center; height: 74px; }
   .header-social, .header-phone { display: none; }
   /* le rang de nav ne prend plus de place, mais reste dans le flux :
      c'est lui qui porte le menu plein écran */
@@ -636,6 +711,7 @@ h2 em, h1 em, .em-italic {
   .nav-open .main-nav > a { opacity: 1; transform: none; }
   /* la signature reste visible par-dessus le menu plein écran */
   .nav-open .brand { z-index: 120; }
+  .nav-open .brand-mark { color: var(--vert-txt); }
   .nav-open .brand-name { color: var(--encre); }
   .nav-open .brand-sub { color: var(--vert-txt); }
   .main-nav .nav-cta {
@@ -918,22 +994,28 @@ h2 em, h1 em, .em-italic {
 
 .is-loaded .curtain__inner { opacity: 0; transform: translateY(-12px); }
 
+/* Le château se dessine à l'ouverture. pathLength="1" ramène tous les tracés à
+   la même longueur : le grand contour et le plus petit créneau avancent donc du
+   même pas, et le dessin se referme d'un seul geste.
+
+   stroke-dashoffset et fill-opacity font partie des propriétés qui s'héritent
+   jusque dans l'arbre du <use> : c'est ce qui permet d'animer ici la marque
+   partagée avec l'en-tête sans en dupliquer les chemins. fill-opacity ne touche
+   que les ouvertures (les tracés sont en fill:none), qui s'allument à la fin. */
 .curtain__draw {
-  width: clamp(148px, 17vw, 208px);
+  width: clamp(160px, 18vw, 224px);
   height: auto;
   margin-bottom: clamp(1.5rem, 3vw, 2.2rem);
   color: var(--vert-clair);
-}
-
-/* chaque trait se dessine seul : pathLength="1" ramène toutes les longueurs
-   à la même échelle, le tracé avance donc à vitesse égale partout */
-.cd {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: cd-trace 0.54s var(--ease-soft) var(--d, 0ms) forwards;
+  fill-opacity: 0;
+  animation: cd-trace 1.05s var(--ease-soft) 60ms forwards,
+             cd-aplats 0.45s ease 0.8s forwards;
 }
 
 @keyframes cd-trace { to { stroke-dashoffset: 0; } }
+@keyframes cd-aplats { to { fill-opacity: 1; } }
 
 .curtain__mark {
   font-family: var(--serif);
@@ -1242,6 +1324,10 @@ h2 em, h1 em, .em-italic {
   background: var(--vert-clair);
 }
 
+.room-card img.focus-suite { object-position: 5% 30%; }
+.room-card img.focus-nuit { object-position: 62% 55%; }
+.room-card img.focus-boudoir { object-position: 50% 15%; }
+
 .room-card:hover img, .room-card:focus-visible img { transform: scale(1.07); }
 .room-card:hover figure::after, .room-card:focus-visible figure::after { opacity: 1; }
 .room-card:hover .room-hover, .room-card:focus-visible .room-hover { opacity: 1; transform: none; }
@@ -1282,41 +1368,53 @@ h2 em, h1 em, .em-italic {
   flex-wrap: wrap;
 }
 
-/* Encart table d'hôtes */
-.aside-band {
-  margin-top: clamp(4rem, 8vw, 7rem);
-  display: grid;
-  grid-template-columns: 5fr 7fr;
-  align-items: stretch;
-  background: var(--foret);
-  color: var(--ivoire-82);
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.aside-band figure { overflow: hidden; min-height: 340px; }
-
-.aside-band img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease-out); }
-.aside-band:hover img { transform: scale(1.05); }
-
-.aside-band-text {
-  padding: clamp(2.5rem, 5vw, 4.8rem);
+/* — La table d'hôtes, sixième case de la grille —
+   Un service et non une chambre : l'aplat forêt la sépare des cinq cartes
+   photo sans introduire de teinte étrangère (c'est le fond de l'encart qu'elle
+   remplace). Pas de lien, donc aucun état de survol — la carte se lit, elle
+   ne se clique pas. Elle occupe la même case que les autres, d'où la hauteur
+   alignée sur ses voisines et le texte centré verticalement. */
+.room-card--service {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  padding: clamp(2rem, 3.4vw, 2.9rem);
+  background: var(--foret);
+  color: var(--ivoire-82);
 }
 
-.aside-band-text h3 { color: var(--ivoire); }
-.aside-band-text .eyebrow { color: var(--vert-clair); }
-.aside-band-text p { max-width: 50ch; }
+.room-card--service .eyebrow { color: var(--vert-clair); }
+.room-card--service .eyebrow::before {
+  background: linear-gradient(90deg, transparent, var(--vert-clair));
+}
+
+.room-card--service h3 {
+  margin-top: 1.1rem;
+  color: var(--ivoire);
+}
+
+.service-text {
+  margin-top: 1.2rem;
+  font-size: 0.94rem;
+  line-height: 1.85;
+}
+
+.room-card--service .room-price {
+  margin-top: 1.5rem;
+  color: var(--vert-clair);
+}
+
+/* La mention du gîte 2027 vivait dans l'encart supprimé : elle reste seule,
+   centrée sous la grille, avant les boutons. */
+.rooms-2027 {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
+}
 
 .badge-2027 {
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  margin-top: 2rem;
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -1420,7 +1518,7 @@ h2 em, h1 em, .em-italic {
   z-index: 1;
 }
 
-/* Mosaïque : 4 colonnes × 3 rangées, 7 photos, remplissage exact */
+/* Mosaïque : 4 colonnes × 4 rangées, 9 photos, remplissage exact */
 .gallery figure:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 3; }
 .gallery figure:nth-child(2) { grid-column: 3 / 5; grid-row: 1; }
 .gallery figure:nth-child(3) { grid-column: 3; grid-row: 2; }
@@ -1428,6 +1526,8 @@ h2 em, h1 em, .em-italic {
 .gallery figure:nth-child(5) { grid-column: 1; grid-row: 3; }
 .gallery figure:nth-child(6) { grid-column: 2 / 4; grid-row: 3; }
 .gallery figure:nth-child(7) { grid-column: 4; grid-row: 3; }
+.gallery figure:nth-child(8) { grid-column: 1 / 3; grid-row: 4; }
+.gallery figure:nth-child(9) { grid-column: 3 / 5; grid-row: 4; }
 
 .gallery figure {
   overflow: hidden;
@@ -1661,6 +1761,13 @@ h2 em, h1 em, .em-italic {
   border-bottom: 1px solid var(--ivoire-16);
 }
 
+.footer-mark {
+  height: 30px;
+  margin-bottom: 1.1rem;
+  color: var(--vert-clair);
+  --eden-trait: 8.5;
+}
+
 .footer-brand .brand-name { color: var(--ivoire); }
 .footer-brand .brand-sub { color: var(--vert-clair); }
 
@@ -1748,45 +1855,18 @@ h2 em, h1 em, .em-italic {
     radial-gradient(ellipse 45% 50% at 100% 100%, rgba(92, 122, 46, 0.1), transparent 60%);
 }
 
-.resa-header {
-  position: static;
-  background: var(--blanc);
-  border-bottom: 1px solid var(--encre-12);
-}
-
-.resa-header .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  height: 86px;
-}
-
-.resa-header .brand { align-items: flex-start; text-align: left; }
-.resa-header .brand-name { color: var(--encre); }
-.resa-header .brand-sub { color: var(--vert-txt); }
-
-.resa-back {
-  white-space: nowrap;
-  font-size: 0.74rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--encre);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  transition: color 0.35s, gap 0.35s var(--ease-out);
-}
-
-.resa-back::before { content: "←"; font-size: 1rem; }
-.resa-back:hover { color: var(--vert-txt); gap: 1.1rem; }
-
 .resa-main {
   max-width: 48rem;
   margin-inline: auto;
-  padding: clamp(3rem, 7vw, 5.5rem) var(--gutter) 6rem;
+  /* Le header est fixe et fait deux rangs (74 + 54) : le formulaire commence
+     dessous. Sous 940 px le second rang s'efface, il ne reste que 74. */
+  padding: calc(128px + clamp(2.5rem, 5vw, 4rem)) var(--gutter) 6rem;
   position: relative;
   z-index: 1;
+}
+
+@media (max-width: 940px) {
+  .resa-main { padding-top: calc(74px + clamp(2rem, 5vw, 3.5rem)); }
 }
 
 .resa-intro { text-align: center; margin-bottom: 3.5rem; }
@@ -2081,7 +2161,11 @@ h2 em, h1 em, .em-italic {
     linear-gradient(180deg, rgba(12, 18, 10, 0.74) 0%, rgba(12, 18, 10, 0.38) 42%, rgba(12, 18, 10, 0.88) 100%);
 }
 
-.page-hero .container { padding-block: clamp(3.5rem, 8vw, 6rem); padding-top: 11rem; }
+/* `.page-hero` est un conteneur flex (pour coller le texte en bas) : sans
+   `width: 100%`, le `.container` se réduit à la largeur de son plus large
+   enfant puis se recentre — le titre décrochait alors de 286 px de la
+   colonne de texte du reste de la page. */
+.page-hero .container { width: 100%; padding-block: clamp(3.5rem, 8vw, 6rem); padding-top: 11rem; }
 
 .page-hero .eyebrow { color: var(--ivoire-96); }
 .page-hero .eyebrow::before { background: linear-gradient(90deg, transparent, var(--vert-clair)); }
@@ -2110,17 +2194,35 @@ h2 em, h1 em, .em-italic {
 
 /* ---------- Chambre en pleine largeur ---------- */
 
+/* Le folio « 02 » déborde vers le haut dans la marge de la section et vient
+   mourir juste au-dessus du conteneur. Les photos étant désormais alignées en
+   haut, il tombait à 6 px du coin de la première — et à quelques pixels du
+   « i. » posé dedans. On rend l'air au filigrane — en `padding`, car une
+   marge se fusionnerait à travers le `.container` et emporterait le folio
+   avec elle. */
+.rooms-detail-list { padding-top: clamp(2rem, 3.5vw, 3rem); }
+
 .room-detail {
   display: grid;
   grid-template-columns: 6fr 5fr;
   gap: clamp(2.2rem, 5.5vw, 5.5rem);
-  align-items: center;
+  /* Haut, pas centre : la colonne de texte est toujours plus haute que la
+     photo (davantage encore équipements dépliés), et centrer laissait la
+     photo flotter dans 150 à 250 px de vide en haut comme en bas. */
+  align-items: start;
   position: relative;
   z-index: 1;
+  /* Cible des liens profonds depuis l'accueil : sans ça le titre de la
+     chambre arrivait sous l'en-tête fixe. */
+  scroll-margin-top: clamp(6.5rem, 12vw, 10rem);
 }
 
 .room-detail + .room-detail { margin-top: clamp(4.5rem, 9vw, 8rem); }
 
+/* Alternance : on inverse aussi le gabarit de colonnes, sinon les rangs pairs
+   héritaient de la colonne étroite — photo rétrécie d'un rang sur deux et
+   colonne de texte élargie d'autant. */
+.room-detail:nth-child(even) { grid-template-columns: 5fr 6fr; }
 .room-detail:nth-child(even) .room-detail-media { order: 2; }
 
 .room-detail-media { position: relative; overflow: hidden; }
@@ -2158,15 +2260,302 @@ h2 em, h1 em, .em-italic {
 .spec-list li { display: inline-flex; align-items: center; gap: 0.6rem; }
 .spec-list li::before { content: "✦"; color: var(--vert); font-size: 0.62em; }
 
+/* Prix + bouton. `space-between` faisait sauter le bouton d'un bord à l'autre
+   selon que la ligne tenait ou non : à gauche sous le prix quand elle passait
+   à la ligne, collé au bord droit sinon. Aligné à gauche, le bloc est le même
+   dans les cinq chambres. */
 .room-detail-foot {
   margin-top: 2.2rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--encre-12);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1.2rem 2rem;
   flex-wrap: wrap;
+}
+
+.room-detail-foot .room-price { margin-top: 0; }
+
+/* « petit-déjeuner compris » — était répété en style inline dans les cinq
+   chambres, et dans les autres pages. */
+.room-price small {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sauge);
+}
+
+/* ---------- Galerie par chambre (2 vues : chambre + salle de bains) ---------- */
+
+.room-detail-media { cursor: pointer; }
+
+.room-detail-media .room-media-btn {
+  position: absolute;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 1rem;
+  background: var(--ivoire-96);
+  color: var(--encre);
+  border: none;
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.35s var(--ease-out), color 0.35s var(--ease-out);
+}
+
+.room-detail-media .room-media-btn:hover,
+.room-detail-media .room-media-btn:focus-visible { background: var(--vert-fonce); color: var(--ivoire); }
+
+.room-detail-media .room-media-btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.6; display: block; }
+
+/* Précisions factuelles, sous le texte d'ambiance : le détail que le voyageur
+   vérifie avant de réserver, sans casser le ton du paragraphe qui précède. */
+.room-detail p.room-facts {
+  margin-top: 0.9rem;
+  max-width: 50ch;
+  font-size: 0.94rem;
+  color: var(--sauge);
+}
+
+/* Pictogrammes de caractéristiques (m², vue, sdb, terrasse…) */
+.room-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.room-tags li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--encre-12);
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+  color: var(--encre-72);
+}
+
+.room-tags svg { width: 16px; height: 16px; fill: none; stroke: var(--vert-txt); stroke-width: 1.5; flex-shrink: 0; }
+
+/* Équipements — repliable, deux colonnes, coche verte */
+.room-amenities { margin-top: 1.6rem; }
+
+.room-amenities summary {
+  cursor: pointer;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--vert-txt);
+}
+
+.room-amenities summary::-webkit-details-marker { display: none; }
+
+.room-amenities summary::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-right: 1.4px solid currentColor;
+  border-bottom: 1.4px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.room-amenities[open] summary::after { transform: rotate(-135deg); }
+
+.room-amenities-groups {
+  margin-top: 1.3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6rem 2rem;
+}
+
+.room-amenities-groups h4 {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sauge);
+  margin-bottom: 0.7rem;
+}
+
+.room-amenities-groups ul { list-style: none; }
+
+.room-amenities-groups li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.88rem;
+  color: var(--encre-72);
+  padding: 0.28rem 0;
+}
+
+.room-amenities-groups svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: var(--vert);
+  stroke-width: 2.2;
+  flex-shrink: 0;
+  margin-top: 0.28rem;
+}
+
+/* ---------- Lightbox chambre (2 vues, flèches, bullets, vignettes) ---------- */
+
+.room-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(12, 16, 10, 0.97);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 5vw, 4rem);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s var(--ease-out), visibility 0.45s;
+}
+
+.room-lightbox.is-open { opacity: 1; visibility: visible; }
+
+.room-lightbox__frame {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: scale(0.96);
+  opacity: 0;
+  transition: transform 0.6s var(--ease-out), opacity 0.5s;
+}
+
+.room-lightbox.is-open .room-lightbox__frame { transform: none; opacity: 1; }
+
+.room-lightbox__stage { position: relative; width: 100%; }
+
+.room-lightbox img {
+  width: 100%;
+  max-height: 68vh;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.room-lightbox__cap {
+  margin-top: 1rem;
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--ivoire-82);
+  font-size: 1.02rem;
+  text-align: center;
+}
+
+.room-lightbox__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+.room-lightbox__dots button {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  background: var(--ivoire-56);
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.room-lightbox__dots button.is-active { background: var(--vert-clair); transform: scale(1.25); }
+
+.room-lightbox__thumbs {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: 1.1rem;
+}
+
+.room-lightbox__thumbs button {
+  width: 62px;
+  height: 46px;
+  padding: 0;
+  border: 2px solid transparent;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.3s, border-color 0.3s;
+}
+
+.room-lightbox__thumbs button.is-active { opacity: 1; border-color: var(--vert-clair); }
+.room-lightbox__thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Les trois commandes se posent sur la photo : sans fond elles disparaissaient
+   dans les zones claires (mur rouge de la Suite, fenêtres) et débordaient à
+   moitié hors du cadre. Pastille sombre, taille de cible confortable. */
+.room-lightbox button.lb-close,
+.room-lightbox button.lb-prev,
+.room-lightbox button.lb-next {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(12, 16, 10, 0.55);
+  backdrop-filter: blur(3px);
+  color: var(--ivoire);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 1.6rem;
+  line-height: 1;
+  transition: background 0.3s, color 0.3s, transform 0.3s var(--ease-out);
+  z-index: 3;
+}
+
+.room-lightbox button.lb-close:hover,
+.room-lightbox button.lb-prev:hover,
+.room-lightbox button.lb-next:hover { background: var(--vert-fonce); color: var(--ivoire); }
+
+.room-lightbox button.lb-close:focus-visible,
+.room-lightbox button.lb-prev:focus-visible,
+.room-lightbox button.lb-next:focus-visible { outline: 2px solid var(--vert-clair); outline-offset: 3px; }
+
+.room-lightbox .lb-close { top: 0.9rem; right: 0.9rem; font-size: 1.75rem; }
+.room-lightbox .lb-prev { left: 0.9rem; top: 50%; transform: translateY(-50%); }
+.room-lightbox .lb-next { right: 0.9rem; top: 50%; transform: translateY(-50%); }
+.room-lightbox .lb-prev:hover { transform: translateY(-50%) translateX(-4px); }
+.room-lightbox .lb-next:hover { transform: translateY(-50%) translateX(4px); }
+
+@media (max-width: 640px) {
+  .room-amenities-groups { grid-template-columns: 1fr; }
+  .room-lightbox .lb-prev { left: 0.5rem; }
+  .room-lightbox .lb-next { right: 0.5rem; }
+  .room-lightbox .lb-close { top: 0.5rem; right: 0.5rem; }
+  .room-lightbox__thumbs button { width: 48px; height: 36px; }
 }
 
 /* ---------- Bandeau d'infos pratiques ---------- */
@@ -2214,10 +2603,97 @@ h2 em, h1 em, .em-italic {
   border: 1px solid var(--encre-12);
   border-top: 2px solid var(--vert);
   padding: clamp(1.8rem, 3.4vw, 2.8rem);
-  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+  /* La carte entière est cliquable : le lien du titre s'étend ici par
+     ::after — d'où le contexte de positionnement, et la place réservée en
+     bas à droite pour le bouton flèche. */
+  position: relative;
+  padding-bottom: clamp(4.4rem, 6vw, 5.4rem);
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out),
+              border-color 0.5s var(--ease-out);
 }
 
 .format-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -28px rgba(22, 27, 20, 0.5); }
+
+/* Un seul lien réel par carte, porté par le titre. Son ::after recouvre la
+   carte : pas d'imbrication de liens, un seul arrêt au clavier, et le libellé
+   annoncé reste explicite grâce au complément en .sr-only. */
+.format-card__link { color: inherit; transition: color 0.4s var(--ease-out); }
+
+.format-card__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* Le focus clavier doit cerner la carte, pas le seul titre : on neutralise le
+   contour par défaut et on le redessine sur la carte. */
+.format-card__link:focus-visible { outline: none; }
+.format-card:has(.format-card__link:focus-visible) {
+  outline: 2px solid var(--vert);
+  outline-offset: 3px;
+}
+
+/* Repli pour les moteurs sans :has() — le contour retombe sur le titre. */
+@supports not selector(:has(*)) {
+  .format-card__link:focus-visible { outline: 2px solid var(--vert); outline-offset: 3px; }
+}
+
+/* Bouton flèche : le vocabulaire du site — cercle fin façon .icon-btn, voile
+   vert qui monte façon .btn. Décoratif, il ne reçoit jamais le focus. */
+.format-card__go {
+  position: absolute;
+  left: clamp(1.8rem, 3.4vw, 2.8rem);
+  bottom: clamp(1.7rem, 3vw, 2.3rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--encre-24);
+  border-radius: 50%;
+  color: var(--vert-txt);
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+}
+
+.format-card__go::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--vert-fonce);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.format-card__go svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.3s var(--ease-out);
+}
+
+/* Le survol de la carte — et le focus clavier du lien — animent la flèche :
+   le cercle se remplit de vert, la flèche glisse et passe à l'ivoire. */
+.format-card:hover .format-card__go,
+.format-card:focus-within .format-card__go {
+  color: var(--ivoire);
+  border-color: var(--vert-fonce);
+}
+
+.format-card:hover .format-card__go::before,
+.format-card:focus-within .format-card__go::before { transform: scale(1); }
+
+.format-card:hover .format-card__go svg,
+.format-card:focus-within .format-card__go svg { transform: translateX(3px); }
+
+.format-card:hover h3, .format-card:focus-within h3 { color: var(--vert-txt); }
 
 .format-card .idx {
   font-family: var(--serif);
@@ -2275,7 +2751,10 @@ h2 em, h1 em, .em-italic {
 
 @media (max-width: 940px) {
   .page-hero .container { padding-top: 9rem; }
-  .room-detail { grid-template-columns: 1fr; }
+  /* le sélecteur pair doit être répété : il l'emporte sinon en spécificité
+     et les rangs pairs resteraient sur deux colonnes */
+  .room-detail,
+  .room-detail:nth-child(even) { grid-template-columns: 1fr; }
   .room-detail:nth-child(even) .room-detail-media { order: 0; }
   .facts-grid, .formats-grid, .steps-flow { grid-template-columns: 1fr 1fr; }
 }
@@ -2335,4 +2814,9 @@ h2 em, h1 em, .em-italic {
   .hero-slide.is-active img, .is-loaded .hero-slide.is-active:first-child img { animation: none; }
   .hero-rule { width: min(340px, 60%); }
   .marquee__track { animation: none; }
+  /* Les cartes formats : plus de glissement ni d'élévation, mais le
+     remplissage du bouton flèche reste (c'est un état, pas un mouvement). */
+  .format-card:hover { transform: none; }
+  .format-card:hover .format-card__go svg,
+  .format-card:focus-within .format-card__go svg { transform: none; }
 }

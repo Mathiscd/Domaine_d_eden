@@ -7,17 +7,6 @@
   var dots = document.querySelectorAll('[data-step-dot]');
   var current = 1;
 
-  /* ---------- Pré-remplissage via URL (?chambre=..., ?motif=evenement) ---------- */
-  var params = new URLSearchParams(window.location.search);
-  if (params.get('motif') === 'evenement') {
-    var evt = form.querySelector('input[name="motif"][value="evenement"]');
-    if (evt) { evt.checked = true; }
-  }
-  if (params.get('chambre')) {
-    var room = form.querySelector('input[name="chambre"][data-slug="' + params.get('chambre') + '"]');
-    if (room) { room.checked = true; }
-  }
-
   /* ---------- Bascule séjour / événement ---------- */
   var blocSejour = form.querySelector('[data-bloc="sejour"]');
   var blocEvent = form.querySelector('[data-bloc="evenement"]');
@@ -30,6 +19,31 @@
   form.querySelectorAll('input[name="motif"]').forEach(function (r) {
     r.addEventListener('change', syncMotif);
   });
+
+  /* ---------- Pré-remplissage via URL (?chambre=…, ?motif=evenement, ?format=…) ----------
+     `?format=` vient des cartes de la page Événements. Il implique le motif
+     « événement », même si `motif` est absent de l'URL : on coche le bouton
+     radio puis on laisse syncMotif() révéler le bloc — pas de second chemin
+     qui manipulerait `hidden` à la main. */
+  var params = new URLSearchParams(window.location.search);
+  var format = params.get('format');
+
+  if (params.get('motif') === 'evenement' || format) {
+    var evt = form.querySelector('input[name="motif"][value="evenement"]');
+    if (evt) { evt.checked = true; }
+  }
+  if (format) {
+    /* On sélectionne par `data-slug`, jamais par libellé : ceux-ci portent des
+       apostrophes typographiques et des barres obliques. */
+    var typeEvt = document.getElementById('type-evenement');
+    var opt = typeEvt && typeEvt.querySelector('option[data-slug="' + format + '"]');
+    if (opt) { typeEvt.value = opt.value; }
+  }
+  if (params.get('chambre')) {
+    var room = form.querySelector('input[name="chambre"][data-slug="' + params.get('chambre') + '"]');
+    if (room) { room.checked = true; }
+  }
+
   syncMotif();
 
   /* ---------- Dates minimales ---------- */

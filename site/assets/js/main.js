@@ -20,6 +20,57 @@
   setTimeout(function () { root.classList.add('is-loaded'); }, 2400);
 
   /* ------------------------------------------------------------------
+     1 bis. Arrivée sur une ancre (chambres.html#boudoir-reves…)
+     Le navigateur saute à la cible avant l'arrivée des webfonts ; la mise
+     en page au-dessus se resserre ensuite d'une cinquantaine de pixels et
+     mange le `scroll-margin-top`, si bien que le titre de la chambre
+     finissait sous l'en-tête fixe. On rejoue le saut une fois les polices
+     posées — et seulement si le visiteur n'a pas déjà pris la main.
+     ------------------------------------------------------------------ */
+  if (location.hash.length > 1) {
+    var ancre = null;
+    try { ancre = document.querySelector(location.hash); } catch (e) { ancre = null; }
+    if (ancre) {
+      /* On ne peut pas comparer les positions pour deviner qui a scrollé :
+         le saut du navigateur vers l'ancre a lieu après ce script. On écoute
+         donc le geste lui-même. */
+      var mainPrise = false;
+      var prendLaMain = function () { mainPrise = true; };
+      ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
+        window.addEventListener(ev, prendLaMain, { passive: true, once: true });
+      });
+
+      /* getBoundingClientRect() intègre le translateY(30px) de l'animation
+         d'apparition tant qu'elle n'est pas jouée — on viserait 30 px trop
+         bas. On remonte donc la chaîne des offsetParent, qui ignore les
+         transformations. */
+      var hauteurDoc = function (el) {
+        var y = 0;
+        for (var n = el; n; n = n.offsetParent) y += n.offsetTop;
+        return y;
+      };
+
+      var recaler = function () {
+        if (mainPrise) return;
+        var marge = parseFloat(getComputedStyle(ancre).scrollMarginTop) || 0;
+        var vise = Math.max(0, Math.round(hauteurDoc(ancre) - marge));
+        if (Math.abs(vise - window.scrollY) < 2) return;
+        window.scrollTo({ top: vise, behavior: 'auto' });
+      };
+
+      /* La feuille Google Fonts est chargée en `media="print"` puis promue :
+         `document.fonts.ready` résout donc une première fois avant même que
+         les @font-face existent. On repasse après `load`, quand la feuille
+         est appliquée, puis une dernière fois au repos. */
+      window.addEventListener('load', function () {
+        recaler();
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(recaler);
+        setTimeout(recaler, 400);
+      });
+    }
+  }
+
+  /* ------------------------------------------------------------------
      2. Header : solide au scroll, escamotable, jauge de lecture
      ------------------------------------------------------------------ */
   var lastY = window.scrollY;
@@ -71,8 +122,13 @@
       document.body.style.overflow = open ? 'hidden' : '';
     });
 
+    /* `closest` et non `e.target.tagName` : le téléphone et les pictogrammes
+       du pied de menu enveloppent un <span> ou un <svg>, et le clic y atterrit.
+       Les ancres de la page courante (index.html#galerie depuis l'accueil) ne
+       rechargent rien : sans cette fermeture, le menu resterait par-dessus la
+       section visée. */
     nav.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') closeNav();
+      if (e.target.closest('a')) closeNav();
     });
 
     document.addEventListener('keydown', function (e) {
@@ -184,29 +240,71 @@
   /* ------------------------------------------------------------------
      6. Scroll-spy : la nav souligne la section courante
      ------------------------------------------------------------------ */
+  /* Toutes les entrées de la nav portent la forme absolue-relative
+     `index.html#domaine` — le même balisage sert sur les quatre pages, et
+     « Les chambres » / « Événements » y mènent à la section de l'accueil, les
+     pages de détail restant atteintes depuis cette section. On ne
+     peut donc plus les reconnaître à `href^="#"` : on retient le fragment et
+     on ne garde que les ancres dont la cible existe dans cette page. C'est ce
+     qui cantonne le scroll-spy à l'accueil sans avoir à le tester nommément. */
   var navLinks = Array.prototype.slice.call(
-    document.querySelectorAll('.main-nav a[href^="#"]')
-  );
+    document.querySelectorAll('.main-nav a[href*="#"]')
+  ).map(function (a) {
+    var frag = a.getAttribute('href').split('#')[1];
+    var cible = null;
+    if (frag) { try { cible = document.getElementById(frag); } catch (e) { cible = null; } }
+    return cible ? { a: a, frag: frag, cible: cible } : null;
+  }).filter(Boolean);
 
   if (navLinks.length && 'IntersectionObserver' in window) {
-    var targets = navLinks
-      .map(function (a) { return document.querySelector(a.getAttribute('href')); })
-      .filter(Boolean);
-
-    var spy = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        navLinks.forEach(function (a) {
-          a.classList.toggle('is-current', a.getAttribute('href') === '#' + entry.target.id);
-        });
+    var marque = function (frag) {
+      navLinks.forEach(function (l) {
+        var actif = l.frag === frag;
+        l.a.classList.toggle('is-current', actif);
+        /* `aria-current="true"` (et non "page") : la section lue n'est pas une
+           page, et cela laisse `aria-current="page"` au lien « Accueil ». */
+        if (actif) l.a.setAttribute('aria-current', 'true');
+        else if (l.a.getAttribute('aria-current') === 'true') l.a.removeAttribute('aria-current');
       });
-    }, { rootMargin: '-45% 0px -50% 0px' });
+    };
 
-    targets.forEach(function (t) { spy.observe(t); });
+    /* La section retenue est celle qui coupe la bande centrale du viewport.
+       On ne se fie pas au seul `isIntersecting` des entrées reçues : un saut
+       programmatique (retour en haut, clic sur une ancre) coalesce les
+       notifications, et la section quittée peut ne jamais être signalée comme
+       sortie — son état restait alors collé à la nav. On relit donc la
+       géométrie de toutes les cibles à chaque notification, ce qui redonne
+       toujours la même réponse quel que soit le chemin parcouru. */
+    var relire = function () {
+      /* Même bande que le rootMargin de l'observateur : de 45 % à 50 % de la
+         hauteur du viewport, mesurée depuis le haut. */
+      var h = window.innerHeight;
+      var haut = h * 0.45;
+      var bas = h * 0.50;
+      var retenue = null;
+      navLinks.forEach(function (l) {
+        if (retenue !== null) return;
+        var r = l.cible.getBoundingClientRect();
+        if (r.top < bas && r.bottom > haut) retenue = l.frag;
+      });
+      marque(retenue);
+    };
+
+    var spy = new IntersectionObserver(relire, { rootMargin: '-45% 0px -50% 0px' });
+
+    navLinks.forEach(function (l) { spy.observe(l.cible); });
+
+    /* Un saut instantané (retour en haut, ancre cliquée) peut ne franchir la
+       bande d'aucune cible : l'observateur ne notifie alors rien du tout et
+       l'état resterait figé. On relit donc aussi au scroll — la lecture est
+       purement géométrique et déjà cadencée par le rAF du handler commun. */
+    window.addEventListener('scroll', relire, { passive: true });
+    window.addEventListener('resize', relire, { passive: true });
+    relire();
     // la nav signale qu'un scroll-spy la pilote : le lien « page courante »
     // s'efface au profit de la section réellement lue
     var navEl = document.querySelector('.main-nav');
-    if (targets.length && navEl) navEl.setAttribute('data-spy', '');
+    if (navEl) navEl.setAttribute('data-spy', '');
   }
 
   /* ------------------------------------------------------------------
@@ -368,6 +466,123 @@
       if (e.key === 'Escape') closeLb();
       if (e.key === 'ArrowLeft') show(current - 1);
       if (e.key === 'ArrowRight') show(current + 1);
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     10. Chambres : mini-galerie par chambre (chambre + salle de bains)
+     Une seule lightbox partagée, réalimentée avec la liste de vues de la
+     chambre cliquée (data-room-photos, JSON dans l'attribut).
+     ------------------------------------------------------------------ */
+  var roomMedias = Array.prototype.slice.call(document.querySelectorAll('.room-detail-media[data-room-photos]'));
+
+  if (roomMedias.length) {
+    var rlb = document.createElement('div');
+    rlb.className = 'room-lightbox';
+    rlb.setAttribute('role', 'dialog');
+    rlb.setAttribute('aria-modal', 'true');
+    rlb.setAttribute('aria-label', 'Photos de la chambre');
+    rlb.innerHTML =
+      '<div class="room-lightbox__frame">' +
+        '<button class="lb-close" aria-label="Fermer">&times;</button>' +
+        '<div class="room-lightbox__stage">' +
+          '<button class="lb-prev" aria-label="Photo précédente">&#8249;</button>' +
+          '<img alt="">' +
+          '<button class="lb-next" aria-label="Photo suivante">&#8250;</button>' +
+        '</div>' +
+        '<p class="room-lightbox__cap"></p>' +
+        '<div class="room-lightbox__dots"></div>' +
+        '<div class="room-lightbox__thumbs"></div>' +
+      '</div>';
+    document.body.appendChild(rlb);
+
+    var rlbImg = rlb.querySelector('img');
+    var rlbCap = rlb.querySelector('.room-lightbox__cap');
+    var rlbDots = rlb.querySelector('.room-lightbox__dots');
+    var rlbThumbs = rlb.querySelector('.room-lightbox__thumbs');
+    var rPhotos = [];
+    var rCurrent = 0;
+    var rLastFocus = null;
+
+    function rShow(i) {
+      rCurrent = (i + rPhotos.length) % rPhotos.length;
+      var p = rPhotos[rCurrent];
+      rlbImg.src = p.src;
+      rlbImg.alt = p.alt || '';
+      rlbCap.textContent = p.alt || '';
+      Array.prototype.forEach.call(rlbDots.children, function (d, di) {
+        d.classList.toggle('is-active', di === rCurrent);
+      });
+      Array.prototype.forEach.call(rlbThumbs.children, function (t, ti) {
+        t.classList.toggle('is-active', ti === rCurrent);
+      });
+    }
+
+    function rBuild(photos) {
+      rPhotos = photos;
+      rlbDots.innerHTML = '';
+      rlbThumbs.innerHTML = '';
+      photos.forEach(function (p, i) {
+        var dot = document.createElement('button');
+        dot.setAttribute('aria-label', 'Photo ' + (i + 1));
+        dot.addEventListener('click', function () { rShow(i); });
+        rlbDots.appendChild(dot);
+
+        var thumb = document.createElement('button');
+        thumb.setAttribute('aria-label', 'Photo ' + (i + 1));
+        var timg = document.createElement('img');
+        timg.src = p.thumb || p.src;
+        timg.alt = '';
+        thumb.appendChild(timg);
+        thumb.addEventListener('click', function () { rShow(i); });
+        rlbThumbs.appendChild(thumb);
+      });
+    }
+
+    function rOpen(photos, startAt) {
+      rLastFocus = document.activeElement;
+      rBuild(photos);
+      rShow(startAt || 0);
+      rlb.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      rlb.querySelector('.lb-close').focus();
+    }
+
+    function rClose() {
+      rlb.classList.remove('is-open');
+      document.body.style.overflow = '';
+      if (rLastFocus) rLastFocus.focus();
+    }
+
+    roomMedias.forEach(function (media) {
+      var photos;
+      try { photos = JSON.parse(media.getAttribute('data-room-photos')); }
+      catch (e) { return; }
+      if (!photos || !photos.length) return;
+
+      var btn = media.querySelector('.room-media-btn');
+      var open = function (i) { rOpen(photos, i); };
+
+      /* La photo reste cliquable à la souris, mais sans role="button" ni
+         tabindex : le vrai bouton « Voir les N photos » est déjà à
+         l'intérieur — imbriquer deux commandes doublait l'arrêt de
+         tabulation et produisait un bouton dans un bouton. */
+      media.addEventListener('click', function () { open(0); });
+      if (btn) {
+        btn.addEventListener('click', function (e) { e.stopPropagation(); open(0); });
+      }
+    });
+
+    rlb.querySelector('.lb-close').addEventListener('click', rClose);
+    rlb.querySelector('.lb-prev').addEventListener('click', function () { rShow(rCurrent - 1); });
+    rlb.querySelector('.lb-next').addEventListener('click', function () { rShow(rCurrent + 1); });
+    rlb.addEventListener('click', function (e) { if (e.target === rlb) rClose(); });
+
+    document.addEventListener('keydown', function (e) {
+      if (!rlb.classList.contains('is-open')) return;
+      if (e.key === 'Escape') rClose();
+      if (e.key === 'ArrowLeft') rShow(rCurrent - 1);
+      if (e.key === 'ArrowRight') rShow(rCurrent + 1);
     });
   }
 })();

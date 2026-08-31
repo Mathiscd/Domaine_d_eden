@@ -49,7 +49,34 @@ Règles :
 - Fonds sombres = `#22301A` / `#161B14` (jamais de noir pur), texte dessus = ivoire à 82–96 %.
 - **Contraste minimum AA (4.5:1) pour tout texte**, y compris eyebrows et légendes.
 
-## 2. Typographie
+## 2. La marque
+
+Le château au trait fourni par le client. Le PNG d'origine
+(`photos-sources/logo-domaine-eden.png`) reste la référence, mais il n'est plus jamais
+publié tel quel : sa géométrie a été relevée au pixel puis **redessinée en vectoriel**
+par `tools/generer-logo.py` — symétrie parfaite, graisse de trait constante, créneaux
+régulièrement espacés. Tout ce qui affiche la marque descend de ce script.
+
+- **Une seule couleur à la fois.** La marque est monochrome et suit `currentColor` :
+  ivoire sur le hero et en pied de page (vert clair), vert `--vert-txt` sur fond blanc.
+  Jamais deux teintes dans le dessin, jamais de contour de contraste.
+- **Graisse optique.** Le trait fait 6,3 unités pour une marque haute de 291. Réduite à
+  26 px dans l'en-tête, elle tomberait à un demi-pixel et virerait au gris : la variable
+  `--eden-trait` l'épaissit d'autant qu'on rapetisse (9 en en-tête à 26 px, 8,5 en pied
+  de page à 30 px, 6,3 — le nominal — au-delà de 150 px).
+- **Elle reste discrète.** Emblème au-dessus du nom, jamais à côté ni à la place :
+  c'est la signature typographique qui porte, la marque ponctue. En en-tête elle plafonne
+  à 26 px et ne touche jamais le filet du rang de service.
+- **Zone de respect** : au minimum la hauteur d'une tour autour du dessin. La marque ne
+  se pose jamais sur une photo chargée — en-tête, elle bénéficie du voile du hero.
+- **Icônes : toujours le dessin au trait, vert sur tuile claire** — de l'onglet 16 px à
+  l'icône d'écran d'accueil. Sous 48 px le trait passe sous le demi-pixel et le château
+  s'adoucit : c'est assumé, la cohérence de la marque prime sur la netteté de l'onglet.
+  La compensation optique est figée taille par taille dans `generer-logo.py`.
+- **Ne pas** : la mettre en couleur, l'incliner, l'étirer, lui ajouter le nom à
+  l'intérieur du dessin, ou la reproduire depuis une capture. On la régénère.
+
+## 3. Typographie
 
 | Usage | Fonte | Style |
 |---|---|---|
@@ -76,7 +103,7 @@ Paragraphe posé, colonne étroite            ← Jost 400, max 60ch
 **Lettrine** : le premier paragraphe éditorial porte une capitale Cormorant verte
 (`.dropcap`, 3.6em, flottante). Une seule par page.
 
-## 3. Espacements & grille
+## 4. Espacements & grille
 
 - Rythme vertical : sections `clamp(5.5rem, 11vw, 9.5rem)`. Ne jamais tasser.
 - Conteneur : `max-width: 1240px`, gouttières `clamp(1.25rem, 4vw, 3.25rem)`.
@@ -86,7 +113,7 @@ Paragraphe posé, colonne étroite            ← Jost 400, max 60ch
 - Galerie : mosaïque à **placement explicite** (4 colonnes × 3 rangées, remplissage exact).
   Les spans automatiques laissent des trous — ne pas y revenir.
 
-## 4. Imagerie & matière
+## 5. Imagerie & matière
 
 - Photos du lieu uniquement — jamais de banque d'images.
 - Ratios maîtrisés : hero plein écran, portraits 3/4 pour les chambres, 4/5 éditorial.
@@ -99,7 +126,7 @@ Paragraphe posé, colonne étroite            ← Jost 400, max 60ch
 - **Folios** : le numéro de section en Cormorant italique, 12rem, vert 8,5 %, calé
   au-dessus du contenu (`top: -0.75em`) pour ne jamais mordre un titre.
 
-## 5. Composants
+## 6. Composants
 
 **Boutons** — rectangles fins, jamais de coins ronds. Au survol, un **voile plein monte
 depuis le bas** (`::before` en `translateY(101% → 0)`, 550 ms) :
@@ -145,7 +172,7 @@ au survol, vert + fond teinté à la sélection. Erreurs en `--erreur`, seule te
 **Galerie** — visionneuse plein écran maison (clic, `Entrée`, flèches ←/→, `Échap`),
 légende reprise de l'`alt`. Au survol : voile vert + réticule ⤢.
 
-## 6. Mouvement
+## 7. Mouvement
 
 Le site doit **vivre au scroll**. Rien de gadget, tout en `cubic-bezier(.16,1,.3,1)`.
 
@@ -175,7 +202,7 @@ Le site doit **vivre au scroll**. Rien de gadget, tout en `cubic-bezier(.16,1,.3
 - `prefers-reduced-motion: reduce` → rideau supprimé, diaporama figé sur la première vue,
   transitions à 0,01 ms, tout visible.
 
-## 7. Ton éditorial
+## 8. Ton éditorial
 
 Poétique et sobre, jamais commercial. On écrit « Un château pour rêver, un domaine pour
 se ressourcer » (leur signature — à conserver), pas « Réservez vite ! ». Vouvoiement,

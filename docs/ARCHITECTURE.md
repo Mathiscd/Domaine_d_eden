@@ -10,7 +10,7 @@ et deux pages dédiées approfondissent l'hébergement et l'événementiel.
 | Événements | `evenements.html` | les 4 formats, le cadre, le déroulé en 4 temps, la formule traiteur |
 | Réservation | `reservation.html` | formulaire multi-étapes, cible de tous les CTA |
 
-Navigation commune (deux rangs, cf. charte §5) : Accueil · Le domaine · Les chambres ·
+Navigation commune (deux rangs, cf. charte §6) : Accueil · Le domaine · Les chambres ·
 Événements · Galerie · Contact + bouton « Réserver ». Depuis les pages intérieures,
 « Le domaine », « Galerie » et « Contact » pointent vers les ancres de `index.html`.
 

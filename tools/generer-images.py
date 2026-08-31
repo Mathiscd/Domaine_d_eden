@@ -27,7 +27,7 @@ import argparse, io, json, os, sys
 
 try:
     import numpy as np
-    from PIL import Image
+    from PIL import Image, ImageFilter
     from skimage.metrics import structural_similarity
 except ImportError:
     sys.exit('Il manque des dépendances : pip install pillow numpy scikit-image')
@@ -45,9 +45,25 @@ CORRESPONDANCE = {
     'hero-chateau':    'gdf-11.jpg',  'jardin':         'gdf-14.jpg',
     'salle-a-manger':  'gdf-8.jpg',   'salon':          'gdf-5.jpg',
     'salon-piano':     'gdf-6.jpg',   'table-hotes':    'gdf-9.jpg',
+
+    # Deuxième vue (chambre) + salle de bains, une paire par chambre — issues des
+    # captures Booking fournies par le client (photos-sources/Chambres/), bien plus
+    # petites que les gdf-*.jpg : leur srcset s'arrête donc plus tôt.
+    'chambre-suite-alt':   'chambre-suite-alt.jpg',
+    'chambre-suite-sdb':   'chambre-suite-sdb.jpg',
+    'chambre-nuit-alt':    'chambre-nuit-alt.jpg',
+    'chambre-nuit-sdb':    'chambre-nuit-sdb.jpg',
+    'chambre-boudoir-alt': 'chambre-boudoir-alt.jpg',
+    'chambre-boudoir-sdb': 'chambre-boudoir-sdb.jpg',
+    'chambre-brumes-alt':  'chambre-brumes-alt.jpg',
+    'chambre-brumes-sdb':  'chambre-brumes-sdb.jpg',
+    'chambre-songes-alt':  'chambre-songes-alt.jpg',
+    'chambre-songes-sdb':  'chambre-songes-sdb.jpg',
 }
 
-LARGEURS = [240, 480, 768, 1100, 1500]
+# 1500 et 2000 servent les écrans à haute densité (DPR 2), où une carte de
+# 360 px CSS réclame 720 px réels et le bandeau pleine largeur bien davantage.
+LARGEURS = [240, 480, 768, 1100, 1500, 2000]
 
 # 0,97 partout, sauf en 240 px : cette largeur ne sert qu'aux vignettes affichées
 # en 78 px, où l'écart avec la source est invisible.
@@ -57,6 +73,26 @@ LARGEUR_VIGNETTE = 240
 
 PLAGES = {'avif': (30, 95), 'webp': (40, 98), 'jpeg': (40, 98)}
 EXT = {'avif': 'avif', 'webp': 'webp', 'jpeg': 'jpg'}
+
+
+def reechantillonner(im, w, h):
+    """Réduit en LANCZOS puis rend le micro-contraste perdu par la réduction.
+
+    Toute réduction agit comme un passe-bas : les arêtes qui tenaient sur un
+    pixel dans la source s'étalent, et l'image paraît molle même quand aucune
+    information n'a été « perdue » au sens strict. Un unsharp mask de rayon
+    inférieur au pixel rétablit ce micro-contraste sans halo visible.
+
+    Volontairement discret (seuil 3 : le bruit et les aplats de ciel ne sont pas
+    touchés). Monter `percent` produirait des liserés sur les arêtes contrastées
+    — les encadrements de fenêtre sur le ciel, typiquement.
+
+    L'accentuation est appliquée AVANT la mesure SSIM, donc la référence de
+    fidélité est bien l'image accentuée : la bissection de qualité continue de
+    mesurer le seul coût de la compression, pas celui de l'accentuation.
+    """
+    reduit = im.resize((w, h), Image.LANCZOS)
+    return reduit.filter(ImageFilter.UnsharpMask(radius=0.6, percent=55, threshold=3))
 
 
 def ssim(a, b):
@@ -120,7 +156,7 @@ def main():
             largeurs = [w for w in LARGEURS if w < larg_src] + [larg_src]
             for w in largeurs:
                 h = max(1, int(round(w * haut_src / float(larg_src))))
-                ref = im.resize((w, h), Image.LANCZOS)
+                ref = reechantillonner(im, w, h) if w < larg_src else im
                 ref_arr = np.asarray(ref, dtype=np.float64)
                 plancher = PLANCHER_VIGNETTE if w == LARGEUR_VIGNETTE else PLANCHER
                 for fmt in ('avif', 'webp', 'jpeg'):

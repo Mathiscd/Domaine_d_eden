@@ -6,6 +6,10 @@
 <title>Événements &amp; réceptions — Domaine d’Éden · Château les Tourelles</title>
 <meta name="description" content="Mariages intimistes, cousinades, séminaires et privatisation du domaine jusqu’à 30 personnes au Château les Tourelles, en Haute-Loire. Un seul événement à la fois, cinq chambres sur place, formule traiteur locale.">
 <meta name="theme-color" content="#161B14">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
@@ -45,27 +49,70 @@
 </head>
 <body>
 
+<!-- Marque du domaine — généré par tools/generer-logo.py, ne pas retoucher à la main.
+     Appelée par <use href="#eden-marque"> dans l'en-tête, le pied de page et le rideau. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <symbol id="eden-marque" viewBox="3 -1 352 291.5">
+    <g fill="none" stroke="currentColor" stroke-width="var(--eden-trait, 6.3)" stroke-linecap="round" stroke-linejoin="miter" stroke-miterlimit="8">
+      <path pathLength="1" d="M6.2 120.5L6.2 154L16.4 170C15.2 205 12.6 245 9 273L23 284.5Q54.4 290 85.8 284.5L99.8 273C96.2 245 93.6 205 92.4 170L102.6 154L102.6 120.5Q54.4 109.1 6.2 120.5Z"/>
+      <path pathLength="1" d="M351.8 120.5L351.8 154L341.6 170C342.8 205 345.4 245 349 273L335 284.5Q303.6 290 272.2 284.5L258.2 273C261.8 245 264.4 205 265.6 170L255.4 154L255.4 120.5Q303.6 109.1 351.8 120.5Z"/>
+      <path pathLength="1" d="M6.2 154Q54.4 142.4 102.6 154"/>
+      <path pathLength="1" d="M351.8 154Q303.6 142.4 255.4 154"/>
+      <path pathLength="1" d="M11.1 255Q54.4 264 97.7 255"/>
+      <path pathLength="1" d="M346.9 255Q303.6 264 260.3 255"/>
+      <path pathLength="1" d="M6.2 120.5C7.5 117 18 105 20.6 98.2L54.4 7.9L88.2 98.2C90.8 105 101.3 117 102.6 120.5"/>
+      <path pathLength="1" d="M351.8 120.5C350.5 117 340 105 337.4 98.2L303.6 7.9L269.8 98.2C267.2 105 256.7 117 255.4 120.5"/>
+      <path pathLength="1" d="M21.5 117.46L21.5 130"/>
+      <path pathLength="1" d="M336.5 117.46L336.5 130"/>
+      <path pathLength="1" d="M54.4 114.8L54.4 130"/>
+      <path pathLength="1" d="M303.6 114.8L303.6 130"/>
+      <path pathLength="1" d="M87.3 117.46L87.3 130"/>
+      <path pathLength="1" d="M270.7 117.46L270.7 130"/>
+      <path pathLength="1" d="M26 150.21L26 162.21"/>
+      <path pathLength="1" d="M332 150.21L332 162.21"/>
+      <path pathLength="1" d="M40.2 148.7L40.2 160.7"/>
+      <path pathLength="1" d="M317.8 148.7L317.8 160.7"/>
+      <path pathLength="1" d="M54.4 148.2L54.4 160.2"/>
+      <path pathLength="1" d="M303.6 148.2L303.6 160.2"/>
+      <path pathLength="1" d="M68.6 148.7L68.6 160.7"/>
+      <path pathLength="1" d="M289.4 148.7L289.4 160.7"/>
+      <path pathLength="1" d="M82.8 150.21L82.8 162.21"/>
+      <path pathLength="1" d="M275.2 150.21L275.2 162.21"/>
+      <path pathLength="1" d="M130 55.2L130 63.5L228 63.5L228 55.2"/>
+      <path pathLength="1" d="M130 63.5L95.9 116.5"/>
+      <path pathLength="1" d="M228 63.5L262.1 116.5"/>
+      <path pathLength="1" d="M93.5 167L148.5 167"/>
+      <path pathLength="1" d="M264.5 167L209.5 167"/>
+      <path pathLength="1" d="M100 272L258 272"/>
+      <path pathLength="1" d="M152.5 146L179 94.5L205.5 146"/>
+      <path pathLength="1" d="M179 90.5L179 99"/>
+      <path pathLength="1" d="M152.5 146L144.5 146L144.5 152L148.5 164L148.5 272"/>
+      <path pathLength="1" d="M205.5 146L213.5 146L213.5 152L209.5 164L209.5 272"/>
+      <path pathLength="1" d="M162.5 272L162.5 244C162.5 236 168 226.5 179 226.5C190 226.5 195.5 236 195.5 244L195.5 272"/>
+    </g>
+    <g fill="currentColor" stroke="none">
+      <path d="M47.4 224.5L47.4 201.4A7 7 0 0 1 61.4 201.4L61.4 224.5Z"/>
+      <path d="M310.6 224.5L310.6 201.4A7 7 0 0 0 296.6 201.4L296.6 224.5Z"/>
+      <path d="M174.5 155.5L174.5 138.5A4.5 4.5 0 0 1 183.5 138.5L183.5 155.5Z"/>
+      <path d="M172.5 207.5L172.5 185.5A6.5 6.5 0 0 1 185.5 185.5L185.5 207.5Z"/>
+      <path d="M110.25 189.5L119.75 189.5L119.75 200.5L110.25 200.5Z"/>
+      <path d="M110.25 204.5L119.75 204.5L119.75 221.5L110.25 221.5Z"/>
+      <path d="M124.75 189.5L134.25 189.5L134.25 200.5L124.75 200.5Z"/>
+      <path d="M124.75 204.5L134.25 204.5L134.25 221.5L124.75 221.5Z"/>
+      <path d="M247.75 189.5L238.25 189.5L238.25 200.5L247.75 200.5Z"/>
+      <path d="M247.75 204.5L238.25 204.5L238.25 221.5L247.75 221.5Z"/>
+      <path d="M233.25 189.5L223.75 189.5L223.75 200.5L233.25 200.5Z"/>
+      <path d="M233.25 204.5L223.75 204.5L223.75 221.5L233.25 221.5Z"/>
+    </g>
+  </symbol>
+</svg>
+
 <!-- Rideau d'ouverture : deux volets qui s'écartent sur un dessin du château -->
 <div class="curtain" aria-hidden="true">
   <span class="curtain__panel curtain__panel--l"></span>
   <span class="curtain__panel curtain__panel--r"></span>
   <div class="curtain__inner">
-    <svg class="curtain__draw" viewBox="0 0 240 190" fill="none" aria-hidden="true" focusable="false">
-      <g stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
-        <path class="cd" style="--d:70ms"  pathLength="1" d="M9 60h95M136 60h95M12.5 63.5h91.5M136 63.5h91.5"/>
-        <path class="cd" style="--d:130ms" pathLength="1" d="M12.5 63.5V160M227.5 63.5V160"/>
-        <path class="cd" style="--d:0ms"   pathLength="1" d="M4 160h232"/>
-        <path class="cd" style="--d:170ms" pathLength="1" d="M104.8 55 105.8 101M135.2 55 134.2 101"/>
-        <path class="cd" style="--d:200ms" pathLength="1" d="M12.5 101h91M136.5 101h91M12.5 104.5h91M136.5 104.5h91"/>
-        <path class="cd" style="--d:220ms" pathLength="1" d="M104 52 120 16 136 52"/>
-        <path class="cd" style="--d:250ms" pathLength="1" d="M104.6 101h30.8M105.8 101C107 112 112 124.5 120 126c8-1.5 13-14 14.2-25"/>
-        <path class="cd" style="--d:250ms" pathLength="1" d="M29 70h21v23H29zM65 70h21v23H65zM154 70h21v23h-21zM190 70h21v23h-21zM29 116h21v23H29zM65 116h21v23H65zM154 116h21v23h-21zM190 116h21v23h-21z"/>
-        <path class="cd" style="--d:270ms" pathLength="1" d="M101.5 52h37M101.5 52q18.5 4.5 37 0"/>
-        <path class="cd" style="--d:300ms" pathLength="1" d="M39.5 70v23M75.5 70v23M164.5 70v23M200.5 70v23M39.5 116v23M75.5 116v23M164.5 116v23M200.5 116v23M29 76h21M65 76h21M154 76h21M190 76h21M29 122h21M65 122h21M154 122h21M190 122h21"/>
-        <path class="cd" style="--d:340ms" pathLength="1" d="M115.5 64h9v12h-9zM115.5 67.5h9"/>
-        <path class="cd" style="--d:380ms" pathLength="1" d="M120 3v13M116.5 8h7"/>
-      </g>
-    </svg>
+    <svg class="eden-marque curtain__draw" viewBox="3 -1 352 291.5" aria-hidden="true" focusable="false"><use href="#eden-marque"/></svg>
     <span class="curtain__mark">Domaine d’Éden</span>
     <span class="curtain__rule"></span>
     <span class="curtain__sub">Château les Tourelles</span>
@@ -82,6 +129,7 @@
         <li><a class="icon-btn" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Le Domaine d’Éden sur Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.02 24V13.05h3.68l.55-4.27h-4.23V6.05c0-1.24.34-2.08 2.12-2.08h2.26V.17A30.3 30.3 0 0 0 15.1 0c-3.26 0-5.5 1.99-5.5 5.64v3.14H5.91v4.27H9.6V24z"/></svg></a></li>
       </ul>
       <a class="brand" href="index.html" aria-label="Domaine d’Éden — accueil">
+        <svg class="eden-marque brand-mark" viewBox="3 -1 352 291.5" aria-hidden="true" focusable="false"><use href="#eden-marque"/></svg>
         <span class="brand-name">Domaine d’Éden</span>
         <span class="brand-sub">Château les Tourelles</span>
       </a>
@@ -98,8 +146,8 @@
       <nav class="main-nav" aria-label="Navigation principale">
         <a href="index.html">Accueil</a>
         <a href="index.html#domaine">Le domaine</a>
-        <a href="chambres.html">Les chambres</a>
-        <a href="evenements.html" aria-current="page">Événements</a>
+        <a href="index.html#chambres">Les chambres</a>
+        <a href="index.html#evenements">Événements</a>
         <a href="index.html#galerie">Galerie</a>
         <a href="index.html#contact">Contact</a>
         <a class="nav-cta" href="reservation.html">Réserver</a>
@@ -121,7 +169,7 @@
 
   <!-- ======================= BANDEAU DE TITRE ======================= -->
   <section class="page-hero">
-    <div class="bg"><picture><source type="image/avif" srcset="assets/img/chateau-angle-240.avif 240w, assets/img/chateau-angle-480.avif 480w, assets/img/chateau-angle-768.avif 768w, assets/img/chateau-angle-1100.avif 1100w, assets/img/chateau-angle-1500.avif 1500w" sizes="100vw"><source type="image/webp" srcset="assets/img/chateau-angle-240.webp 240w, assets/img/chateau-angle-480.webp 480w, assets/img/chateau-angle-768.webp 768w, assets/img/chateau-angle-1100.webp 1100w, assets/img/chateau-angle-1500.webp 1500w" sizes="100vw"><img srcset="assets/img/chateau-angle-240.jpg 240w, assets/img/chateau-angle-480.jpg 480w, assets/img/chateau-angle-768.jpg 768w, assets/img/chateau-angle-1100.jpg 1100w, assets/img/chateau-angle-1500.jpg 1500w" sizes="100vw" src="assets/img/chateau-angle-1500.jpg" width="1500" height="1125" alt="" aria-hidden="true" fetchpriority="high"></picture></div>
+    <div class="bg"><picture><source type="image/avif" srcset="assets/img/chateau-angle-240.avif 240w, assets/img/chateau-angle-480.avif 480w, assets/img/chateau-angle-768.avif 768w, assets/img/chateau-angle-1100.avif 1100w, assets/img/chateau-angle-1500.avif 1500w, assets/img/chateau-angle-1962.avif 1962w" sizes="100vw"><source type="image/webp" srcset="assets/img/chateau-angle-240.webp 240w, assets/img/chateau-angle-480.webp 480w, assets/img/chateau-angle-768.webp 768w, assets/img/chateau-angle-1100.webp 1100w, assets/img/chateau-angle-1500.webp 1500w, assets/img/chateau-angle-1962.webp 1962w" sizes="100vw"><img srcset="assets/img/chateau-angle-240.jpg 240w, assets/img/chateau-angle-480.jpg 480w, assets/img/chateau-angle-768.jpg 768w, assets/img/chateau-angle-1100.jpg 1100w, assets/img/chateau-angle-1500.jpg 1500w, assets/img/chateau-angle-1962.jpg 1962w" sizes="100vw" src="assets/img/chateau-angle-1500.jpg" width="1500" height="1125" alt="" aria-hidden="true" fetchpriority="high"></picture></div>
     <div class="container">
       <p class="crumb"><a href="index.html">Accueil</a><span>·</span>Événements</p>
       <p class="eyebrow">L’événementiel</p>
@@ -137,8 +185,8 @@
       <span class="folio" aria-hidden="true">01</span>
       <div class="editorial">
         <div class="editorial-media">
-          <picture><source type="image/avif" srcset="assets/img/salon-piano-240.avif 240w, assets/img/salon-piano-480.avif 480w, assets/img/salon-piano-768.avif 768w, assets/img/salon-piano-1100.avif 1100w, assets/img/salon-piano-1500.avif 1500w" sizes="(min-width: 1025px) 510px, (min-width: 901px) 430px, (min-width: 641px) 730px, 81vw"><source type="image/webp" srcset="assets/img/salon-piano-240.webp 240w, assets/img/salon-piano-480.webp 480w, assets/img/salon-piano-768.webp 768w, assets/img/salon-piano-1100.webp 1100w, assets/img/salon-piano-1500.webp 1500w" sizes="(min-width: 1025px) 510px, (min-width: 901px) 430px, (min-width: 641px) 730px, 81vw"><img srcset="assets/img/salon-piano-240.jpg 240w, assets/img/salon-piano-480.jpg 480w, assets/img/salon-piano-768.jpg 768w, assets/img/salon-piano-1100.jpg 1100w, assets/img/salon-piano-1500.jpg 1500w" sizes="(min-width: 1025px) 510px, (min-width: 901px) 430px, (min-width: 641px) 730px, 81vw" src="assets/img/salon-piano-1500.jpg" width="1500" height="1125" class="photo-main" alt="Le salon de musique et son piano" loading="lazy" decoding="async" data-reveal="mask"></picture>
-          <picture><source type="image/avif" srcset="assets/img/cour-roues-240.avif 240w, assets/img/cour-roues-480.avif 480w, assets/img/cour-roues-768.avif 768w, assets/img/cour-roues-1100.avif 1100w, assets/img/cour-roues-1500.avif 1500w" sizes="(min-width: 1025px) 310px, (min-width: 901px) 260px, (min-width: 641px) 450px, 50vw"><source type="image/webp" srcset="assets/img/cour-roues-240.webp 240w, assets/img/cour-roues-480.webp 480w, assets/img/cour-roues-768.webp 768w, assets/img/cour-roues-1100.webp 1100w, assets/img/cour-roues-1500.webp 1500w" sizes="(min-width: 1025px) 310px, (min-width: 901px) 260px, (min-width: 641px) 450px, 50vw"><img srcset="assets/img/cour-roues-240.jpg 240w, assets/img/cour-roues-480.jpg 480w, assets/img/cour-roues-768.jpg 768w, assets/img/cour-roues-1100.jpg 1100w, assets/img/cour-roues-1500.jpg 1500w" sizes="(min-width: 1025px) 310px, (min-width: 901px) 260px, (min-width: 641px) 450px, 50vw" src="assets/img/cour-roues-1500.jpg" width="1500" height="1125" class="photo-inset" alt="La cour du domaine et ses roues de charrette" loading="lazy" decoding="async" data-reveal="mask" style="--reveal-delay: 260ms"></picture>
+          <picture><source type="image/avif" srcset="assets/img/salon-piano-240.avif 240w, assets/img/salon-piano-480.avif 480w, assets/img/salon-piano-768.avif 768w, assets/img/salon-piano-1100.avif 1100w, assets/img/salon-piano-1500.avif 1500w, assets/img/salon-piano-2000.avif 2000w" sizes="(min-width: 1025px) 510px, (min-width: 901px) 430px, (min-width: 641px) 730px, 81vw"><source type="image/webp" srcset="assets/img/salon-piano-240.webp 240w, assets/img/salon-piano-480.webp 480w, assets/img/salon-piano-768.webp 768w, assets/img/salon-piano-1100.webp 1100w, assets/img/salon-piano-1500.webp 1500w, assets/img/salon-piano-2000.webp 2000w" sizes="(min-width: 1025px) 510px, (min-width: 901px) 430px, (min-width: 641px) 730px, 81vw"><img srcset="assets/img/salon-piano-240.jpg 240w, assets/img/salon-piano-480.jpg 480w, assets/img/salon-piano-768.jpg 768w, assets/img/salon-piano-1100.jpg 1100w, assets/img/salon-piano-1500.jpg 1500w, assets/img/salon-piano-2000.jpg 2000w" sizes="(min-width: 1025px) 510px, (min-width: 901px) 430px, (min-width: 641px) 730px, 81vw" src="assets/img/salon-piano-1500.jpg" width="1500" height="1125" class="photo-main" alt="Le salon de musique et son piano" loading="lazy" decoding="async" data-reveal="mask"></picture>
+          <picture><source type="image/avif" srcset="assets/img/cour-roues-240.avif 240w, assets/img/cour-roues-480.avif 480w, assets/img/cour-roues-768.avif 768w, assets/img/cour-roues-1100.avif 1100w, assets/img/cour-roues-1500.avif 1500w, assets/img/cour-roues-2000.avif 2000w" sizes="(min-width: 1025px) 310px, (min-width: 901px) 260px, (min-width: 641px) 450px, 50vw"><source type="image/webp" srcset="assets/img/cour-roues-240.webp 240w, assets/img/cour-roues-480.webp 480w, assets/img/cour-roues-768.webp 768w, assets/img/cour-roues-1100.webp 1100w, assets/img/cour-roues-1500.webp 1500w, assets/img/cour-roues-2000.webp 2000w" sizes="(min-width: 1025px) 310px, (min-width: 901px) 260px, (min-width: 641px) 450px, 50vw"><img srcset="assets/img/cour-roues-240.jpg 240w, assets/img/cour-roues-480.jpg 480w, assets/img/cour-roues-768.jpg 768w, assets/img/cour-roues-1100.jpg 1100w, assets/img/cour-roues-1500.jpg 1500w, assets/img/cour-roues-2000.jpg 2000w" sizes="(min-width: 1025px) 310px, (min-width: 901px) 260px, (min-width: 641px) 450px, 50vw" src="assets/img/cour-roues-1500.jpg" width="1500" height="1125" class="photo-inset" alt="La cour du domaine et ses roues de charrette" loading="lazy" decoding="async" data-reveal="mask" style="--reveal-delay: 260ms"></picture>
         </div>
         <div data-reveal="up" style="--reveal-delay: 120ms">
           <p class="eyebrow"><span class="section-index">01</span> Recevoir ici</p>
@@ -173,7 +221,7 @@
       <div class="formats-grid">
         <article class="format-card" data-reveal="up">
           <p class="idx">i.</p>
-          <h3>Mariages intimistes</h3>
+          <h3><a class="format-card__link" href="reservation.html?motif=evenement&amp;format=mariage">Mariages intimistes<span class="sr-only"> — faire une demande</span></a></h3>
           <p>Une cérémonie dans le parc, un dîner sous les arbres, une nuit sur place pour les
           mariés et leurs proches. Format court, invités choisis, aucune course contre la montre.</p>
           <ul>
@@ -181,10 +229,11 @@
             <li>cérémonie laïque dans le parc</li>
             <li>5 chambres pour la nuit</li>
           </ul>
+        <span class="format-card__go" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
         </article>
         <article class="format-card" data-reveal="up" style="--reveal-delay: 110ms">
           <p class="idx">ii.</p>
-          <h3>Cousinades &amp; anniversaires</h3>
+          <h3><a class="format-card__link" href="reservation.html?motif=evenement&amp;format=cousinade">Cousinades &amp; anniversaires<span class="sr-only"> — faire une demande</span></a></h3>
           <p>Toute la famille sous un même toit, du vendredi soir au dimanche midi. Les enfants
           courent dans la cour, les grands s’installent au salon, et personne ne prend la voiture.</p>
           <ul>
@@ -192,10 +241,11 @@
             <li>table d’hôtes sur réservation</li>
             <li>parking privé gratuit</li>
           </ul>
+        <span class="format-card__go" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
         </article>
         <article class="format-card" data-reveal="up" style="--reveal-delay: 220ms">
           <p class="idx">iii.</p>
-          <h3>Séminaires &amp; journées d’équipe</h3>
+          <h3><a class="format-card__link" href="reservation.html?motif=evenement&amp;format=seminaire">Séminaires &amp; journées d’équipe<span class="sr-only"> — faire une demande</span></a></h3>
           <p>Une salle claire, du silence, du réseau et de la place pour marcher entre deux
           sessions. À 17 km du Puy-en-Velay, mais à cent lieues d’une salle de réunion.</p>
           <ul>
@@ -203,10 +253,11 @@
             <li>salle de travail &amp; salons</li>
             <li>déjeuner de produits locaux</li>
           </ul>
+        <span class="format-card__go" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
         </article>
         <article class="format-card" data-reveal="up" style="--reveal-delay: 330ms">
           <p class="idx">iv.</p>
-          <h3>Privatisation complète</h3>
+          <h3><a class="format-card__link" href="reservation.html?motif=evenement&amp;format=privatisation">Privatisation complète<span class="sr-only"> — faire une demande</span></a></h3>
           <p>Le domaine entier, avec ou sans hébergement, pour un tournage, un stage, une
           retraite ou une fête que vous seuls saurez nommer.</p>
           <ul>
@@ -214,6 +265,7 @@
             <li>avec ou sans nuitées</li>
             <li>devis sur mesure</li>
           </ul>
+        <span class="format-card__go" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
         </article>
       </div>
     </div>
@@ -283,7 +335,7 @@
     <div class="container">
       <span class="folio folio--left" aria-hidden="true">04</span>
       <div class="aside-band" data-reveal="up">
-        <figure><picture><source type="image/avif" srcset="assets/img/salle-a-manger-240.avif 240w, assets/img/salle-a-manger-480.avif 480w, assets/img/salle-a-manger-768.avif 768w, assets/img/salle-a-manger-1100.avif 1100w, assets/img/salle-a-manger-1500.avif 1500w" sizes="(min-width: 1025px) 480px, (min-width: 901px) 400px, (min-width: 641px) 830px, 93vw"><source type="image/webp" srcset="assets/img/salle-a-manger-240.webp 240w, assets/img/salle-a-manger-480.webp 480w, assets/img/salle-a-manger-768.webp 768w, assets/img/salle-a-manger-1100.webp 1100w, assets/img/salle-a-manger-1500.webp 1500w" sizes="(min-width: 1025px) 480px, (min-width: 901px) 400px, (min-width: 641px) 830px, 93vw"><img srcset="assets/img/salle-a-manger-240.jpg 240w, assets/img/salle-a-manger-480.jpg 480w, assets/img/salle-a-manger-768.jpg 768w, assets/img/salle-a-manger-1100.jpg 1100w, assets/img/salle-a-manger-1500.jpg 1500w" sizes="(min-width: 1025px) 480px, (min-width: 901px) 400px, (min-width: 641px) 830px, 93vw" src="assets/img/salle-a-manger-1500.jpg" width="1500" height="1125" alt="La grande salle à manger du château dressée pour un repas" loading="lazy" decoding="async"></picture></figure>
+        <figure><picture><source type="image/avif" srcset="assets/img/salle-a-manger-240.avif 240w, assets/img/salle-a-manger-480.avif 480w, assets/img/salle-a-manger-768.avif 768w, assets/img/salle-a-manger-1100.avif 1100w, assets/img/salle-a-manger-2000.avif 2000w" sizes="(min-width: 1025px) 480px, (min-width: 901px) 400px, (min-width: 641px) 830px, 93vw"><source type="image/webp" srcset="assets/img/salle-a-manger-240.webp 240w, assets/img/salle-a-manger-480.webp 480w, assets/img/salle-a-manger-768.webp 768w, assets/img/salle-a-manger-1100.webp 1100w, assets/img/salle-a-manger-1500.webp 1500w, assets/img/salle-a-manger-2000.webp 2000w" sizes="(min-width: 1025px) 480px, (min-width: 901px) 400px, (min-width: 641px) 830px, 93vw"><img srcset="assets/img/salle-a-manger-240.jpg 240w, assets/img/salle-a-manger-480.jpg 480w, assets/img/salle-a-manger-768.jpg 768w, assets/img/salle-a-manger-1100.jpg 1100w, assets/img/salle-a-manger-2000.jpg 2000w" sizes="(min-width: 1025px) 480px, (min-width: 901px) 400px, (min-width: 641px) 830px, 93vw" src="assets/img/salle-a-manger-1500.jpg" width="1500" height="1125" alt="La grande salle à manger du château dressée pour un repas" loading="lazy" decoding="async"></picture></figure>
         <div class="aside-band-text">
           <p class="eyebrow">À table</p>
           <h3>Une formule simple,<br>des produits d’ici</h3>
@@ -298,7 +350,7 @@
 
   <!-- ======================= CTA FINAL ======================= -->
   <section class="final-cta">
-    <div class="bg"><picture><source type="image/avif" srcset="assets/img/jardin-240.avif 240w, assets/img/jardin-480.avif 480w, assets/img/jardin-768.avif 768w, assets/img/jardin-1100.avif 1100w, assets/img/jardin-1500.avif 1500w" sizes="100vw"><source type="image/webp" srcset="assets/img/jardin-240.webp 240w, assets/img/jardin-480.webp 480w, assets/img/jardin-768.webp 768w, assets/img/jardin-1100.webp 1100w, assets/img/jardin-1500.webp 1500w" sizes="100vw"><img srcset="assets/img/jardin-240.jpg 240w, assets/img/jardin-480.jpg 480w, assets/img/jardin-768.jpg 768w, assets/img/jardin-1100.jpg 1100w, assets/img/jardin-1500.jpg 1500w" sizes="100vw" src="assets/img/jardin-1500.jpg" width="1500" height="1125" alt="" loading="lazy" decoding="async" aria-hidden="true" data-parallax="0.18"></picture></div>
+    <div class="bg"><picture><source type="image/avif" srcset="assets/img/jardin-240.avif 240w, assets/img/jardin-480.avif 480w, assets/img/jardin-768.avif 768w, assets/img/jardin-1100.avif 1100w, assets/img/jardin-1500.avif 1500w, assets/img/jardin-2000.avif 2000w" sizes="100vw"><source type="image/webp" srcset="assets/img/jardin-240.webp 240w, assets/img/jardin-480.webp 480w, assets/img/jardin-768.webp 768w, assets/img/jardin-1100.webp 1100w, assets/img/jardin-1500.webp 1500w, assets/img/jardin-2000.webp 2000w" sizes="100vw"><img srcset="assets/img/jardin-240.jpg 240w, assets/img/jardin-480.jpg 480w, assets/img/jardin-768.jpg 768w, assets/img/jardin-1100.jpg 1100w, assets/img/jardin-1500.jpg 1500w, assets/img/jardin-2000.jpg 2000w" sizes="100vw" src="assets/img/jardin-1500.jpg" width="1500" height="1125" alt="" loading="lazy" decoding="async" aria-hidden="true" data-parallax="0.18"></picture></div>
     <div class="container" data-reveal="up">
       <p class="eyebrow eyebrow--center">Parlons de votre projet</p>
       <h2><span class="ln"><span>Une date en tête ?</span></span><span class="ln"><span><em>Écrivez-nous</em></span></span></h2>
@@ -313,6 +365,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
+        <svg class="eden-marque footer-mark" viewBox="3 -1 352 291.5" aria-hidden="true" focusable="false"><use href="#eden-marque"/></svg>
         <span class="brand-name">Domaine d’Éden</span><br>
         <span class="brand-sub serif" style="font-style: italic">Château les Tourelles</span>
         <p>Maison d’hôtes &amp; lieu de réception au cœur de la Haute-Loire.
@@ -326,6 +379,7 @@
           <li><a href="chambres.html">Les chambres</a></li>
           <li><a href="evenements.html">Événements</a></li>
           <li><a href="index.html#galerie">Galerie</a></li>
+          <li><a href="index.html#contact">Contact &amp; accès</a></li>
           <li><a href="reservation.html">Demander une disponibilité</a></li>
         </ul>
       </div>

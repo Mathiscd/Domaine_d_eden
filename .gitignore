@@ -3,3 +3,6 @@ Thumbs.db
 *.log
 __pycache__/
 *.pyc
+
+# artefacts de contrôle de tools/generer-logo.py --comparer
+.logo-*.png

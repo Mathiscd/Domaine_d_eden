@@ -1,0 +1,16 @@
+{
+  "name": "Domaine d’Éden — Château les Tourelles",
+  "short_name": "Domaine d’Éden",
+  "description": "Maison d’hôtes et lieu de réception au cœur de la Haute-Loire.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FAFAF8",
+  "theme_color": "#161B14",
+  "icons": [
+    { "src": "assets/img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/img/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/img/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
