@@ -115,7 +115,9 @@ Trois règles à ne pas casser :
 
 Les `sizes` sont calés sur les largeurs **réellement rendues**, mesurées aux
 breakpoints du CSS (1024 / 940 / 900 / 640). Si la mise en page change, il faut
-les remesurer : sous-estimer rend flou, sur-estimer gaspille.
+les remesurer : sous-estimer rend flou, sur-estimer gaspille. C'est ce que
+contrôle `tools/verifier-sizes.py`, à relancer après toute retouche de mise
+en page (servir `site/`, puis `python tools/verifier-sizes.py`).
 
 ## Le logo
 
