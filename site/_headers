@@ -1,5 +1,18 @@
-# Ressources aux noms figés (variantes d'images, marque) : elles ne changent
-# jamais sans changer de nom — on les met en cache un an, immuables.
+# La marque et les icônes du manifeste sont régénérées par generer-logo.py et
+# gardent leur nom d'une version à l'autre : elles ne peuvent pas être immuables,
+# sans quoi un visiteur conserverait l'ancien dessin. Règles avant le joker :
+# Netlify retient la plus spécifique.
+/assets/img/logo-eden.svg
+  Cache-Control: public, max-age=604800
+/assets/img/icon-192.png
+  Cache-Control: public, max-age=604800
+/assets/img/icon-512.png
+  Cache-Control: public, max-age=604800
+/assets/img/icon-maskable-512.png
+  Cache-Control: public, max-age=604800
+
+# Les variantes de photos, elles, portent leur largeur dans leur nom : un
+# contenu différent est un fichier différent. Cache d'un an, immuable.
 /assets/img/*
   Cache-Control: public, max-age=31536000, immutable
 
