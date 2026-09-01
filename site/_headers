@@ -1,0 +1,25 @@
+# Ressources aux noms figés (variantes d'images, marque) : elles ne changent
+# jamais sans changer de nom — on les met en cache un an, immuables.
+/assets/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS et JS gardent leur nom d'une version à l'autre : pas d'immutable, mais
+# une revalidation peu coûteuse plutôt qu'un re-téléchargement complet.
+/assets/css/*
+  Cache-Control: public, max-age=86400, must-revalidate
+/assets/js/*
+  Cache-Control: public, max-age=86400, must-revalidate
+
+# Icônes et manifeste : stables, mais susceptibles d'être régénérés.
+/favicon.*
+  Cache-Control: public, max-age=604800
+/apple-touch-icon.png
+  Cache-Control: public, max-age=604800
+/site.webmanifest
+  Cache-Control: public, max-age=604800
+
+# Les pages doivent refléter les mises à jour de contenu immédiatement.
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
