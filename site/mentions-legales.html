@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales — Domaine d’Éden · Château les Tourelles</title>
+<meta name="description" content="Mentions légales du site du Domaine d’Éden — Château les Tourelles : éditeur, hébergement, propriété intellectuelle, responsabilité et droit applicable.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#161B14">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap"></noscript>
+<link rel="stylesheet" href="assets/css/styles.css">
+<script>
+/* Rideau d'ouverture : une seule fois par visite, décidé avant le premier paint. */
+(function () {
+  var d = document.documentElement, KEY = 'eden:visite', vu = false;
+  try {
+    vu = sessionStorage.getItem(KEY) === '1';
+    if (!vu) sessionStorage.setItem(KEY, '1');
+  } catch (e) {
+    /* sessionStorage indisponible (file://, navigation privée) : on se rabat sur le référent */
+    vu = location.origin !== 'null' && document.referrer.indexOf(location.origin) === 0;
+  }
+  if (vu || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    d.classList.add('no-curtain', 'is-loaded');
+    return;
+  }
+  /* Le rideau joue : on le lève 1,4 s après son apparition, sans attendre les images. */
+  var leve = function () { d.classList.add('is-loaded'); };
+  var arme = function () {
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { setTimeout(leve, 1250); });
+    });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', arme);
+  else arme();
+  setTimeout(leve, 3000); /* filet de sécurité */
+})();
+</script>
+</head>
+<body class="legal-page">
+
+<!-- Marque du domaine — généré par tools/generer-logo.py, ne pas retoucher à la main.
+     Appelée par <use href="#eden-marque"> dans l'en-tête, le pied de page et le rideau. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <symbol id="eden-marque" viewBox="3 -1 352 291.5">
+    <g fill="none" stroke="currentColor" stroke-width="var(--eden-trait, 6.3)" stroke-linecap="round" stroke-linejoin="miter" stroke-miterlimit="8">
+      <path pathLength="1" d="M6.2 120.5L6.2 154L16.4 170C15.2 205 12.6 245 9 273L23 284.5Q54.4 290 85.8 284.5L99.8 273C96.2 245 93.6 205 92.4 170L102.6 154L102.6 120.5Q54.4 109.1 6.2 120.5Z"/>
+      <path pathLength="1" d="M351.8 120.5L351.8 154L341.6 170C342.8 205 345.4 245 349 273L335 284.5Q303.6 290 272.2 284.5L258.2 273C261.8 245 264.4 205 265.6 170L255.4 154L255.4 120.5Q303.6 109.1 351.8 120.5Z"/>
+      <path pathLength="1" d="M6.2 154Q54.4 142.4 102.6 154"/>
+      <path pathLength="1" d="M351.8 154Q303.6 142.4 255.4 154"/>
+      <path pathLength="1" d="M11.1 255Q54.4 264 97.7 255"/>
+      <path pathLength="1" d="M346.9 255Q303.6 264 260.3 255"/>
+      <path pathLength="1" d="M6.2 120.5C7.5 117 18 105 20.6 98.2L54.4 7.9L88.2 98.2C90.8 105 101.3 117 102.6 120.5"/>
+      <path pathLength="1" d="M351.8 120.5C350.5 117 340 105 337.4 98.2L303.6 7.9L269.8 98.2C267.2 105 256.7 117 255.4 120.5"/>
+      <path pathLength="1" d="M21.5 117.46L21.5 130"/>
+      <path pathLength="1" d="M336.5 117.46L336.5 130"/>
+      <path pathLength="1" d="M54.4 114.8L54.4 130"/>
+      <path pathLength="1" d="M303.6 114.8L303.6 130"/>
+      <path pathLength="1" d="M87.3 117.46L87.3 130"/>
+      <path pathLength="1" d="M270.7 117.46L270.7 130"/>
+      <path pathLength="1" d="M26 150.21L26 162.21"/>
+      <path pathLength="1" d="M332 150.21L332 162.21"/>
+      <path pathLength="1" d="M40.2 148.7L40.2 160.7"/>
+      <path pathLength="1" d="M317.8 148.7L317.8 160.7"/>
+      <path pathLength="1" d="M54.4 148.2L54.4 160.2"/>
+      <path pathLength="1" d="M303.6 148.2L303.6 160.2"/>
+      <path pathLength="1" d="M68.6 148.7L68.6 160.7"/>
+      <path pathLength="1" d="M289.4 148.7L289.4 160.7"/>
+      <path pathLength="1" d="M82.8 150.21L82.8 162.21"/>
+      <path pathLength="1" d="M275.2 150.21L275.2 162.21"/>
+      <path pathLength="1" d="M130 55.2L130 63.5L228 63.5L228 55.2"/>
+      <path pathLength="1" d="M130 63.5L95.9 116.5"/>
+      <path pathLength="1" d="M228 63.5L262.1 116.5"/>
+      <path pathLength="1" d="M93.5 167L148.5 167"/>
+      <path pathLength="1" d="M264.5 167L209.5 167"/>
+      <path pathLength="1" d="M100 272L258 272"/>
+      <path pathLength="1" d="M152.5 146L179 94.5L205.5 146"/>
+      <path pathLength="1" d="M179 90.5L179 99"/>
+      <path pathLength="1" d="M152.5 146L144.5 146L144.5 152L148.5 164L148.5 272"/>
+      <path pathLength="1" d="M205.5 146L213.5 146L213.5 152L209.5 164L209.5 272"/>
+      <path pathLength="1" d="M162.5 272L162.5 244C162.5 236 168 226.5 179 226.5C190 226.5 195.5 236 195.5 244L195.5 272"/>
+    </g>
+    <g fill="currentColor" stroke="none">
+      <path d="M47.4 224.5L47.4 201.4A7 7 0 0 1 61.4 201.4L61.4 224.5Z"/>
+      <path d="M310.6 224.5L310.6 201.4A7 7 0 0 0 296.6 201.4L296.6 224.5Z"/>
+      <path d="M174.5 155.5L174.5 138.5A4.5 4.5 0 0 1 183.5 138.5L183.5 155.5Z"/>
+      <path d="M172.5 207.5L172.5 185.5A6.5 6.5 0 0 1 185.5 185.5L185.5 207.5Z"/>
+      <path d="M110.25 189.5L119.75 189.5L119.75 200.5L110.25 200.5Z"/>
+      <path d="M110.25 204.5L119.75 204.5L119.75 221.5L110.25 221.5Z"/>
+      <path d="M124.75 189.5L134.25 189.5L134.25 200.5L124.75 200.5Z"/>
+      <path d="M124.75 204.5L134.25 204.5L134.25 221.5L124.75 221.5Z"/>
+      <path d="M247.75 189.5L238.25 189.5L238.25 200.5L247.75 200.5Z"/>
+      <path d="M247.75 204.5L238.25 204.5L238.25 221.5L247.75 221.5Z"/>
+      <path d="M233.25 189.5L223.75 189.5L223.75 200.5L233.25 200.5Z"/>
+      <path d="M233.25 204.5L223.75 204.5L223.75 221.5L233.25 221.5Z"/>
+    </g>
+  </symbol>
+</svg>
+
+<!-- Rideau d'ouverture : deux volets qui s'écartent sur un dessin du château -->
+<div class="curtain" aria-hidden="true">
+  <span class="curtain__panel curtain__panel--l"></span>
+  <span class="curtain__panel curtain__panel--r"></span>
+  <div class="curtain__inner">
+    <svg class="eden-marque curtain__draw" viewBox="3 -1 352 291.5" aria-hidden="true" focusable="false"><use href="#eden-marque"/></svg>
+    <span class="curtain__mark">Domaine d’Éden</span>
+    <span class="curtain__rule"></span>
+    <span class="curtain__sub">Château les Tourelles</span>
+  </div>
+</div>
+
+
+<header class="site-header" id="top">
+
+  <!-- Rang 1 : réseaux · signature · téléphone -->
+  <div class="header-top">
+    <div class="container">
+      <ul class="header-social">
+        <li><a class="icon-btn" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Le Domaine d’Éden sur Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.59-.01-4.86-.07c-1.17-.06-1.81-.26-2.23-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.05-1.26-.06-1.65-.06-4.84s.02-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42 1.28-.05 1.65-.06 4.86-.06zM12 0C8.74 0 8.33.02 7.05.07c-1.28.06-2.15.26-2.91.56-.79.3-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.02 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.02 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.05-1.28.07-1.69.07-4.95s-.02-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13-.67-.67-1.34-1.08-2.13-1.38-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a></li>
+        <li><a class="icon-btn" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Le Domaine d’Éden sur Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.02 24V13.05h3.68l.55-4.27h-4.23V6.05c0-1.24.34-2.08 2.12-2.08h2.26V.17A30.3 30.3 0 0 0 15.1 0c-3.26 0-5.5 1.99-5.5 5.64v3.14H5.91v4.27H9.6V24z"/></svg></a></li>
+      </ul>
+      <a class="brand" href="index.html" aria-label="Domaine d’Éden — accueil">
+        <svg class="eden-marque brand-mark" viewBox="3 -1 352 291.5" aria-hidden="true" focusable="false"><use href="#eden-marque"/></svg>
+        <span class="brand-name">Domaine d’Éden</span>
+        <span class="brand-sub">Château les Tourelles</span>
+      </a>
+      <a class="header-phone" href="tel:+33665329261"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02z"/></svg><span>06 65 32 92 61</span></a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Rang 2 : navigation -->
+  <div class="header-nav">
+    <div class="container">
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="index.html#domaine">Le domaine</a>
+        <a href="index.html#chambres">Les chambres</a>
+        <a href="index.html#evenements">Événements</a>
+        <a href="index.html#galerie">Galerie</a>
+        <a href="index.html#contact">Contact</a>
+        <a class="nav-cta" href="reservation.html">Réserver</a>
+        <div class="nav-extra">
+          <a class="header-phone" href="tel:+33665329261"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02z"/></svg><span>06 65 32 92 61</span></a>
+          <ul class="header-social">
+        <li><a class="icon-btn" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Le Domaine d’Éden sur Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.59-.01-4.86-.07c-1.17-.06-1.81-.26-2.23-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.05-1.26-.06-1.65-.06-4.84s.02-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42 1.28-.05 1.65-.06 4.86-.06zM12 0C8.74 0 8.33.02 7.05.07c-1.28.06-2.15.26-2.91.56-.79.3-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.02 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.02 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.05-1.28.07-1.69.07-4.95s-.02-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13-.67-.67-1.34-1.08-2.13-1.38-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a></li>
+        <li><a class="icon-btn" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Le Domaine d’Éden sur Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.02 24V13.05h3.68l.55-4.27h-4.23V6.05c0-1.24.34-2.08 2.12-2.08h2.26V.17A30.3 30.3 0 0 0 15.1 0c-3.26 0-5.5 1.99-5.5 5.64v3.14H5.91v4.27H9.6V24z"/></svg></a></li>
+      </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <span class="scroll-progress" aria-hidden="true"></span>
+</header>
+
+
+<main class="legal-main" id="contenu">
+  <div class="container">
+    <article class="legal">
+
+      <a class="legal__back link-arrow" href="index.html">← Retour à l’accueil</a>
+
+      <h1>Mentions légales</h1>
+      <p class="legal__updated">Dernière mise à jour : 1<sup>er</sup> septembre 2026.</p>
+
+      <h2>Éditeur du site</h2>
+      <p>
+        <strong>DOMAINE D’EDEN</strong>, exploitant le lieu sous le nom commercial
+        <strong>Domaine d’Éden — Château les Tourelles</strong><br>
+        Forme juridique : SAS (société par actions simplifiée) au capital de 1 500 €<br>
+        Siège social : 2562 Avenue de Bazac, 43800 Beaulieu, France<br>
+        SIREN : 990 274 847 · SIRET (siège) : 990 274 847 00013<br>
+        RCS : 990 274 847 R.C.S. Le Puy-en-Velay (inscrit le 13 août 2025)<br>
+        N° TVA intracommunautaire : FR24990274847<br>
+        Code APE : 55.20Z, hébergement touristique et autre hébergement de courte durée<br>
+        Téléphone : <a href="tel:+33665329261">06 65 32 92 61</a> ·
+        E-mail : <a href="mailto:chateaulestourelles43@gmail.com">chateaulestourelles43@gmail.com</a><br>
+        Directeur de la publication : Thomas Ploton, président<br>
+        Direction générale : Grégory Maillard, directeur général
+      </p>
+
+      <h2>Hébergement</h2>
+      <p>
+        Netlify, Inc.<br>
+        512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis<br>
+        Téléphone : Netlify ne publie pas de numéro d’assistance ; le contact se fait par
+        <a href="https://www.netlify.com/support/" target="_blank" rel="noopener">netlify.com/support</a><br>
+        <a href="https://www.netlify.com/" target="_blank" rel="noopener">netlify.com</a>
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L’ensemble des contenus de ce site (textes, mise en page, structure) est protégé par le
+        droit d’auteur. Toute reproduction ou réutilisation, totale ou partielle, sans autorisation
+        écrite préalable est interdite.
+      </p>
+      <p>
+        Le logo du domaine a été fourni par l’éditeur ; il a été redessiné en vectoriel pour les
+        besoins du site, sans changer de dessin. Les photographies publiées représentent le château,
+        ses chambres, ses salons et son parc : elles proviennent de la fiche Gîtes de France du
+        domaine et des visuels fournis par l’éditeur, qui en détient ou en a obtenu les droits
+        d’usage. Aucune photographie de client, de participant ou d’événement privé n’est publiée.
+        Les polices Cormorant Garamond et Jost sont diffusées sous licence SIL Open Font License 1.1.
+      </p>
+
+      <h2>Nature des prestations</h2>
+      <p>
+        Le Domaine d’Éden est une maison d’hôtes et un lieu de réception. Les informations publiées
+        sur ce site (descriptions des chambres, capacités, formats d’événement, tarifs indicatifs)
+        sont fournies à titre d’information et <strong>ne constituent pas une offre contractuelle</strong>.
+        Les tarifs affichés sont indicatifs et s’entendent petit-déjeuner compris ; ils peuvent varier
+        selon la période, la durée du séjour et les prestations retenues.
+      </p>
+      <p>
+        Le formulaire de ce site permet d’adresser une <strong>demande de disponibilité</strong> :
+        il ne vaut ni réservation, ni confirmation, et aucun paiement n’y est effectué. Une
+        réservation n’est ferme qu’après confirmation expresse des hôtes et acceptation des
+        conditions communiquées à cette occasion.
+      </p>
+
+      <h2>Responsabilité</h2>
+      <p>
+        L’éditeur s’efforce d’assurer l’exactitude des informations diffusées mais ne saurait être
+        tenu responsable des omissions, inexactitudes ou carences dans la mise à jour, qu’elles
+        soient de son fait ou du fait de tiers. Les liens sortant de ce site (réseaux sociaux,
+        cartographie, site de l’Espace Soreï) mènent vers des services indépendants, dont l’éditeur
+        ne maîtrise ni le contenu ni les pratiques.
+      </p>
+
+      <h2>Données personnelles</h2>
+      <p>
+        Les traitements de données mis en œuvre par ce site (demande de disponibilité) sont détaillés
+        dans la <a href="politique-confidentialite.html">politique de confidentialité</a> :
+        finalités, bases légales, destinataires, durées de conservation et exercice de vos droits.
+      </p>
+
+      <h2>Médiation de la consommation</h2>
+      <p>
+        Conformément aux articles L611-1 et suivants du code de la consommation, tout client
+        particulier peut recourir gratuitement à un médiateur de la consommation en vue de la
+        résolution amiable d’un litige qui l’opposerait à l’éditeur, après avoir tenté de le
+        résoudre directement auprès de lui par une réclamation écrite. Les coordonnées du médiateur
+        compétent sont communiquées sur simple demande à
+        <a href="mailto:chateaulestourelles43@gmail.com">chateaulestourelles43@gmail.com</a>.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Pour toute question relative au site :
+        <a href="mailto:chateaulestourelles43@gmail.com">chateaulestourelles43@gmail.com</a>.
+      </p>
+
+      <h2>Droit applicable</h2>
+      <p>
+        Le présent site et les présentes mentions sont soumis au droit français. En cas de litige, et
+        à défaut de résolution amiable ou de médiation aboutie, les tribunaux français sont compétents.
+      </p>
+
+      <p class="legal__foot">
+        <a class="legal__back link-arrow" href="index.html">← Retour à l’accueil</a>
+      </p>
+
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg class="eden-marque footer-mark" viewBox="3 -1 352 291.5" aria-hidden="true" focusable="false"><use href="#eden-marque"/></svg>
+        <span class="brand-name">Domaine d’Éden</span><br>
+        <span class="brand-sub serif" style="font-style: italic">Château les Tourelles</span>
+        <p>Maison d’hôtes &amp; lieu de réception au cœur de la Haute-Loire.
+        Un château pour rêver, un domaine pour se ressourcer.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Le site</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="index.html#domaine">Le domaine</a></li>
+          <li><a href="chambres.html">Les chambres</a></li>
+          <li><a href="evenements.html">Événements</a></li>
+          <li><a href="index.html#galerie">Galerie</a></li>
+          <li><a href="index.html#contact">Contact &amp; accès</a></li>
+          <li><a href="reservation.html">Demander une disponibilité</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+33665329261">06 65 32 92 61</a></li>
+          <li><a href="mailto:chateaulestourelles43@gmail.com">chateaulestourelles43@gmail.com</a></li>
+          <li>2562 Avenue de Bazac<br>43800 Beaulieu</li>
+          <li style="margin-top: 1.2rem">
+            <span class="footer-social">
+              <a class="icon-btn" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.02 24V13.05h3.68l.55-4.27h-4.23V6.05c0-1.24.34-2.08 2.12-2.08h2.26V.17A30.3 30.3 0 0 0 15.1 0c-3.26 0-5.5 1.99-5.5 5.64v3.14H5.91v4.27H9.6V24z"/></svg></a>
+              <a class="icon-btn" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.59-.01-4.86-.07c-1.17-.06-1.81-.26-2.23-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.05-1.26-.06-1.65-.06-4.84s.02-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42 1.28-.05 1.65-.06 4.86-.06zM12 0C8.74 0 8.33.02 7.05.07c-1.28.06-2.15.26-2.91.56-.79.3-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.02 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.02 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.05-1.28.07-1.69.07-4.95s-.02-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13-.67-.67-1.34-1.08-2.13-1.38-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Domaine d’Éden — Château les Tourelles</span>
+      <span class="footer-legal"><a href="mentions-legales.html">Mentions légales</a> · <a href="politique-confidentialite.html">Confidentialité</a> · Site réalisé par <a href="https://marketframe.ai" target="_blank" rel="noopener">MarketFrame</a></span>
+    </div>
+  </div>
+</footer>
+
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
