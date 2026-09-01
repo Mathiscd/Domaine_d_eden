@@ -67,7 +67,13 @@ CORRESPONDANCE = {
 
 # 1500 et 2000 servent les écrans à haute densité (DPR 2), où une carte de
 # 360 px CSS réclame 720 px réels et le bandeau pleine largeur bien davantage.
-LARGEURS = [240, 480, 768, 1100, 1500, 2000]
+#
+# 1250 comble un trou qui coûtait cher : un bandeau pleine largeur sur un mobile
+# de 390 px en DPR 3 réclame ~1170 px, et devait donc prendre le 1500 — 390 Ko
+# pour le hero, là où 1250 en demande 292 au même plancher de fidélité. Le saut
+# 1100 → 1500 ajoutait 67 % de poids pour 36 % de pixels ; c'est le palier où
+# atterrissent les téléphones haut de gamme, celui qu'il ne fallait pas manquer.
+LARGEURS = [240, 480, 768, 1100, 1250, 1500, 2000]
 
 # 0,97 partout, sauf en 240 px : cette largeur ne sert qu'aux vignettes affichées
 # en 78 px, où l'écart avec la source est invisible.

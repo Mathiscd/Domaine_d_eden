@@ -12,3 +12,6 @@ __pycache__/
 
 # fichiers temporaires de bissection de generer-images.py
 *.essai
+
+# serveur local jetable des essais de compression
+.srv*.tmp.py
