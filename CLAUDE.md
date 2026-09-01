@@ -88,8 +88,8 @@ fixe : un ciel uni et un intérieur sombre n'ont pas les mêmes besoins.
 **Les sources font 2000px, pas 1500.** Les URLs de la fiche Gîtes de France
 (`photos-sources/urls.txt`) portent un preset Drupal `styles/scale_w1500_h1500/` ;
 retirer ce segment du chemin rend l'original en 2000×1500. C'est ce qui est
-versionné (copie dans `photos-sources/originaux/`). Repartir des 1500px
-re-crée le flou sur les écrans à haute densité.
+versionné, à la racine de `photos-sources/` — là où `generer-images.py` les lit.
+Repartir des 1500px re-crée le flou sur les écrans à haute densité.
 
 **Les largeurs vont jusqu'à 2000 parce que les écrans sont en DPR 2.** Une carte
 chambre de 360px CSS demande 720px réels, un bandeau pleine largeur près de 3000.
