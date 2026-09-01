@@ -155,6 +155,12 @@ au client.
   Georgia, son italique 77 %. Sans ces doublures, tout le texte se remet en page
   à l'arrivée des webfonts — c'était l'essentiel du CLS. Les valeurs sont mesurées,
   pas devinées ; les modifier au jugé casse la compensation.
+- **Le preload de l'image de tête passe avant la feuille de style**, et c'est
+  volontaire. Le mettre après accélère le premier paint — le CSS bloque le rendu,
+  l'image non — mais retarde d'autant l'arrivée du LCP : mesuré en 3G bridée
+  (300 ms, 700 kbps) sur mobile, FCP 1888 → 1420 ms mais LCP 3904 → 4768 ms.
+  Le LCP pèse plus lourd que le FCP dans les Core Web Vitals : l'ordre actuel est
+  le bon compromis. Essai déjà fait, ne pas le refaire.
 - **Le diaporama du hero charge ses vues à la main** (`data-src` / `data-srcset`,
   promus par `main.js`). Elles sont empilées en absolu, donc « dans le viewport » :
   `loading="lazy"` ne les différerait pas et les cinq partiraient d'un coup.
