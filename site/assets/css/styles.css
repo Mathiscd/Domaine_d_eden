@@ -618,27 +618,42 @@ h2 em, h1 em, .em-italic {
 .site-header.is-solid .nav-cta { border-color: var(--encre-24); }
 
 
-/* — Page de réservation : pas de hero, donc pas de header transparent —
-   Elle reprend telle quelle l'apparence « au scroll » des autres pages.
-   `.scroll-progress` est déjà couvert plus haut par `.is-solid`. */
-.resa-page .site-header {
+/* — Pages sans hero (réservation, mentions légales, confidentialité) —
+   Pas de photo sombre sous le header, donc pas de header transparent : il
+   prend d'emblée l'apparence « au scroll » des autres pages. Sans cela la
+   signature et le téléphone, dessinés en ivoire pour le hero, disparaissent
+   sur le blanc. `.scroll-progress` est déjà couvert plus haut par `.is-solid`. */
+.resa-page .site-header ,
+.legal-page .site-header {
   background: rgba(250, 250, 248, 0.92);
   backdrop-filter: blur(14px) saturate(1.15);
   box-shadow: 0 1px 0 var(--encre-12);
 }
 
-.resa-page .site-header .header-top { border-bottom-color: var(--encre-12); }
-.resa-page .site-header .brand-mark { color: var(--vert-txt); }
-.resa-page .site-header .brand-name { color: var(--encre); }
-.resa-page .site-header .brand-sub { color: var(--vert-txt); }
-.resa-page .site-header .header-phone { color: var(--encre); }
-.resa-page .site-header .header-phone:hover { color: var(--vert-txt); }
-.resa-page .site-header .icon-btn { border-color: var(--encre-24); color: var(--encre); }
-.resa-page .site-header .icon-btn:hover { color: var(--ivoire); border-color: var(--vert); }
-.resa-page .site-header .main-nav > a { color: var(--encre-88); }
-.resa-page .site-header .main-nav > a::after { background: var(--vert); }
-.resa-page .site-header .main-nav > a[aria-current="page"] { color: var(--vert-txt); }
-.resa-page .site-header .nav-cta { border-color: var(--encre-24); }
+.resa-page .site-header .header-top ,
+.legal-page .site-header .header-top { border-bottom-color: var(--encre-12); }
+.resa-page .site-header .brand-mark ,
+.legal-page .site-header .brand-mark { color: var(--vert-txt); }
+.resa-page .site-header .brand-name ,
+.legal-page .site-header .brand-name { color: var(--encre); }
+.resa-page .site-header .brand-sub ,
+.legal-page .site-header .brand-sub { color: var(--vert-txt); }
+.resa-page .site-header .header-phone ,
+.legal-page .site-header .header-phone { color: var(--encre); }
+.resa-page .site-header .header-phone:hover ,
+.legal-page .site-header .header-phone:hover { color: var(--vert-txt); }
+.resa-page .site-header .icon-btn ,
+.legal-page .site-header .icon-btn { border-color: var(--encre-24); color: var(--encre); }
+.resa-page .site-header .icon-btn:hover ,
+.legal-page .site-header .icon-btn:hover { color: var(--ivoire); border-color: var(--vert); }
+.resa-page .site-header .main-nav > a ,
+.legal-page .site-header .main-nav > a { color: var(--encre-88); }
+.resa-page .site-header .main-nav > a::after ,
+.legal-page .site-header .main-nav > a::after { background: var(--vert); }
+.resa-page .site-header .main-nav > a[aria-current="page"] ,
+.legal-page .site-header .main-nav > a[aria-current="page"] { color: var(--vert-txt); }
+.resa-page .site-header .nav-cta ,
+.legal-page .site-header .nav-cta { border-color: var(--encre-24); }
 
 /* Burger */
 .nav-toggle {
@@ -681,26 +696,67 @@ h2 em, h1 em, .em-italic {
      c'est lui qui porte le menu plein écran */
   .header-nav, .header-nav .container { height: 0; padding: 0; overflow: visible; }
 
+  /* Menu plein écran. Il est centré par des marges auto, pas par
+     `justify-content: center` : centré, un contenu plus haut que le menu
+     déborde des DEUX côtés, et le débord du haut passe avant l'origine du
+     défilement — « Accueil » devenait alors inatteignable dès que l'écran
+     était court (tout téléphone hors iPhone récent, ou l'écran en paysage).
+     La flexbox ne donne aux marges auto que l'espace libre positif : elles
+     retombent à zéro quand le contenu déborde, le menu se cale en haut et
+     tout redevient accessible en défilant.
+
+     `100dvh` et non la seule paire `top/bottom` : sur mobile la barre
+     d'outils du navigateur mange la hauteur, et le viewport dynamique est
+     le seul à suivre son escamotage. Les navigateurs qui l'ignorent
+     retombent sur `inset: 0`. */
   .main-nav {
     position: fixed;
     inset: 0;
+    height: 100dvh;
     background: var(--blanc);
     background-image: radial-gradient(circle at 80% 15%, rgba(116, 150, 61, 0.12), transparent 55%);
     flex-direction: column;
-    justify-content: center;
-    gap: 1.5rem;
+    justify-content: flex-start;
+    gap: clamp(0.45rem, 1.7vh, 1.5rem);
     clip-path: inset(0 0 100% 0);
     visibility: hidden;
     transition: clip-path 0.75s var(--ease-out), visibility 0.75s;
     z-index: 110;
-    padding: 6rem 1.5rem 3rem;
+    /* le rang 1 du header (74 px) garde la signature lisible par-dessus */
+    padding: calc(74px + clamp(0.4rem, 2.4vh, 1.5rem)) 1.5rem
+             calc(clamp(1rem, 3vh, 3rem) + env(safe-area-inset-bottom, 0px));
     overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .main-nav > a:first-child { margin-top: auto; }
+
+  /* Bandeau sous la signature. Sur un écran court — ou en paysage — le menu
+     défile, et les liens passaient alors à travers « Domaine d'Éden », qui le
+     surplombe (z-index 120 contre 110). Ce bandeau fixe, lui, ne défile pas :
+     il reprend exactement le fond du menu, donc le texte disparaît dessous au
+     lieu de s'y superposer. `background-size` en unités de viewport recale le
+     dégradé sur la même boîte que celle du menu — sans quoi il serait redessiné
+     dans les 74 px du bandeau et laisserait une couture. */
+  .main-nav::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 74px;
+    background-color: var(--blanc);
+    background-image: radial-gradient(circle at 80% 15%, rgba(116, 150, 61, 0.12), transparent 55%);
+    background-size: 100vw 100dvh;
+    z-index: 1;
+    pointer-events: none;
   }
   .nav-open .main-nav { clip-path: inset(0 0 0 0); visibility: visible; }
   .main-nav > a {
     color: var(--encre) !important;
     font-family: var(--serif);
-    font-size: 1.75rem;
+    /* `flex: none` : sans lui les liens sont comprimés dès que le menu
+       déborde, et le cadre du bouton « Réserver » se retrouve tranché. */
+    flex: none;
+    font-size: clamp(1.15rem, 3.9vh, 1.75rem);
+    line-height: 1.2;
     letter-spacing: 0.01em;
     text-transform: none;
     opacity: 0;
@@ -717,24 +773,33 @@ h2 em, h1 em, .em-italic {
   .main-nav .nav-cta {
     font-family: var(--sans);
     font-size: 0.78rem !important;
+    line-height: 1;
     text-transform: uppercase;
     letter-spacing: 0.2em;
     border-color: var(--encre-24);
-    margin-top: 0.6rem;
+    margin-top: clamp(0.3rem, 1.4vh, 0.6rem);
   }
 
   .nav-extra {
     display: flex;
+    flex: none;
     flex-direction: column;
     align-items: center;
-    gap: 1.2rem;
-    margin-top: 2.2rem;
+    gap: clamp(0.7rem, 2vh, 1.2rem);
+    margin-top: clamp(0.9rem, 2.8vh, 2.2rem);
+    /* pendant du `margin-top: auto` du premier lien : ensemble ils centrent
+       le menu tant qu'il tient, et s'effacent dès qu'il déborde */
+    margin-bottom: auto;
     opacity: 0;
     transform: translateY(18px);
     transition: opacity 0.6s var(--ease-out) 0.55s, transform 0.6s var(--ease-out) 0.55s;
   }
   .nav-open .nav-extra { opacity: 1; transform: none; }
-  .nav-extra .header-phone { display: inline-flex; color: var(--encre); font-size: 1.35rem; }
+  .nav-extra .header-phone {
+    display: inline-flex;
+    color: var(--encre);
+    font-size: clamp(1.05rem, 3vh, 1.35rem);
+  }
   .nav-extra .header-social { display: flex; }
   .nav-extra .icon-btn { border-color: var(--encre-24); color: var(--encre); }
   .nav-extra .icon-btn:hover { color: var(--ivoire); border-color: var(--vert); }
@@ -1803,6 +1868,22 @@ h2 em, h1 em, .em-italic {
   color: var(--ivoire-56);
 }
 
+/* Le pied de page est sombre : les liens légaux s'y soulignent en clair,
+   sinon --vert-txt (calé pour du texte sur fond blanc) y passe sous AA. */
+.footer-legal a {
+  color: var(--ivoire-82);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--ivoire-16);
+  transition: color 0.35s var(--ease-out), text-decoration-color 0.35s var(--ease-out);
+}
+
+.footer-legal a:hover {
+  color: var(--ivoire);
+  text-decoration-color: var(--vert-clair);
+}
+
 /* ---------- Révélations au scroll ---------- */
 
 [data-reveal="up"], .reveal {
@@ -1842,7 +1923,8 @@ h2 em, h1 em, .em-italic {
    Page réservation
    ========================================================================== */
 
-.resa-page { background: var(--blanc); min-height: 100vh; }
+.resa-page,
+.legal-page { background: var(--blanc); min-height: 100vh; }
 
 .resa-page::before {
   content: "";
@@ -2747,6 +2829,178 @@ h2 em, h1 em, .em-italic {
 .steps-flow h3 { font-size: 1.2rem; margin-bottom: 0.6rem; }
 .steps-flow p { font-size: 0.97rem; color: var(--ivoire-82); }
 
+/* ---------- Carrousels : la primitive unique ----------
+   Sous le seuil que porte `data-rail`, une grille devient un rail qui défile
+   au pouce. Le mécanisme est le défilement natif avec accroche par vue ; les
+   puces que pose main.js sont un repère et un raccourci, pas le moteur — sans
+   JavaScript le rail fonctionne déjà.
+
+   Le rail ressort des gouttières pour toucher le bord de l'écran : une carte
+   coupée au bord dit « ça continue » mieux que n'importe quelle flèche. La
+   marge négative est exactement compensée par le padding, si bien que la
+   première vue reste alignée sur la colonne de texte.
+
+   C'est le CSS seul qui décide si un rail est actif, dans le bloc média
+   ci-dessous ; main.js lit ensuite l'état calculé pour savoir s'il doit
+   poser ses puces. Une seule source de vérité, donc, et le rail marche
+   même si le script ne tourne pas. */
+
+@media (max-width: 900px) {
+  /* `etroit` : les rails qui ne prennent que sous 640 px, et qui ont leur
+     propre bloc plus bas. Sur une tablette, une galerie doit rester une
+     grille — on ne la met pas en file indienne à 768 px. */
+  /* le sélecteur double l'emporte sur le `display: grid` de la grille
+     remplacée, quel que soit l'ordre des règles dans le fichier */
+  [data-rail]:not([data-rail="etroit"])[data-rail] {
+    display: flex;
+    gap: var(--rail-espace, clamp(0.9rem, 3vw, 1.4rem));
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  [data-rail]:not([data-rail="etroit"])::-webkit-scrollbar { display: none; }
+
+  [data-rail]:not([data-rail="etroit"]) > * {
+    /* une vue large mais plafonnée : un téléphone n'en montre qu'une et
+       l'amorce de la suivante, une tablette en aligne deux ou trois */
+    flex: 0 0 var(--rail-vue, min(78%, 320px));
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* Le rail est un conteneur défilant : il prend le focus pour rester
+     parcourable aux flèches du clavier (WCAG 2.1.1). */
+  [data-rail]:focus-visible {
+    outline: 2px solid var(--vert);
+    outline-offset: 5px;
+  }
+
+
+  /* Les cartes formats sont du texte, pas des photos : il leur faut plus de
+     largeur qu'à une chambre pour que le paragraphe ne se hache pas. Le
+     padding vertical laisse passer les 4 px dont le survol soulève la carte,
+     que le conteneur défilant rognerait sinon. */
+  .formats-grid {
+    --rail-vue: min(86%, 380px);
+    padding-block: 5px;
+  }
+
+  /* Les deux photos d'une chambre. Ce rail-là ne sort pas des gouttières :
+     le numéro « i. » et le bouton de visionneuse sont posés en absolu sur le
+     bloc média, et les envoyer au bord de l'écran les décrocherait de la
+     colonne de texte à laquelle ils appartiennent. */
+  .room-photos {
+    --rail-vue: min(88%, 460px);
+    --rail-espace: 0.6rem;
+    margin-inline: 0;
+    padding-inline: 0;
+    scroll-padding-inline: 0;
+  }
+
+  /* Les puces de ce rail-là se posent sur la photo, en bas à gauche, face au
+     bouton de visionneuse. En flux elles allongeaient le bloc média et
+     poussaient le bouton — ancré en bas — hors de l'image. */
+  .room-detail-media .rail-puces {
+    position: absolute;
+    left: 0.35rem;
+    bottom: 0.25rem;
+    z-index: 2;
+    margin: 0;
+  }
+
+  .room-detail-media .rail-puce::before {
+    background: var(--ivoire-56);
+    /* un point clair sur une photo a besoin de son ombre pour exister */
+    box-shadow: 0 1px 3px rgba(10, 16, 8, 0.55);
+  }
+
+  .room-detail-media .rail-puce[aria-current="true"]::before { background: var(--ivoire); }
+
+  /* Le doigt a droit à ses 44 px : les deux commandes de la fiche chambre
+     étaient les plus petites cibles du site (35 px et 20 px de haut). */
+  .room-detail-media .room-media-btn { min-height: 44px; }
+
+  .room-amenities summary {
+    min-height: 44px;
+    /* `inline-flex` collerait la cible au seul texte ; on l'étire sur la
+       largeur pour que le pouce n'ait pas à viser. */
+    display: flex;
+    justify-content: flex-start;
+    border-top: 1px solid var(--encre-12);
+    border-bottom: 1px solid var(--encre-12);
+    padding-block: 0.6rem;
+  }
+
+  .room-amenities summary::after { margin-left: auto; }
+}
+
+/* Hors rail, les deux photos s'empilent — donc on n'en montre qu'une, celle
+   qui illustre la chambre. La seconde reste dans la page pour le rail et pour
+   la visionneuse ; `loading="lazy"` sous un parent masqué empêche son
+   téléchargement. */
+@media (min-width: 901px) {
+  .room-photo + .room-photo { display: none; }
+}
+
+/* Au-dessus du seuil la grille reprend ses droits : plus de puces. */
+@media (min-width: 901px) {
+  .rail-puces { display: none; }
+}
+
+.rail-puces {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: clamp(1.1rem, 3vw, 1.8rem);
+}
+
+.rail-puce {
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  /* le point ne fait que 7 px, la cible en fait 44 : c'est le doigt qui
+     décide de la taille, pas le dessin */
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.rail-puce::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--encre-24);
+  transition: background 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+
+.rail-puce[aria-current="true"]::before {
+  background: var(--vert-txt);
+  transform: scale(1.6);
+}
+
+.rail-puce:focus-visible { outline: 2px solid var(--vert); outline-offset: -6px; border-radius: 50%; }
+
+/* Sur les fonds sombres le point s'inverse. */
+.section--dark .rail-puce::before { background: var(--ivoire-16); }
+.section--dark .rail-puce[aria-current="true"]::before { background: var(--vert-clair); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-rail].is-rail { scroll-behavior: auto; }
+  .rail-puce::before { transition: none; }
+  .rail-puce[aria-current="true"]::before { transform: none; box-shadow: 0 0 0 3px var(--vert-16); }
+}
+
 /* ---------- Responsive des pages intérieures ---------- */
 
 @media (max-width: 940px) {
@@ -2792,6 +3046,43 @@ h2 em, h1 em, .em-italic {
   .choice-grid, .room-choice-grid { grid-template-columns: 1fr; }
   .hero-actions { flex-direction: column; align-items: stretch; }
   .hero-actions .btn { width: 100%; }
+  /* La galerie ne s'empile plus : elle défile sur deux rangs. Neuf photos
+     en file indienne demanderaient neuf puces, soit 396 px de cibles
+     tactiles sur un écran qui en fait 390 ; sur deux rangs elles forment
+     cinq colonnes, donc cinq puces — et on voit deux photos à la fois au
+     lieu d'une. La section passe de 2 100 px de haut à environ 330. */
+  .gallery[data-rail="etroit"] {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    grid-template-rows: repeat(2, clamp(128px, 33vw, 190px));
+    grid-auto-columns: min(78%, 300px);
+    gap: 0.6rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .gallery[data-rail="etroit"]::-webkit-scrollbar { display: none; }
+
+  .gallery[data-rail="etroit"] > figure {
+    /* les placements de la mosaïque sont posés en !important par le palier
+       1024 : il faut le même poids pour les rendre au flux automatique */
+    grid-column: auto !important;
+    grid-row: auto !important;
+    scroll-snap-align: start;
+  }
+
+  .gallery[data-rail="etroit"]:focus-visible {
+    outline: 2px solid var(--vert);
+    outline-offset: 5px;
+  }
+
   .gallery { grid-template-columns: 1fr; grid-auto-rows: 220px; }
   .gallery figure:nth-child(1) { grid-column: auto !important; }
   .sorei { flex-direction: column; align-items: flex-start; }
@@ -2820,3 +3111,111 @@ h2 em, h1 em, .em-italic {
   .format-card:hover .format-card__go svg,
   .format-card:focus-within .format-card__go svg { transform: none; }
 }
+
+/* ==========================================================================
+   Pages légales (mentions-legales.html, politique-confidentialite.html)
+   Une colonne de lecture, pas une page de composition : les titres display du
+   site (h1 jusqu'à 7,5 rem) écraseraient un texte qu'on lit au paragraphe.
+   On les ramène donc à une échelle de document, sans toucher au reste du site.
+   ========================================================================== */
+
+.legal-main {
+  /* Même calage que .resa-main : header fixe à deux rangs (74 + 54). */
+  padding: calc(128px + clamp(2.5rem, 5vw, 4rem)) 0 clamp(4rem, 8vw, 7rem);
+  background: var(--blanc);
+}
+
+@media (max-width: 940px) {
+  .legal-main { padding-top: calc(74px + clamp(2rem, 5vw, 3.5rem)); }
+}
+
+.legal {
+  max-width: 44rem;   /* ~72 caractères en Jost 1 rem : la ligne de lecture */
+  margin-inline: auto;
+}
+
+.legal h1 {
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  margin-bottom: 1.2rem;
+}
+
+.legal h2 {
+  font-size: clamp(1.55rem, 2.8vw, 2.1rem);
+  margin-top: 3.2rem;
+  margin-bottom: 0.9rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--encre-12);
+}
+
+.legal h3 {
+  font-size: clamp(1.15rem, 1.9vw, 1.35rem);
+  margin-top: 2rem;
+  margin-bottom: 0.7rem;
+  color: var(--vert-txt);
+}
+
+.legal p,
+.legal li {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--encre-88);
+}
+
+.legal p + p { margin-top: 1.1em; }
+
+.legal ul {
+  margin: 1.1em 0;
+  padding-left: 1.4rem;
+  list-style: none;
+}
+
+.legal li { position: relative; margin-bottom: 0.7em; }
+
+.legal li::before {
+  content: "";
+  position: absolute;
+  left: -1.4rem;
+  top: 0.78em;
+  width: 0.5rem;
+  height: 1px;
+  background: var(--vert);
+}
+
+.legal strong { font-weight: 500; color: var(--encre); }
+.legal em { font-style: italic; }
+
+.legal a {
+  color: var(--vert-txt);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: var(--vert-16);
+  transition: text-decoration-color 0.35s var(--ease-out);
+}
+
+.legal a:hover { text-decoration-color: var(--vert); }
+
+/* L'introduction : même corps, encre plus légère — c'est une date, pas du fond. */
+.legal__updated {
+  color: var(--encre-45) !important;
+  margin-bottom: 0.5rem;
+}
+
+/* Le retour à l'accueil garde la graisse des liens de navigation, mais sans le
+   filet de .link-arrow, qui pointe à droite alors que la flèche va à gauche. */
+.legal .legal__back {
+  margin-bottom: 2.6rem;
+  text-decoration: none;
+}
+
+.legal .legal__back::after { display: none; }
+
+.legal__foot {
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--encre-12);
+}
+
+.legal__foot .legal__back { margin-bottom: 0; }

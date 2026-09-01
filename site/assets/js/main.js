@@ -567,7 +567,14 @@
          tabindex : le vrai bouton « Voir les N photos » est déjà à
          l'intérieur — imbriquer deux commandes doublait l'arrêt de
          tabulation et produisait un bouton dans un bouton. */
-      media.addEventListener('click', function () { open(0); });
+      /* Sur mobile les deux photos sont côte à côte dans un rail : la
+         visionneuse doit s'ouvrir sur celle qu'on a touchée, pas sur la
+         première. */
+      media.addEventListener('click', function (e) {
+        var vue = e.target.closest && e.target.closest('.room-photo');
+        var i = vue ? Array.prototype.indexOf.call(vue.parentNode.children, vue) : 0;
+        open(i < 0 ? 0 : i);
+      });
       if (btn) {
         btn.addEventListener('click', function (e) { e.stopPropagation(); open(0); });
       }
@@ -583,6 +590,161 @@
       if (e.key === 'Escape') rClose();
       if (e.key === 'ArrowLeft') rShow(rCurrent - 1);
       if (e.key === 'ArrowRight') rShow(rCurrent + 1);
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     11. Carrousels : la primitive unique
+     Une grille portant `data-rail` devient un rail qui défile au pouce sous
+     le seuil fixé dans la feuille de style. Le CSS fait tout le travail de
+     défilement ; ce module n'ajoute que les puces — un repère de position
+     et un raccourci. Le rail reste donc utilisable si le script ne tourne pas.
+
+     On ne redéclare pas le seuil ici : on lit l'état que le CSS a calculé
+     (`overflow-x`). Un seuil recopié dans les deux fichiers finit toujours
+     par diverger.
+
+     La position courante se calcule au défilement plutôt qu'avec un
+     IntersectionObserver : sur une tablette le rail montre deux ou trois
+     vues à la fois, et plusieurs franchiraient le seuil en même temps. La
+     vue dont le bord gauche est le plus proche du bord du rail, elle, est
+     toujours unique.
+     ------------------------------------------------------------------ */
+  var railsAArbitrer = [];
+  Array.prototype.forEach.call(document.querySelectorAll('[data-rail]'), function (rail) {
+    var vues = Array.prototype.slice.call(rail.children);
+    if (vues.length < 2) return;
+
+    var puces = null;
+    var courante = -1;
+    var attente = 0;
+
+    /* Position de chaque vue dans le repère de défilement du rail. */
+    function reperes() {
+      var base = rail.getBoundingClientRect().left - rail.scrollLeft;
+      return vues.map(function (v) { return v.getBoundingClientRect().left - base; });
+    }
+
+    /* Les arrêts, c'est-à-dire les positions distinctes — pas les enfants.
+       La galerie range ses photos sur deux rangs : deux vues empilées dans la
+       même colonne partagent leur abscisse et ne valent donc qu'une puce.
+       Neuf photos en file indienne demanderaient neuf puces, soit 396 px de
+       cibles tactiles sur un écran qui en fait 390. */
+    function arrets() {
+      var pos = reperes(), out = [];
+      pos.forEach(function (x, i) {
+        for (var k = 0; k < out.length; k++) {
+          if (Math.abs(out[k].x - x) < 8) return;
+        }
+        out.push({ x: x, vue: vues[i] });
+      });
+      return out;
+    }
+
+    function intitule(vue, i, total) {
+      var titre = vue.querySelector('h2, h3, h4');
+      var img = vue.querySelector('img');
+      var quoi = titre ? titre.textContent.trim() : (img && img.alt ? img.alt : 'Vue ' + (i + 1));
+      return quoi + ' — ' + (i + 1) + ' sur ' + total;
+    }
+
+    function marquer(i) {
+      if (i === courante || !puces) return;
+      courante = i;
+      Array.prototype.forEach.call(puces.children, function (p, n) {
+        p.setAttribute('aria-current', n === i ? 'true' : 'false');
+      });
+    }
+
+    function suivre() {
+      if (attente) return;
+      attente = requestAnimationFrame(function () {
+        attente = 0;
+        var pos = arrets();
+        var ref = rail.scrollLeft;
+        var meilleure = 0, ecart = Infinity;
+        for (var i = 0; i < pos.length; i++) {
+          var d = Math.abs(pos[i].x - ref);
+          if (d < ecart) { ecart = d; meilleure = i; }
+        }
+        marquer(meilleure);
+      });
+    }
+
+    function allerA(i) {
+      var a = arrets()[i];
+      if (a) rail.scrollTo({ left: a.x, behavior: reduce ? 'auto' : 'smooth' });
+    }
+
+    function actif() {
+      var ox = window.getComputedStyle(rail).overflowX;
+      return ox === 'auto' || ox === 'scroll';
+    }
+
+    function poser() {
+      if (puces) return;
+      rail.setAttribute('tabindex', '0');
+      rail.setAttribute('role', 'group');
+      rail.setAttribute('aria-roledescription', 'carrousel');
+      if (!rail.getAttribute('aria-label')) {
+        rail.setAttribute('aria-label', rail.getAttribute('data-rail-label') || 'Carrousel');
+      }
+
+      /* Les vues hors écran à droite ne croisent jamais l'observateur
+         d'apparition, qui regarde la fenêtre et non le rail : sans ce coup
+         de pouce, tout ce qui dépasse du premier écran resterait invisible. */
+      vues.forEach(function (v) { v.classList.add('is-visible'); });
+
+      var liste = arrets();
+      puces = document.createElement('div');
+      puces.className = 'rail-puces';
+      liste.forEach(function (a, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'rail-puce';
+        b.setAttribute('aria-current', i === 0 ? 'true' : 'false');
+        b.setAttribute('aria-label', intitule(a.vue, i, liste.length));
+        b.addEventListener('click', function () { allerA(i); });
+        puces.appendChild(b);
+      });
+      rail.insertAdjacentElement('afterend', puces);
+
+      rail.addEventListener('scroll', suivre, { passive: true });
+      courante = -1;
+      marquer(0);
+    }
+
+    function retirer() {
+      if (!puces) return;
+      rail.removeAttribute('tabindex');
+      rail.removeAttribute('role');
+      rail.removeAttribute('aria-roledescription');
+      rail.removeAttribute('aria-label');
+      rail.removeEventListener('scroll', suivre);
+      puces.remove();
+      puces = null;
+      courante = -1;
+    }
+
+    /* Au redimensionnement on refait les puces plutôt que de les garder : le
+       nombre d'arrêts dépend de la largeur des vues, donc de celle de l'écran. */
+    function arbitrer(refaire) {
+      if (!actif()) { retirer(); return; }
+      if (refaire) retirer();
+      poser();
+    }
+    arbitrer(false);
+    railsAArbitrer.push(arbitrer);
+  });
+
+  /* Un seul écouteur de redimensionnement pour tous les rails de la page. */
+  if (railsAArbitrer.length) {
+    var reprise = 0;
+    window.addEventListener('resize', function () {
+      clearTimeout(reprise);
+      reprise = setTimeout(function () {
+        railsAArbitrer.forEach(function (f) { f(true); });
+      }, 160);
     });
   }
 })();
