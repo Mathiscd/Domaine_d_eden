@@ -37,14 +37,18 @@ SORTIE = 'site/assets/img'
 
 # Quelle source alimente quel nom d'image du site. Deux noms peuvent pointer sur
 # la même photo : une seule chambre a été photographiée pour l'instant.
+#
+# Les chambres sont illustrées par les captures Booking (plus bas), seules à
+# montrer les cinq pièces distinctes. Les vues Gîtes de France ne servent donc
+# que le château, les salons et le jardin — plus `chambre-brumes` et
+# `chambre-suite`, gardées pour les bandeaux de chambres.html.
 CORRESPONDANCE = {
-    'chambre-boudoir': 'gdf-3.jpg',   'chambre-brumes': 'gdf-0.jpg',
-    'chambre-nuit':    'gdf-2.jpg',   'chambre-songes': 'gdf-1.jpg',
-    'chambre-suite':   'gdf-0.jpg',   'chateau-angle':  'gdf-12.jpg',
-    'chateau-tour':    'gdf-10.jpg',  'cour-roues':     'gdf-13.jpg',
-    'hero-chateau':    'gdf-11.jpg',  'jardin':         'gdf-14.jpg',
-    'salle-a-manger':  'gdf-8.jpg',   'salon':          'gdf-5.jpg',
-    'salon-piano':     'gdf-6.jpg',   'table-hotes':    'gdf-9.jpg',
+    'chambre-brumes':  'gdf-0.jpg',   'chambre-suite':  'gdf-0.jpg',
+    'chateau-angle':   'gdf-12.jpg',  'chateau-tour':   'gdf-10.jpg',
+    'cour-roues':      'gdf-13.jpg',  'hero-chateau':   'gdf-11.jpg',
+    'jardin':          'gdf-14.jpg',  'salle-a-manger': 'gdf-8.jpg',
+    'salon':           'gdf-5.jpg',   'salon-piano':    'gdf-6.jpg',
+    'table-hotes':     'gdf-9.jpg',
 
     # Deuxième vue (chambre) + salle de bains, une paire par chambre — issues des
     # captures Booking fournies par le client (photos-sources/Chambres/), bien plus
