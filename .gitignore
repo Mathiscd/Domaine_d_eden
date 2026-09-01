@@ -6,3 +6,9 @@ __pycache__/
 
 # artefacts de contrôle de tools/generer-logo.py --comparer
 .logo-*.png
+
+# releves du banc responsive (tools/audit-responsive.py)
+.audit/
+
+# fichiers temporaires de bissection de generer-images.py
+*.essai
