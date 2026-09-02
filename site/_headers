@@ -16,6 +16,13 @@
 /assets/img/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Les polices auto-hébergées portent leur graisse et leur sous-ensemble dans
+# leur nom : un contenu différent serait un fichier différent. Cache d'un an.
+# Leurs @font-face vivent dans styles.css et non dans une feuille séparée :
+# une requête bloquante de moins dans le chemin critique.
+/assets/fonts/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
 # CSS et JS gardent leur nom d'une version à l'autre : pas d'immutable, mais
 # une revalidation peu coûteuse plutôt qu'un re-téléchargement complet.
 /assets/css/*

@@ -49,6 +49,7 @@ photos-sources/        photos sources 1500px (Gîtes de France) et le logo fourn
                        par le client — hors `site/`, donc versionnés mais jamais publiés
 tools/
   generer-images.py    régénère les variantes depuis photos-sources/ (voir « Images »)
+  verifier-srcset.py   contrôle que le balisage déclare bien toutes les variantes
   generer-logo.py      redessine la marque et toutes ses déclinaisons (voir « Le logo »)
   extrait-logo.html    bloc <symbol> produit par le script, à recopier dans les pages
 docs/
@@ -59,7 +60,8 @@ docs/
 ## Contraintes techniques
 
 - **Statique pur** : ouvrable en `file://`, hébergeable n'importe où. Pas de npm, pas de build.
-- **Fonts** : Google Fonts (Cormorant Garamond + Jost), avec stack de secours système.
+- **Fonts** : Cormorant Garamond + Jost, **auto-hébergées** dans `site/assets/fonts/`
+  (sous-ensembles latin et latin-ext seulement), avec stack de secours système.
 - **Formulaire** : front seul pour l'instant. L'envoi réel (boîte mail du client +
   auto-réponse, cf. proposition) sera branché via Formspree/Brevo au déploiement —
   point d'entrée unique dans `reservation.js` (`submitRequest()`).
@@ -118,6 +120,11 @@ breakpoints du CSS (1024 / 940 / 900 / 640). Si la mise en page change, il faut
 les remesurer : sous-estimer rend flou, sur-estimer gaspille. C'est ce que
 contrôle `tools/verifier-sizes.py`, à relancer après toute retouche de mise
 en page (servir `site/`, puis `python tools/verifier-sizes.py`).
+
+`tools/verifier-srcset.py` contrôle l'autre moitié : que le balisage déclare
+bien **toutes** les variantes présentes sur le disque. Un palier généré mais
+non branché est invisible à l'œil et coûte cher — c'est ce qui faisait servir
+un 2000 px à un mobile en DPR 3. À lancer après chaque `generer-images.py`.
 
 ## Le logo
 
@@ -182,6 +189,27 @@ au client.
   `fill-opacity` font partie des propriétés qui descendent dans l'arbre du `<use>`.
   C'est ce qui permet de faire tracer le château sans dupliquer ses chemins — et
   `fill-opacity` ne touche que les ouvertures, les tracés étant en `fill: none`.
+- **Les polices sont auto-hébergées, et sans `preload`.** Le passage par Google
+  Fonts coûtait deux allers-retours en cascade (googleapis pour la feuille, puis
+  gstatic pour les woff2) que les `preconnect` ne masquaient qu'à moitié : les
+  polices n'arrivaient qu'à 5,2 s en 3G bridée, contre 3,0 s servies depuis le
+  domaine. Leurs `@font-face` sont **dans `styles.css`**, pas dans une feuille à
+  part : styles.css bloque déjà le rendu, une seconde requête n'ajouterait qu'un
+  aller-retour. Et **ne pas les précharger** : mesuré, `<link rel=preload as=font>`
+  vole la bande passante au CSS et à l'image de tête, qui pèsent plus lourd — le
+  LCP de chambres.html passait de 3,0 à 5,1 s. Les doublures métriques suffisent
+  à rendre le texte lisible tout de suite. Seuls latin et latin-ext sont livrés :
+  le site est francophone.
+
+- **Un srcset doit déclarer toutes les variantes présentes sur le disque.** Le
+  palier 1250 avait été généré sans être branché dans le balisage : un mobile en
+  DPR 3 (390 × 3 = 1170 px demandés) ne trouvait rien entre 1100 et 2000 et
+  prenait le 2000. LCP de chambres.html : 6,0 s → 3,3 s une fois le 1250 déclaré.
+  Après tout passage de `generer-images.py`, vérifier que le HTML suit — en
+  gardant la monotonie du srcset, qui est ce qui justifie l'absence *volontaire*
+  du 1500 sur `chambre-suite`, `chambre-brumes` et `salle-a-manger` (il y pèse
+  plus lourd que le 2000, le script l'élague).
+
 - **La parallaxe mesure un parent, pas l'image** : le rect de l'image inclut la
   translation qu'on vient de lui appliquer, donc le décalage se cumulerait.
 
