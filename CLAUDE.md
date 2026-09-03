@@ -45,12 +45,13 @@ site/
     js/reservation.js  logique du formulaire multi-étapes
     img/               variantes responsives `<nom>-<largeur>.{avif,webp,jpg}`,
                        plus `logo-eden.svg` et les icônes du manifeste
-photos-sources/        photos sources 1500px (Gîtes de France) et le logo fourni
-                       par le client — hors `site/`, donc versionnés mais jamais publiés
+photos-sources/        photos sources 1500px (Gîtes de France), le logo fourni par le
+                       client (`logo-domaine-eden.png`) et le logo qu'il remplace
+                       (`…-ancien.png`) — hors `site/` : versionnés, jamais publiés
 tools/
   generer-images.py    régénère les variantes depuis photos-sources/ (voir « Images »)
   verifier-srcset.py   contrôle que le balisage déclare bien toutes les variantes
-  generer-logo.py      redessine la marque et toutes ses déclinaisons (voir « Le logo »)
+  generer-logo.py      vectorise la marque et produit ses déclinaisons (voir « Le logo »)
   extrait-logo.html    bloc <symbol> produit par le script, à recopier dans les pages
 docs/
   CHARTE-GRAPHIQUE.md  couleurs, marque, typos, espacements, composants, ton
@@ -128,21 +129,37 @@ un 2000 px à un mobile en DPR 3. À lancer après chaque `generer-images.py`.
 
 ## Le logo
 
-Le client a fourni son château au trait en PNG (`photos-sources/logo-domaine-eden.png`,
-619 px, blanc sur aplat vert texturé). Ce fichier ne sert plus qu'à la vérification :
-sa géométrie a été **relevée au pixel** — axe de symétrie, pentes, arcs de couronne,
-entraxes des créneaux — puis redessinée en vectoriel dans `tools/generer-logo.py`.
-Symétrie parfaite, trait d'épaisseur constante, créneaux réguliers ; l'écart au dessin
-d'origine reste sous 2 px sur une marque large de 359.
+Le client a fourni son logo en PNG (`photos-sources/logo-domaine-eden.png`, 638 px) :
+un château dessiné à la main — façade au trait `#404041`, volets sombres, toits de
+tourelles et grand arbre en aplat vert `#75983D` — encadré de deux lignes de lettrage,
+« CHÂTEAU LES TOURELLES » au-dessus, « DOMAINE D'EDEN » en dessous.
+
+`tools/generer-logo.py` le **vectorise**, et n'en garde que le dessin :
+
+- **Le lettrage est écarté.** Il est bitmap, donc flou dès 200 px, et les pages
+  composent déjà ces deux lignes en Jost et en Cormorant. Le script repère la seule
+  bande horizontale qui porte du vert — le dessin, l'arbre étant le seul élément vert
+  de l'image — plutôt que des coordonnées en dur : le logo peut être renvoyé recadré
+  ou à une autre échelle sans rien retoucher.
+- **Les deux encres sont séparées avant le seuillage.** Chaque pixel est décomposé en
+  `blanc + a_vert·(vert−blanc) + a_encre·(encre−blanc)` aux moindres carrés, ce qui
+  donne la bonne couverture jusque dans l'anti-crénelage — un simple seuil sur la
+  luminance rangerait les pixels de bord du vert avec l'encre.
+- **Le grain du trait est conservé.** Le dessin est irrégulier parce qu'il est fait à
+  la main ; c'est ce qui le distingue d'un pictogramme géométrique. On lisse assez pour
+  que le `d` reste court, pas assez pour redresser le trait.
 
 ```
 python tools/generer-logo.py              # écrit la marque, le favicon et les icônes
 python tools/generer-logo.py --comparer   # + superpose le rendu au PNG du client
+python tools/generer-logo.py --planche    # + planche d'essai de 20 à 220 px
 ```
 
-`--comparer` sort un taux de recouvrement (IoU ≈ 0,82, la limite d'un trait de 6 px)
-et `.logo-diff.png`, où le rouge marque ce qui manque et le bleu ce qui a été ajouté.
-C'est le contrôle à refaire si on touche à la géométrie.
+`--comparer` sort un IoU par encre (≈ 0,99 sur le vert, ≈ 0,85 sur l'encre — un trait
+large de 2 px perd la moitié de son recouvrement pour un décalage d'un pixel) et
+`.logo-diff.png`, où le rouge marque ce qui manque et le bleu ce qui a été ajouté.
+`--planche` est le seul juge des réglages de `--eden-trait` : la marque y est rendue
+à toutes ses tailles, sur fond sombre et sur fond clair.
 
 **Dans les pages** : pas de build, donc chaque page porte la marque **une seule fois**,
 en `<symbol id="eden-marque">` juste après `<body>`, et l'appelle ensuite par
@@ -150,7 +167,10 @@ en `<symbol id="eden-marque">` juste après `<body>`, et l'appelle ensuite par
 généré (`tools/extrait-logo.html`) : on le recopie, on ne le retouche pas à la main.
 Un `<use>` vers un fichier `.svg` externe n'est pas implémenté par les navigateurs,
 d'où la recopie ; `site/assets/img/logo-eden.svg` reste le fichier autonome à livrer
-au client.
+au client. Deux variables règlent le rendu, toutes deux héritées jusque dans l'arbre du
+`<use>` : `--eden-feuille` (couleur de l'arbre et des toits) et `--eden-trait`
+(épaississement optique). Le viewBox est `0 0 1024 917` et il est répété sur chaque
+`<svg class="eden-marque">` : le régénérer oblige à le propager dans les six pages.
 
 ## Pièges — ne pas « nettoyer » sans comprendre
 
@@ -175,20 +195,32 @@ au client.
   Un script de garde dans le `<head>` tranche avant le premier paint (sessionStorage,
   repli sur le référent) et pose `no-curtain` + `is-loaded` sur `<html>`. Il doit
   rester inline et en `<head>` : ailleurs, le rideau apparaîtrait puis disparaîtrait.
-- **`--eden-trait`** : la marque est dessinée avec un trait de 6,3 unités pour 291 de
-  haut. À 26 px dans l'en-tête, cela ne fait plus qu'un demi-pixel et le château vire au
-  gris — la variable l'épaissit à mesure qu'on rapetisse. Elle traverse l'arbre du
-  `<use>` (les propriétés personnalisées s'y héritent), c'est ce qui permet une seule
-  définition pour trois tailles. Même compensation côté icônes, mais figée taille par
-  taille dans le script : un PNG ne connaît qu'une dimension.
-- **Les icônes sont toutes le dessin au trait, vert sur tuile claire** — onglet compris.
-  Sous 48 px il s'adoucit franchement : c'est un arbitrage assumé en faveur de la
-  cohérence de marque. Une silhouette pleine tiendrait mieux à 16 px ; ne pas y revenir
-  sans le demander au client, c'est lui qui a tranché.
-- **Le rideau anime la marque partagée par héritage** : `stroke-dashoffset` et
-  `fill-opacity` font partie des propriétés qui descendent dans l'arbre du `<use>`.
-  C'est ce qui permet de faire tracer le château sans dupliquer ses chemins — et
-  `fill-opacity` ne touche que les ouvertures, les tracés étant en `fill: none`.
+- **`--eden-trait` n'est pas la graisse du dessin, c'est un liseré.** Le dessin est fait
+  d'aplats ; son trait le plus fin mesure 2 px sur une source large de 404, soit un
+  demi-pixel à 26 px de haut — le château virerait au gris. La variable cerne alors
+  chaque aplat d'un contour de sa propre couleur, ce qui l'épaissit **et** resserre les
+  fenêtres, qui sinon se boucheraient à l'anti-crénelage. Elle s'exprime en pixels
+  d'écran (`vector-effect="non-scaling-stroke"` sur les tracés) : 0,9 en en-tête, 0 dans
+  le rideau. Un moteur qui ignorerait `non-scaling-stroke` lirait 0,9 unité sur 1024 —
+  invisible, jamais un pâté. La variable traverse l'arbre du `<use>` (les propriétés
+  personnalisées s'y héritent), d'où une seule définition pour trois tailles ; côté
+  icônes la même compensation est figée taille par taille, un PNG ne connaissant qu'une
+  dimension.
+- **`--eden-feuille` bascule sans transition.** Le trait de la marque suit `color` et
+  fond en 0,5 s au passage du header en `.is-solid` ; le feuillage passe par une
+  propriété personnalisée, qui ne sait pas s'interpoler sans `@property`. À 26 px, les
+  deux teintes changeant dans le même sens, la bascule ne se voit pas — ne pas ajouter
+  d'`@property` pour ça.
+- **Les icônes sont le dessin bichrome sur tuile ivoire** — onglet compris. À 16 px le
+  château s'empâte : c'est un arbitrage assumé en faveur de la cohérence de marque. Une
+  silhouette simplifiée tiendrait mieux à cette taille ; ne pas y revenir sans le
+  demander au client.
+- **Le rideau ne « dessine » plus le château, il le lève.** La version au trait
+  déroulait `stroke-dashoffset` sur des tracés `pathLength="1"` ; le nouveau dessin est
+  fait d'aplats, il n'y a plus de longueur à dérouler. L'animation porte sur le
+  `clip-path` du `<svg>` hôte — un front horizontal qui remonte — ce qui laisse la
+  marque partagée avec l'en-tête intacte : rien à dupliquer, rien à animer dans l'arbre
+  du `<use>`.
 - **Les polices sont auto-hébergées, et sans `preload`.** Le passage par Google
   Fonts coûtait deux allers-retours en cascade (googleapis pour la feuille, puis
   gstatic pour les woff2) que les `preconnect` ne masquaient qu'à moitié : les

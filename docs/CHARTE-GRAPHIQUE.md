@@ -51,30 +51,38 @@ Règles :
 
 ## 2. La marque
 
-Le château au trait fourni par le client. Le PNG d'origine
-(`photos-sources/logo-domaine-eden.png`) reste la référence, mais il n'est plus jamais
-publié tel quel : sa géométrie a été relevée au pixel puis **redessinée en vectoriel**
-par `tools/generer-logo.py` — symétrie parfaite, graisse de trait constante, créneaux
-régulièrement espacés. Tout ce qui affiche la marque descend de ce script.
+Le château dessiné à la main que le client a fourni : façade au trait, volets sombres,
+toits de tourelles et grand arbre en aplat vert. Le PNG d'origine
+(`photos-sources/logo-domaine-eden.png`) reste la référence, mais il n'est jamais publié
+tel quel : il est **vectorisé** par `tools/generer-logo.py`, qui sépare les deux encres,
+suit leurs contours et **écarte le lettrage**. Tout ce qui affiche la marque descend de
+ce script.
 
-- **Une seule couleur à la fois.** La marque est monochrome et suit `currentColor` :
-  ivoire sur le hero et en pied de page (vert clair), vert `--vert-txt` sur fond blanc.
-  Jamais deux teintes dans le dessin, jamais de contour de contraste.
-- **Graisse optique.** Le trait fait 6,3 unités pour une marque haute de 291. Réduite à
-  26 px dans l'en-tête, elle tomberait à un demi-pixel et virerait au gris : la variable
-  `--eden-trait` l'épaissit d'autant qu'on rapetisse (9 en en-tête à 26 px, 8,5 en pied
-  de page à 30 px, 6,3 — le nominal — au-delà de 150 px).
+- **Le dessin seul, jamais le lettrage du fichier.** « Château les Tourelles » et
+  « Domaine d'Éden » sont composés par les pages en Jost et en Cormorant, à la bonne
+  graisse et à toutes les tailles. Les reprendre en bitmap depuis le PNG les rendrait
+  flous et désaccordés du reste.
+- **Deux teintes, deux rôles.** Le trait du château suit `currentColor` ; l'arbre et les
+  toits suivent `--eden-feuille`. Les couples admis : ivoire + `--vert-clair` sur fond
+  sombre (hero, pied de page, rideau), `--foret` + `--vert` sur fond clair (en-tête au
+  scroll, pages sans hero, menu mobile ouvert). Sans `--eden-feuille`, la marque
+  redevient monochrome — c'est le repli, pas une variante à choisir.
+- **Graisse optique.** Le trait du dessin descend à 2 px sur une source large de 404 :
+  ramené à 26 px de haut, il tombe sous le demi-pixel et le château vire au gris.
+  `--eden-trait` cerne alors chaque aplat d'un liseré de sa propre couleur, en pixels
+  d'écran : 0,9 en en-tête à 26 px, 0,85 en pied de page à 30 px, 0 au-delà de 90 px —
+  plus haut, le liseré bouche les fenêtres.
 - **Elle reste discrète.** Emblème au-dessus du nom, jamais à côté ni à la place :
   c'est la signature typographique qui porte, la marque ponctue. En en-tête elle plafonne
   à 26 px et ne touche jamais le filet du rang de service.
-- **Zone de respect** : au minimum la hauteur d'une tour autour du dessin. La marque ne
-  se pose jamais sur une photo chargée — en-tête, elle bénéficie du voile du hero.
-- **Icônes : toujours le dessin au trait, vert sur tuile claire** — de l'onglet 16 px à
-  l'icône d'écran d'accueil. Sous 48 px le trait passe sous le demi-pixel et le château
-  s'adoucit : c'est assumé, la cohérence de la marque prime sur la netteté de l'onglet.
-  La compensation optique est figée taille par taille dans `generer-logo.py`.
-- **Ne pas** : la mettre en couleur, l'incliner, l'étirer, lui ajouter le nom à
-  l'intérieur du dessin, ou la reproduire depuis une capture. On la régénère.
+- **Zone de respect** : au minimum la hauteur d'une tourelle autour du dessin. La marque
+  ne se pose jamais sur une photo chargée — en-tête, elle bénéficie du voile du hero.
+- **Icônes : le dessin bichrome sur tuile ivoire** — de l'onglet 16 px à l'icône d'écran
+  d'accueil. À 16 px le château s'empâte : c'est assumé, la cohérence de la marque prime
+  sur la netteté de l'onglet. La compensation optique y est figée taille par taille dans
+  `generer-logo.py`, un PNG ne connaissant qu'une dimension.
+- **Ne pas** : la recolorer hors des deux couples ci-dessus, l'incliner, l'étirer, lui
+  rendre le lettrage du PNG, ou la reproduire depuis une capture. On la régénère.
 
 ## 3. Typographie
 

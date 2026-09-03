@@ -615,22 +615,32 @@ h2 em, h1 em, .em-italic {
 .header-phone:hover { color: var(--vert-clair); }
 
 /* — La marque — */
-/* Le château du client, redessiné en vectoriel (tools/generer-logo.py). Chaque
-   page en porte une seule copie, en <symbol> ; en-tête, pied de page et rideau
-   l'appellent par <use>. La couleur suit donc `color`, comme le texte voisin.
+/* Le château du client, vectorisé depuis son fichier (tools/generer-logo.py).
+   Chaque page en porte une seule copie, en <symbol> ; en-tête, pied de page et
+   rideau l'appellent par <use>.
 
-   `--eden-trait` compense optiquement la réduction : le trait fait 6,3 unités
-   sur une marque haute de 291, soit un demi-pixel une fois ramenée à 38 px de
-   haut — le dessin virerait au gris. On l'épaissit d'autant qu'on rapetisse. */
+   Le dessin est bichrome et se règle par deux variables, l'une et l'autre
+   héritées jusque dans l'arbre du <use> :
+
+     `color`          donne sa teinte au trait du château — comme le texte voisin ;
+     `--eden-feuille` celle de l'arbre et des toits. Non définie, le feuillage
+                      suit le trait et la marque est monochrome.
+
+   `--eden-trait` compense optiquement la réduction : le trait du dessin descend
+   à 2 px sur une source large de 404, soit un demi-pixel une fois la marque
+   ramenée à 26 px de haut — le château virerait au gris. La variable cerne alors
+   chaque aplat d'un liseré de sa propre couleur. Elle s'exprime en pixels
+   d'écran (`vector-effect: non-scaling-stroke` sur les tracés), donc en valeurs
+   lisibles : 0,9 px d'épaississement dans l'en-tête, rien au-delà de 90 px. */
 .eden-marque {
   display: block;
   width: auto;
   height: 100%;
   overflow: visible;
-  /* doublure : le <symbol> porte déjà stroke-width="var(--eden-trait, 6.3)",
-     mais si un moteur refusait la variable dans un attribut de présentation,
-     la valeur retomberait sur celle héritée d'ici plutôt que sur 1. */
-  stroke-width: var(--eden-trait, 6.3);
+  /* doublure : le <symbol> porte déjà stroke-width="var(--eden-trait, 0)", mais
+     si un moteur refusait la variable dans un attribut de présentation, la
+     valeur retomberait sur celle héritée d'ici plutôt que sur 1. */
+  stroke-width: var(--eden-trait, 0);
 }
 
 /* — Signature centrée : la marque, puis le nom sur deux lignes — */
@@ -644,15 +654,19 @@ h2 em, h1 em, .em-italic {
 
 /* L'emblème coiffe la signature sans jamais toucher le filet du rang : 26 + 3 +
    deux lignes à 17,3 = 64 px dans un rang de 74. Il descend sous les 40 px de la
-   charte, d'où le trait forcé à 9 pour qu'il ne vire pas au gris. */
+   charte, d'où l'épaississement à 0,9 px pour qu'il ne vire pas au gris. */
 .brand-mark {
   height: 26px;
   margin-bottom: 3px;
-  --eden-trait: 9;
+  --eden-trait: 0.9;
   transition: color 0.5s var(--ease-out);
 }
 
-.brand-mark { color: var(--ivoire); }
+/* Sur le hero sombre : trait ivoire, feuillage dans le vert clair de la charte
+   (AA sur forêt). Le feuillage passe par une propriété personnalisée, qui ne
+   sait pas s'interpoler : il bascule net là où le trait fond en 0,5 s. À 26 px,
+   les deux teintes changeant dans le même sens, la bascule ne se voit pas. */
+.brand-mark { color: var(--ivoire); --eden-feuille: var(--vert-clair); }
 
 .brand-name {
   font-family: var(--sans);
@@ -765,7 +779,7 @@ h2 em, h1 em, .em-italic {
 }
 
 .site-header.is-solid .header-top { border-bottom-color: var(--encre-12); }
-.site-header.is-solid .brand-mark { color: var(--vert-txt); }
+.site-header.is-solid .brand-mark { color: var(--foret); --eden-feuille: var(--vert); }
 .site-header.is-solid .brand-name { color: var(--encre); }
 .site-header.is-solid .brand-sub { color: var(--vert-txt); }
 .site-header.is-solid .header-phone { color: var(--encre); }
@@ -794,7 +808,7 @@ h2 em, h1 em, .em-italic {
 .resa-page .site-header .header-top ,
 .legal-page .site-header .header-top { border-bottom-color: var(--encre-12); }
 .resa-page .site-header .brand-mark ,
-.legal-page .site-header .brand-mark { color: var(--vert-txt); }
+.legal-page .site-header .brand-mark { color: var(--foret); --eden-feuille: var(--vert); }
 .resa-page .site-header .brand-name ,
 .legal-page .site-header .brand-name { color: var(--encre); }
 .resa-page .site-header .brand-sub ,
@@ -928,7 +942,7 @@ h2 em, h1 em, .em-italic {
   .nav-open .main-nav > a { opacity: 1; transform: none; }
   /* la signature reste visible par-dessus le menu plein écran */
   .nav-open .brand { z-index: 120; }
-  .nav-open .brand-mark { color: var(--vert-txt); }
+  .nav-open .brand-mark { color: var(--foret); --eden-feuille: var(--vert); }
   .nav-open .brand-name { color: var(--encre); }
   .nav-open .brand-sub { color: var(--vert-txt); }
   .main-nav .nav-cta {
@@ -1220,28 +1234,30 @@ h2 em, h1 em, .em-italic {
 
 .is-loaded .curtain__inner { opacity: 0; transform: translateY(-12px); }
 
-/* Le château se dessine à l'ouverture. pathLength="1" ramène tous les tracés à
-   la même longueur : le grand contour et le plus petit créneau avancent donc du
-   même pas, et le dessin se referme d'un seul geste.
+/* Le château se lève à l'ouverture : un front horizontal remonte du sol jusqu'à
+   la pointe des tourelles, l'arbre poussant avec lui.
 
-   stroke-dashoffset et fill-opacity font partie des propriétés qui s'héritent
-   jusque dans l'arbre du <use> : c'est ce qui permet d'animer ici la marque
-   partagée avec l'en-tête sans en dupliquer les chemins. fill-opacity ne touche
-   que les ouvertures (les tracés sont en fill:none), qui s'allument à la fin. */
+   Le dessin est fait d'aplats, pas de tracés — il n'y a donc plus de longueur de
+   trait à dérouler comme dans la version au trait. L'animation porte sur le
+   `clip-path` du <svg> hôte, ce qui laisse la marque partagée avec l'en-tête
+   parfaitement intacte : rien à dupliquer, rien à animer dans l'arbre du <use>.
+   Le liseré optique est coupé ici (--eden-trait: 0) : à plus de 200 px, le trait
+   du dessin se suffit, et l'épaissir boucherait les fenêtres. */
 .curtain__draw {
   width: clamp(160px, 18vw, 224px);
   height: auto;
   margin-bottom: clamp(1.5rem, 3vw, 2.2rem);
-  color: var(--vert-clair);
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  fill-opacity: 0;
-  animation: cd-trace 1.05s var(--ease-soft) 60ms forwards,
-             cd-aplats 0.45s ease 0.8s forwards;
+  color: var(--ivoire);
+  --eden-feuille: var(--vert-clair);
+  --eden-trait: 0;
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+  animation: cd-lever 1.15s var(--ease-soft) 60ms forwards,
+             cd-parait 0.4s ease 60ms forwards;
 }
 
-@keyframes cd-trace { to { stroke-dashoffset: 0; } }
-@keyframes cd-aplats { to { fill-opacity: 1; } }
+@keyframes cd-lever { to { clip-path: inset(0 0 0 0); } }
+@keyframes cd-parait { to { opacity: 1; } }
 
 .curtain__mark {
   font-family: var(--serif);
@@ -1990,8 +2006,9 @@ h2 em, h1 em, .em-italic {
 .footer-mark {
   height: 30px;
   margin-bottom: 1.1rem;
-  color: var(--vert-clair);
-  --eden-trait: 8.5;
+  color: var(--ivoire-82);
+  --eden-feuille: var(--vert-clair);
+  --eden-trait: 0.85;
 }
 
 .footer-brand .brand-name { color: var(--ivoire); }
