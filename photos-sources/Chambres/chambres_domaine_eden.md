@@ -4,6 +4,13 @@ Source : [https://www.booking.com/hotel/fr/domaine-d-eden-chateau-les-tourelles.
 
 Note : Booking.com n'affiche pas de nom "romantique" pour chaque chambre sur cette page (juste "Vue sur Montagne" / "Vue sur Jardin"), mais la fiche de l'hébergement mentionne 5 chambres nommées : la Suite du Roi et de la Reine, l'Antichambre de la Nuit, le Boudoir des Rêves, le Refuge des Brumes et le Repère des Songes. Les descriptifs ci-dessous sont ceux affichés par Booking pour chaque type de chambre (dans l'ordre du tableau des chambres).
 
+**Correction du 3 septembre 2026** — Booking ne nomme pas les chambres, et l'appariement
+photos ↔ noms fait ici était faux pour trois d'entre elles. Le client a tranché :
+le **Boudoir des Rêves** est la chambre bleu pâle (photos 4-5), le **Refuge des Brumes**
+la chambre vert de gris (photos 6-7), le **Repaire des Songes** la chambre mauve
+(photos 2-3). Les fichiers de `photos-sources/` ont été renommés en conséquence ;
+ne pas se fier aux « variantes » du tableau ci-dessous pour les rebaptiser.
+
 ---
 
 ## Chambre 1 — Double Vue sur Montagne (35 m², très grand lit)

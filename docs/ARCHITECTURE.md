@@ -72,14 +72,16 @@ l'événementiel.
 
 1. **Bandeau de titre** — « Vos plus beaux jours, *entre parc et tourelles* ».
 2. **Recevoir ici** — éditorial : un seul événement à la fois, le domaine entier.
-3. **Les quatre formats** — mariages intimistes · cousinades & anniversaires ·
-   séminaires & journées d'équipe · privatisation complète. Chaque carte porte
-   3 repères concrets (capacité, durée, inclus).
+3. **Les trois formats** — mariages & privatisation · cousinades & anniversaires ·
+   séminaires & journées d'équipe. Chaque carte porte 3 repères concrets
+   (capacité, durée, inclus). Mariage et privatisation ne font qu'un : réserver
+   un mariage, c'est déjà réserver le domaine entier.
 4. **Le cadre** (bande sombre) — 30 personnes reçues · 5 chambres sur place ·
    1 événement à la fois.
 5. **Comment ça se passe** — 4 temps : votre message → la visite → le devis → le jour J.
 6. **À table** — formule traiteur simple (planches, produits locaux), traiteur extérieur
-   possible ; badge table d'hôtes 25 €/pers.
+   possible. La table d'hôtes à 25 €/pers. reste l'affaire des chambres : en
+   réception, on parle de service traiteur.
 7. **CTA final** — « Demander un devis » → `reservation.html?motif=evenement`.
 
 ## reservation.html — formulaire multi-étapes

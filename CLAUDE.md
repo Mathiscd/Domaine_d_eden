@@ -11,20 +11,39 @@ Prestation cadrée par la proposition commerciale MarketFrame
 chambres, événements — plus une page de réservation dédiée avec formulaire multi-étapes.
 Statique (HTML/CSS/JS vanilla), sans framework, sans build.
 
-## Règle d'or du design
+## Règle d'or du design — **elle a changé, à la demande du client**
 
-L'ancien site du client (captures `Capture*.PNG` à la racine) sert **uniquement de
-source de contenu** (textes, infos, photos). Son design — cercles verts criards,
-composition chargée — est le contre-exemple : le nouveau site doit être
-**diamétralement opposé**. La référence esthétique est
-[grandlauron.com](https://www.grandlauron.com/) : éditorial, épuré, photographique,
-serif élégante, beaucoup de blanc — c'est aussi elle qui dicte la structure du header
-(réseaux à gauche, signature centrée, téléphone à droite, nav en second rang).
+Le site a d'abord été construit contre son ancien site : éditorial, anguleux, épuré,
+sur le modèle de [grandlauron.com](https://www.grandlauron.com/). **Le client a demandé
+l'inverse**, et sa demande fait autorité — elle remplace la règle précédente, pas
+l'inverse. Il veut retrouver l'esprit de sa propre maquette :
 
-**La couleur, en revanche, est celle du client** : le vert `#74963D` relevé sur ses
-captures. C'est la seule teinte du site — aucun brun, laiton ni vert olive vif en aplat.
+- **Un site rond.** Tout arrondi, et généreusement : cartes, photos, boutons, champs,
+  badges, vignettes, encadrés, bandes de section, coins du hero. Jusqu'aux **pilules** et
+  aux **médaillons parfaitement circulaires** (portraits, vignettes, pastilles, icônes,
+  boutons d'action). Pas de rayon timide de 4 px.
+- **De grands disques verts en fond** : de larges cercles de `#74963D` et d'un vert plus
+  clair `#8FB25C`, qui débordent du cadre, se chevauchent (deux disques qui se recouvrent
+  dessinent une silhouette en pétale) et sortent par les bords.
+- **Moins premium, plus familial** : chaleureux, accueillant, doux. C'est une maison
+  d'hôtes tenue par deux hôtes, pas un palace. Le rond, la générosité des formes et la
+  présence franche du vert servent ça.
 
-Toute décision visuelle se prend contre [docs/CHARTE-GRAPHIQUE.md](docs/CHARTE-GRAPHIQUE.md).
+Ce qui **n'a pas** changé : l'ancien site du client (captures `Capture*.PNG` à la racine)
+reste **uniquement une source de contenu** — textes, informations, photos. On lui reprend
+son langage de formes et sa couleur, jamais sa mise en page (composition chargée, texte
+sur photo non voilée). La structure de l'en-tête reste celle de Grand Lauron (réseaux à
+gauche, signature centrée, téléphone à droite, nav en second rang) : elle a été validée et
+ne fait pas partie du virage.
+
+**La couleur reste la sienne** : le vert `#74963D` relevé sur ses captures. C'est toujours
+la seule teinte du site — aucun brun, laiton ni vert olive vif en aplat. Elle est
+simplement beaucoup plus présente qu'avant, et la famille s'est étoffée d'un vert plus
+clair pour les disques (`#8FB25C`) et d'un vert profond (`#40571E`) pour les aplats qui
+portent du texte blanc. **Le vert de marque ne porte pas de texte courant** : 3,34:1.
+
+Toute décision visuelle se prend contre [docs/CHARTE-GRAPHIQUE.md](docs/CHARTE-GRAPHIQUE.md)
+(**v4 — « rond, vert, familial »**).
 La structure et les contenus sont dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Arborescence
@@ -244,6 +263,57 @@ au client. Deux variables règlent le rendu, toutes deux héritées jusque dans 
 
 - **La parallaxe mesure un parent, pas l'image** : le rect de l'image inclut la
   translation qu'on vient de lui appliquer, donc le décalage se cumulerait.
+
+- **Les disques débordent par `translate`, pas par un `top`/`left` négatif.** Un
+  pourcentage de position se mesure sur le conteneur, un pourcentage de `translate` sur la
+  boîte du disque : le même réglage sortirait un disque de 30 px d'une section courte et de
+  300 px d'une section longue. `translate` est utilisé comme **propriété autonome**, pour
+  laisser `transform` à la dérive (`.disque--flotte`) sans qu'elles s'écrasent.
+
+- **Aucun `overflow-x: hidden` global n'a été ajouté, et il ne faut pas en ajouter.**
+  Les disques sortent du cadre mais sont clippés deux fois : par `.disques`
+  (`overflow: hidden`) et par la section qui l'accueille, qui l'était déjà. Vérifié à
+  390 px sur les six pages : `scrollWidth == clientWidth`.
+
+- **Le vert franc va dans les disques, jamais sous les mots.** Mesuré : au-delà de 0,16
+  d'alpha de `--vert` (ou 0,12 de `--vert-doux`) posé sur `--vert-profond`, les petits
+  accents en vert tendre passent sous 4,5:1 ; au-delà de 0,2 sur la forêt, c'est l'eyebrow
+  en vert clair qui tombe (4,17:1 à 0,3). Là où un disque franc croise une zone de lecture
+  — le panneau de citation —, un **voile de `--vert-profond` passe au-dessus des disques et
+  sous le texte** : les coins gardent le vert vif, la colonne de lecture son fond porteur.
+
+- **Le contraste se mesure sur la page rendue, pas sur le CSS.** Un disque, un dégradé ou
+  une photo passés sous un mot ne se voient dans aucune feuille de style. La méthode
+  employée : on emballe chaque nœud de texte dans un `<span>`, on relève ses rectangles de
+  ligne, puis on rephotographie la page **avec l'encre rendue transparente** et on
+  échantillonne le fond réel sous chaque mot (Playwright + Pillow). Trois précautions sans
+  lesquelles le relevé ment : figer les animations, désactiver `scroll-behavior: smooth`,
+  et photographier écran par écran — jamais en `fullPage`, où Chromium redimensionne le
+  viewport à la hauteur du document et recalcule tous les `svh`/`dvh`.
+
+- **`radial-gradient(circle 46% at …)` est invalide** : le rayon d'un cercle doit être une
+  longueur ou un mot-clé (`closest-side`…), jamais un pourcentage — seule une ellipse en
+  accepte. Toute la déclaration `background` est alors jetée **sans erreur visible**, et
+  c'est ainsi que le voile sombre du CTA final avait disparu. Écrire `ellipse X% Y%`.
+
+- **Le rayon d'une photo se pose sur son conteneur ou sur l'`<img>`, jamais sur le
+  `<picture>`** : celui-ci est en `display: contents` et n'a pas de boîte à découper
+  (même raison que le piège ci-dessus).
+
+- **Le médaillon rond garde la largeur de la photo qu'il remplace.** La vue en médaillon
+  du collage éditorial est passée de `aspect-ratio: 4/3` à `1`, mais sa largeur est
+  toujours 54 % de la colonne : les `sizes` du balisage restent justes. Changer la largeur
+  d'un média oblige à repasser `tools/verifier-sizes.py`.
+
+- **`.aside-band` reste sur une colonne.** Ses `sizes` déclarent 1 140 px au desktop,
+  c'est-à-dire toute la largeur du conteneur. La passer en deux colonnes ferait rendre la
+  photo à ~520 px : le navigateur téléchargerait deux fois trop d'octets sans qu'on ait
+  touché au HTML.
+
+- **Pas d'`overflow: hidden` sur l'en-tête**, malgré ses coins bas arrondis : son
+  `backdrop-filter` en fait déjà le bloc conteneur de ses descendants fixes, et le menu
+  plein écran en dépend. La jauge de lecture est rentrée du rayon des coins plutôt que
+  clippée.
 
 ## Vérification visuelle
 
