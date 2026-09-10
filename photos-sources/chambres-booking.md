@@ -5,11 +5,25 @@ Source : [https://www.booking.com/hotel/fr/domaine-d-eden-chateau-les-tourelles.
 Note : Booking.com n'affiche pas de nom "romantique" pour chaque chambre sur cette page (juste "Vue sur Montagne" / "Vue sur Jardin"), mais la fiche de l'hébergement mentionne 5 chambres nommées : la Suite du Roi et de la Reine, l'Antichambre de la Nuit, le Boudoir des Rêves, le Refuge des Brumes et le Repère des Songes. Les descriptifs ci-dessous sont ceux affichés par Booking pour chaque type de chambre (dans l'ordre du tableau des chambres).
 
 **Correction du 3 septembre 2026** — Booking ne nomme pas les chambres, et l'appariement
-photos ↔ noms fait ici était faux pour trois d'entre elles. Le client a tranché :
-le **Boudoir des Rêves** est la chambre bleu pâle (photos 4-5), le **Refuge des Brumes**
-la chambre vert de gris (photos 6-7), le **Repaire des Songes** la chambre mauve
-(photos 2-3). Les fichiers de `photos-sources/` ont été renommés en conséquence ;
-ne pas se fier aux « variantes » du tableau ci-dessous pour les rebaptiser.
+photos ↔ noms fait ici était faux pour trois d'entre elles. Le client a tranché, **par la
+couleur des murs** : le **Boudoir des Rêves** est la chambre bleu pâle, le **Refuge des
+Brumes** la chambre vert de gris, le **Repaire des Songes** la chambre mauve. Les fichiers
+ont été renommés en conséquence ; ne pas se fier aux « variantes » du tableau ci-dessous
+pour les rebaptiser.
+
+> Cette note citait aussi des numéros de photo (« photos 4-5 », « 6-7 », « 2-3 ») qui
+> **décalaient les trois chambres d'un cran** par rapport aux fichiers réellement écrits.
+> Vérification faite sur les images elles-mêmes — mauve, bleu pâle, vert de gris —, ce
+> sont **les noms de fichiers qui font foi** ; les numéros ont été retirés. Le tableau
+> ci-dessous le confirme de son côté : sa « Chambre 3 » est décrite comme *chambre
+> violette*, et c'est bien elle qui porte aujourd'hui le nom du Repaire des Songes.
+
+**Renommage du 10 septembre 2026** — ces captures étaient versionnées deux fois : le PNG
+d'origine dans `Chambres/`, et un ré-encodage JPEG à la racine, qui servait de source au
+générateur d'images. Encoder depuis ce JPEG dépensait des bits à reproduire ses propres
+artefacts, ce qu'interdit la règle d'or de `generer-images.py`. Les JPEG ont été
+supprimés ; le PNG sans perte est remonté à la racine sous le nom de sa chambre, et les
+noms `photo N.PNG` — d'où venait toute la confusion de numérotation — n'existent plus.
 
 ---
 
@@ -23,8 +37,8 @@ ne pas se fier aux « variantes » du tableau ci-dessous pour les rebaptiser.
 
 **Photos (pleine résolution) :**
 
-1. photo  
-2. photo 1 
+1. `chambre-suite-alt.png`
+2. `chambre-suite-sdb.png`
 
 ---
 
@@ -38,8 +52,8 @@ ne pas se fier aux « variantes » du tableau ci-dessous pour les rebaptiser.
 
 **Photos (pleine résolution) :**
 
-1. photo 2  
-2. photo 3
+1. `chambre-nuit-alt.png`
+2. `chambre-nuit-sdb.png`
 
 ---
 
@@ -53,8 +67,8 @@ ne pas se fier aux « variantes » du tableau ci-dessous pour les rebaptiser.
 
 **Photos (pleine résolution) :**
 
-1. photo 4  
-2. photo 5
+1. `chambre-songes-alt.png`
+2. `chambre-songes-sdb.png`
 
 ---
 
@@ -68,8 +82,8 @@ ne pas se fier aux « variantes » du tableau ci-dessous pour les rebaptiser.
 
 **Photos (pleine résolution) :**
 
-1. photo 6  
-2. photo 7
+1. `chambre-boudoir-alt.png`
+2. `chambre-boudoir-sdb.png`
 
 ---
 
@@ -83,8 +97,8 @@ ne pas se fier aux « variantes » du tableau ci-dessous pour les rebaptiser.
 
 **Photos (pleine résolution) :**
 
-1. photo 8  
-2. photo 9
+1. `chambre-brumes-alt.png`
+2. `chambre-brumes-sdb.png`
 
 ---
 

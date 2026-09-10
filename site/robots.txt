@@ -1,0 +1,157 @@
+# Domaine d'Éden — Château les Tourelles
+# https://domainededen.fr
+#
+# Le site veut être lu, indexé et cité — par les moteurs comme par les
+# assistants d'IA. Il n'y avait aucun robots.txt jusqu'ici, donc tout était
+# déjà autorisé de fait : ce fichier ne « débloque » rien. Il sert à trois
+# choses — déclarer le sitemap, rendre la politique explicite, et écarter les
+# aspirateurs qui coûtent de la bande passante sans jamais renvoyer personne.
+#
+# Deux distinctions commandent tout ce qui suit :
+#
+#   * Entraînement n'est pas recherche. Chaque fournisseur a scindé ses agents.
+#     Bloquer GPTBot (entraînement) ne retire PAS de ChatGPT Search, qui passe
+#     par OAI-SearchBot. Les confondre est la façon courante de devenir
+#     invisible sans l'avoir voulu.
+#
+#   * Google-Extended ne gouverne PAS les AI Overviews. Il ne concerne que
+#     l'entraînement et le grounding de Gemini. L'éligibilité aux AI Overviews
+#     dépend de Googlebot, plus bas.
+#
+# Enfin : un robots.txt n'a d'effet que sur les robots qui le respectent, et il
+# ne protège rien techniquement. Les Disallow ci-dessous expriment une
+# politique, pas une serrure.
+
+# ---------------------------------------------------------------------------
+# Moteurs classiques. Googlebot porte aussi l'éligibilité aux AI Overviews,
+# Bingbot celle de Copilot.
+# ---------------------------------------------------------------------------
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Qwantify
+Allow: /
+
+# ---------------------------------------------------------------------------
+# Recherche générative et récupération déclenchée par un utilisateur. Ce sont
+# ces agents-là qui produisent des citations et du trafic de renvoi : ce sont
+# les plus importants de tout le fichier.
+# ---------------------------------------------------------------------------
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# ---------------------------------------------------------------------------
+# Crawlers d'entraînement. Autorisés volontairement : pour une maison d'hôtes,
+# être connue d'un modèle vaut mieux que d'en être absente — un assistant peut
+# alors la nommer de mémoire, sans même déclencher de recherche. Le site est une
+# brochure publique, il n'y a pas de contenu propriétaire à préserver.
+#
+# CCBot (Common Crawl) est le plus discutable du lot : il ne cite jamais, mais
+# son corpus alimente une grande partie des modèles ouverts. C'est le chemin le
+# moins cher vers beaucoup de poids. Décision réversible : le passer en
+# Disallow ne casse rien d'autre.
+# ---------------------------------------------------------------------------
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# ---------------------------------------------------------------------------
+# Aspirateurs sans contrepartie : ni citation, ni renvoi. Revente de données,
+# moissonnage d'images, ou volumétrie disproportionnée pour un site de sept
+# pages.
+# ---------------------------------------------------------------------------
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: omgili
+Disallow: /
+
+User-agent: omgilibot
+Disallow: /
+
+User-agent: Webzio-Extended
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
+User-agent: Timpibot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: AI2Bot
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: cohere-training-data-crawler
+Disallow: /
+
+User-agent: PanguBot
+Disallow: /
+
+# ---------------------------------------------------------------------------
+# Tous les autres. Rien n'est interdit : /api/demande n'est pas listé en
+# Disallow à dessein — c'est un POST, jamais exploré, et une règle ne ferait
+# qu'y attirer l'attention sans rien protéger.
+# ---------------------------------------------------------------------------
+User-agent: *
+Allow: /
+
+Sitemap: https://domainededen.fr/sitemap.xml

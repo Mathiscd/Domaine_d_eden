@@ -1,0 +1,91 @@
+# Domaine d'Éden — Château les Tourelles
+
+> Maison d'hôtes de cinq chambres et lieu de réception privatisable jusqu'à
+> 30 personnes, dans un château à Beaulieu (Haute-Loire, Auvergne, France),
+> à 17 km du Puy-en-Velay. Tenue par Grégory et Thomas, qui reçoivent eux-mêmes.
+
+Ce fichier rassemble, en clair, les faits que les pages du site racontent en
+prose. Il ne remplace pas les pages : il évite d'avoir à les interpréter.
+
+## Identité
+
+- Nom : Domaine d'Éden — Château les Tourelles
+- Exploitant : DOMAINE D'EDEN, SAS au capital de 1 500 €
+- SIREN 990 274 847 · SIRET (siège) 990 274 847 00013 · TVA FR24990274847
+- RCS Le Puy-en-Velay, inscrit le 13 août 2025 · Code APE 55.20Z
+- Adresse : 2562 Avenue de Bazac, 43800 Beaulieu, France
+- Coordonnées : 45.127683, 3.963432 (Base Adresse Nationale)
+- Téléphone : +33 6 65 32 92 61
+- E-mail : chateaulestourelles43@gmail.com
+- Site : https://domainededen.fr
+- Hôtes : Thomas Ploton (président) et Grégory Maillard (directeur général)
+
+## Hébergement
+
+- Cinq chambres d'hôtes, deux personnes chacune, soit dix voyageurs au maximum
+- Suite du Roi et de la Reine — 35 m² — 104 € la nuit — vue sur le jardin
+- Antichambre de la Nuit — 17 m² — 97 € la nuit — vue sur le jardin
+- Boudoir des Rêves — 17 m² — 90 € la nuit — vue sur la montagne
+- Refuge des Brumes — 17 m² — 90 € la nuit — vue sur la montagne
+- Repaire des Songes — 14 m² — 97 € la nuit — sous les toits, vue sur le jardin
+- Petit-déjeuner maison compris dans tous les tarifs
+- Salle de bains privative avec douche dans chaque chambre
+- Arrivées de 16 h à 20 h · départs de 9 h à 10 h (autre horaire sur demande)
+- Parking privé gratuit · abri à vélos · salons ouverts aux hôtes · piano
+- Animaux admis sur demande
+- Table d'hôtes : 25 € par personne, sur réservation 24 à 48 h à l'avance
+- Un gîte pour 2 à 4 personnes doit ouvrir en 2027
+
+## Réceptions et événements
+
+- Le domaine se privatise entièrement, jusqu'à 30 personnes
+- Un seul événement à la fois : le parc et les salons ne sont jamais partagés
+- Mariage ou grande réception : le domaine est à vous du vendredi au dimanche,
+  cérémonie laïque possible dans le parc, cinq chambres pour loger vos proches
+- Anniversaire, cousinade, baptême : privatisation d'un midi ou d'une soirée,
+  service traiteur sur demande, chambres en option
+- Entreprise : soirée d'équipe en semaine, journée de formation ou séminaire
+  résidentiel, salle claire, service traiteur en produits locaux
+
+## Réserver
+
+Il n'y a ni paiement en ligne, ni calendrier de disponibilités. Les
+réservations se font par demande auprès des hôtes, qui répondent sous 24 heures
+et confirment eux-mêmes. Une demande envoyée depuis le site ne vaut donc ni
+réservation ni confirmation.
+
+- Formulaire : https://domainededen.fr/reservation.html
+- Téléphone : +33 6 65 32 92 61
+
+## Alentours
+
+- Le Puy-en-Velay à 17 km : cathédrale, vieille ville, départ du chemin de
+  Saint-Jacques-de-Compostelle
+- La Via Fluvia, voie verte entre Loire et Rhône, passe devant le domaine
+- Gorges de la Loire et Lavoûte-sur-Loire à 5 minutes
+- Restaurant La Galoche à 3 minutes
+
+## Pages
+
+- [Accueil](https://domainededen.fr/) : le domaine, les hôtes, les chambres, les alentours, la galerie, le contact
+- [Les chambres](https://domainededen.fr/chambres.html) : les cinq chambres en détail, équipements et tarifs
+- [Événements](https://domainededen.fr/evenements.html) : formats de privatisation, capacités, déroulé, table
+- [Réservation](https://domainededen.fr/reservation.html) : formulaire de demande en trois étapes
+- [Mentions légales](https://domainededen.fr/mentions-legales.html) : identité de l'exploitant
+
+## Au sein du domaine, mais distinct
+
+Thomas Ploton propose de l'équicoaching à pied à l'Espace Soreï, sur le
+domaine. C'est une activité indépendante de l'hébergement, avec son propre
+site : https://thomasploton.fr/
+
+## Ce que ce fichier ne dit pas
+
+Les informations suivantes ne figurent pas encore sur le site et ne doivent pas
+être devinées : présence et conditions du Wi-Fi, période d'ouverture dans
+l'année, moyens de paiement acceptés, langues parlées par les hôtes, durée
+minimale de séjour, conditions d'annulation, accessibilité aux personnes à
+mobilité réduite, tarif de la privatisation événementielle, taxe de séjour,
+horaire de fin autorisé pour une soirée.
+
+Dernière mise à jour : 2026-09-10

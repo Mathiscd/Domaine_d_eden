@@ -2,6 +2,27 @@
   publish = "site"
 
 # ---------------------------------------------------------------------------
+# Les URLs du site gardent leur `.html`, et c'est un choix, pas un oubli.
+#
+# Tous les liens internes sont en `.html` — ils ne peuvent pas s'en passer, le
+# site devant rester ouvrable en `file://`, où une URL sans extension ne mène
+# nulle part. Or Netlify, laissé à son réglage par défaut, redirige
+# `/chambres.html` vers `/chambres` : chacun de ces liens paierait alors un
+# saut 301, et le `<link rel="canonical">` des pages désignerait une URL qui
+# n'est pas celle réellement servie.
+#
+# `pretty_urls = false` fige le comportement, quel que soit le défaut de la
+# plateforme. Les canonicals, le sitemap et les liens internes déclarent donc
+# tous exactement la même forme, et aucune redirection n'est traversée.
+#
+# Corollaire : si l'on voulait un jour des URLs sans extension, il faudrait
+# changer les trois en même temps — liens, canonicals, sitemap — et accepter de
+# perdre l'ouverture en `file://`.
+# ---------------------------------------------------------------------------
+[build.processing.html]
+  pretty_urls = false
+
+# ---------------------------------------------------------------------------
 # Le formulaire poste sur le domaine du site, pas sur l'instance n8n.
 #
 # Sans ça, le navigateur du visiteur doit joindre `n8n.srv….hstgr.cloud` — un

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://domainededen.fr/chambres.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-chateau-2000.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-suite-alt-908.jpg</image:loc>
+      <image:title>La Suite du Roi et de la Reine, lit double et tête de lit en pierre</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-suite-sdb-930.jpg</image:loc>
+      <image:title>La Suite du Roi et de la Reine, salle de bains privative avec douche</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-alt-935.jpg</image:loc>
+      <image:title>L’Antichambre de la Nuit, murs bleus et toile de Jouy</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-sdb-931.jpg</image:loc>
+      <image:title>L’Antichambre de la Nuit, salle de bains privative avec douche</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-boudoir-alt-923.jpg</image:loc>
+      <image:title>Le Boudoir des Rêves, murs bleu pâle et tête de lit en toile de Jouy</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-boudoir-sdb-928.jpg</image:loc>
+      <image:title>Le Boudoir des Rêves, salle de bains privative avec douche</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-brumes-alt-921.jpg</image:loc>
+      <image:title>Le Refuge des Brumes, murs vert de gris et tête de lit fleurie</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-brumes-sdb-916.jpg</image:loc>
+      <image:title>Le Refuge des Brumes, salle de bains privative avec douche</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-songes-alt-932.jpg</image:loc>
+      <image:title>Le Repaire des Songes, murs mauves et chevets anciens</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-songes-sdb-911.jpg</image:loc>
+      <image:title>Le Repaire des Songes, salle de bains privative avec douche</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/table-hotes-2000.jpg</image:loc>
+      <image:title>La table d’hôtes dans la salle à manger du château</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/salon-2000.jpg</image:loc>
+      <image:title>Le grand salon du château, moulures et cheminée</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/salon-piano-2000.jpg</image:loc>
+      <image:title>Le salon de musique et son piano</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chateau-angle-1962.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://domainededen.fr/evenements.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chateau-angle-1962.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/salon-piano-2000.jpg</image:loc>
+      <image:title>Le salon de musique et son piano</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/cour-roues-2000.jpg</image:loc>
+      <image:title>La cour du domaine et ses roues de charrette</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/salle-a-manger-2000.jpg</image:loc>
+      <image:title>La grande salle à manger du château dressée pour un repas</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/jardin-2000.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://domainededen.fr/</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/hero-chateau-1947.jpg</image:loc>
+      <image:title>Le Château les Tourelles et sa tourelle de pierre sous le ciel d’Auvergne</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chateau-angle-1962.jpg</image:loc>
+      <image:title>Le château vu depuis l’allée du domaine</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/jardin-2000.jpg</image:loc>
+      <image:title>La cour intérieure et son jardin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/salon-piano-2000.jpg</image:loc>
+      <image:title>Le salon de musique et son piano</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chateau-tour-2000.jpg</image:loc>
+      <image:title>La tour du château depuis le parc</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-suite-alt-908.jpg</image:loc>
+      <image:title>La Suite du Roi et de la Reine</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-alt-935.jpg</image:loc>
+      <image:title>L’Antichambre de la Nuit</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-boudoir-alt-923.jpg</image:loc>
+      <image:title>Le Boudoir des Rêves</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-brumes-alt-921.jpg</image:loc>
+      <image:title>Le Refuge des Brumes</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-songes-alt-932.jpg</image:loc>
+      <image:title>Le Repaire des Songes</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/salle-a-manger-2000.jpg</image:loc>
+      <image:title>La grande salle à manger du château, sa longue table et ses poutres</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-chateau-2000.jpg</image:loc>
+      <image:title>Une chambre du château, son lit double et sa fenêtre ouvrant sur le parc</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/cour-roues-2000.jpg</image:loc>
+      <image:title>La cour et ses roues de charrette</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/salon-2000.jpg</image:loc>
+      <image:title>Le grand salon du château, ses moulures et sa cheminée</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/table-hotes-2000.jpg</image:loc>
+      <image:title>La table dressée dans la salle à manger</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chevaux-aube-1600.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://domainededen.fr/reservation.html</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-suite-alt-908.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-alt-935.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-boudoir-alt-923.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-brumes-alt-921.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-songes-alt-932.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/salon-2000.jpg</image:loc>
+    </image:image>
+  </url>
+</urlset>

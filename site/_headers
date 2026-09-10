@@ -43,3 +43,13 @@
   Cache-Control: public, max-age=0, must-revalidate
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+
+# Les fichiers d'indexation changent quand le contenu change, et doivent être
+# relus vite : un sitemap ou un robots.txt servi depuis un cache d'une semaine
+# retarde d'autant la prise en compte d'une page nouvelle.
+/robots.txt
+  Cache-Control: public, max-age=3600, must-revalidate
+/sitemap.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+/llms.txt
+  Cache-Control: public, max-age=3600, must-revalidate

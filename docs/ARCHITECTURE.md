@@ -145,7 +145,8 @@ pré-remplissent l'étape 1.
 | chateau-tour.jpg | tour côté jardin (gdf-10) | galerie / alentours |
 | cour-roues.jpg | mur de la cour, roues de charrette (gdf-13) | collage esprit des lieux |
 | jardin.jpg | cour jardin arbustes (gdf-14) | collage esprit des lieux |
-| chambre-*.jpg | chambre bleue toile de Jouy, 4 angles (gdf-0/1/2/3) | cartes chambres + blocs de chambres.html (provisoire) |
+| chambre-chateau.jpg | la chambre bleue toile de Jouy (gdf-0), seule photographiée par les Gîtes de France | décor : fond du hero de chambres.html, tuile de la galerie de l'accueil |
+| chambre-`<nom>`-alt / -sdb.jpg | les cinq chambres réelles + leur salle de bains, captures Booking (~930px, sources PNG) | blocs de chambres.html et cartes de la réservation |
 | salon.jpg / salon-piano.jpg | salons moulures & poutres (gdf-5/6) | chambres/galerie |
 | salle-a-manger.jpg / table-hotes.jpg | salle à manger (gdf-8/9) | table d'hôtes |
 | cuisine.jpg (gdf-7), salle-bain.jpg (gdf-4) | annexes | galerie si besoin |

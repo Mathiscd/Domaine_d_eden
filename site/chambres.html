@@ -3,17 +3,557 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Les chambres — Domaine d’Éden · Château les Tourelles</title>
-<meta name="description" content="Cinq chambres d’hôtes de charme au Château les Tourelles, en Haute-Loire : Suite du Roi et de la Reine, Antichambre de la Nuit, Boudoir des Rêves, Refuge des Brumes, Repaire des Songes. À partir de 90 € la nuit, petit-déjeuner compris.">
+<title>Chambre d’hôtes château près du Puy-en-Velay – 5 chambres</title>
+<meta name="description" content="Cinq chambres d’hôtes de charme au château, de 90 à 104 € la nuit, petit-déjeuner compris. Suite, boudoir, refuge : chacune son univers. Animaux admis.">
 <meta name="theme-color" content="#161B14">
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <link rel="preload" as="image" type="image/avif" fetchpriority="high"
-      imagesrcset="assets/img/chambre-suite-240.avif 240w, assets/img/chambre-suite-480.avif 480w, assets/img/chambre-suite-768.avif 768w, assets/img/chambre-suite-1100.avif 1100w, assets/img/chambre-suite-1250.avif 1250w, assets/img/chambre-suite-2000.avif 2000w"
+      imagesrcset="assets/img/chambre-chateau-240.avif 240w, assets/img/chambre-chateau-480.avif 480w, assets/img/chambre-chateau-768.avif 768w, assets/img/chambre-chateau-1100.avif 1100w, assets/img/chambre-chateau-1250.avif 1250w, assets/img/chambre-chateau-2000.avif 2000w"
       imagesizes="100vw">
 <link rel="stylesheet" href="assets/css/styles.css">
+<!-- SEO : canonical, partage social et données structurées -->
+<link rel="canonical" href="https://domainededen.fr/chambres.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Domaine d’Éden — Château les Tourelles">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Les cinq chambres du Château les Tourelles">
+<meta property="og:description" content="Cinq chambres d’hôtes de charme au château, de 90 à 104 € la nuit, petit-déjeuner compris. Suite, boudoir, refuge : chacune son univers. Animaux admis.">
+<meta property="og:url" content="https://domainededen.fr/chambres.html">
+<meta property="og:image" content="https://domainededen.fr/assets/img/og-chambres.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Une chambre d’hôtes du château, lit double et fenêtre sur le parc">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://domainededen.fr/#site",
+      "url": "https://domainededen.fr/",
+      "name": "Domaine d’Éden — Château les Tourelles",
+      "inLanguage": "fr-FR",
+      "publisher": {
+        "@id": "https://domainededen.fr/#etablissement"
+      }
+    },
+    {
+      "@type": [
+        "BedAndBreakfast",
+        "LodgingBusiness"
+      ],
+      "@id": "https://domainededen.fr/#etablissement",
+      "name": "Domaine d’Éden — Château les Tourelles",
+      "alternateName": [
+        "Château les Tourelles",
+        "Domaine d’Éden"
+      ],
+      "description": "Maison d’hôtes dans un château à Beaulieu, en Haute-Loire, à 17 km du Puy-en-Velay. Cinq chambres d’hôtes de 90 à 104 € la nuit, petit-déjeuner compris, table d’hôtes sur réservation, et privatisation du domaine entier jusqu’à 30 personnes pour un mariage, une cousinade ou un séminaire.",
+      "url": "https://domainededen.fr/",
+      "telephone": "+33665329261",
+      "email": "chateaulestourelles43@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "2562 Avenue de Bazac",
+        "postalCode": "43800",
+        "addressLocality": "Beaulieu",
+        "addressRegion": "Haute-Loire",
+        "addressCountry": "FR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 45.127683,
+        "longitude": 3.963432
+      },
+      "hasMap": "https://maps.google.com/?q=2562+Avenue+de+Bazac+43800+Beaulieu",
+      "logo": "https://domainededen.fr/assets/img/logo-eden.svg",
+      "image": [
+        "https://domainededen.fr/assets/img/og-accueil.jpg",
+        "https://domainededen.fr/assets/img/hero-chateau-2000.jpg",
+        "https://domainededen.fr/assets/img/chateau-angle-1962.jpg"
+      ],
+      "priceRange": "90–104 €",
+      "currenciesAccepted": "EUR",
+      "checkinTime": "16:00",
+      "checkoutTime": "10:00",
+      "numberOfRooms": {
+        "@type": "QuantitativeValue",
+        "value": 5,
+        "unitText": "chambres d’hôtes"
+      },
+      "petsAllowed": "Animaux admis sur demande",
+      "maximumAttendeeCapacity": 30,
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Petit-déjeuner maison compris",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Parking privé gratuit",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Abri à vélos (étape sur la Via Fluvia)",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Salons ouverts aux hôtes",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Piano",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Table d’hôtes sur réservation (25 € par personne)",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Animaux admis sur demande",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Parc arboré",
+          "value": true
+        }
+      ],
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Haute-Loire"
+        },
+        {
+          "@type": "City",
+          "name": "Le Puy-en-Velay"
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61585112267469",
+        "https://www.instagram.com/domaine_deden43/"
+      ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "name": "Demander une disponibilité",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://domainededen.fr/reservation.html",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        },
+        "result": {
+          "@type": "LodgingReservation",
+          "name": "Demande de séjour au Domaine d’Éden"
+        }
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://domainededen.fr/chambres.html#page",
+      "url": "https://domainededen.fr/chambres.html",
+      "name": "Les chambres — Domaine d’Éden",
+      "isPartOf": {
+        "@id": "https://domainededen.fr/#site"
+      },
+      "about": {
+        "@id": "https://domainededen.fr/#etablissement"
+      },
+      "inLanguage": "fr-FR",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://domainededen.fr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Les chambres",
+            "item": "https://domainededen.fr/chambres.html"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "HotelRoom",
+      "@id": "https://domainededen.fr/chambres.html#suite-roi-reine",
+      "name": "Suite du Roi et de la Reine",
+      "description": "La plus vaste des cinq chambres du Château les Tourelles : 35 m² sous hauts plafonds, armoire ancienne, salle de bains privative avec douche, vue sur le jardin.",
+      "url": "https://domainededen.fr/chambres.html#suite-roi-reine",
+      "image": "https://domainededen.fr/assets/img/chambre-suite-alt-930.jpg",
+      "containedInPlace": {
+        "@id": "https://domainededen.fr/#etablissement"
+      },
+      "bed": {
+        "@type": "BedDetails",
+        "numberOfBeds": 1,
+        "typeOfBed": "1 très grand lit double"
+      },
+      "occupancy": {
+        "@type": "QuantitativeValue",
+        "maxValue": 2,
+        "unitCode": "C62"
+      },
+      "floorSize": {
+        "@type": "QuantitativeValue",
+        "value": 35,
+        "unitCode": "MTK"
+      },
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Salle de bains privative avec douche",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Serviettes et articles de toilette fournis",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Sèche-cheveux",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Chauffage",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Armoire ou penderie",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Vue sur le jardin",
+          "value": true
+        }
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": 104,
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "url": "https://domainededen.fr/reservation.html?chambre=suite-roi-reine",
+        "description": "104 € la nuit pour deux, petit-déjeuner maison compris.",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": 104,
+          "priceCurrency": "EUR",
+          "unitText": "par nuit, pour deux personnes"
+        }
+      }
+    },
+    {
+      "@type": "HotelRoom",
+      "@id": "https://domainededen.fr/chambres.html#antichambre-nuit",
+      "name": "Antichambre de la Nuit",
+      "description": "17 m² aux teintes profondes, armoire ou penderie, salle de bains privative avec douche, vue sur le jardin.",
+      "url": "https://domainededen.fr/chambres.html#antichambre-nuit",
+      "image": "https://domainededen.fr/assets/img/chambre-nuit-alt-930.jpg",
+      "containedInPlace": {
+        "@id": "https://domainededen.fr/#etablissement"
+      },
+      "bed": {
+        "@type": "BedDetails",
+        "numberOfBeds": 1,
+        "typeOfBed": "1 grand lit double"
+      },
+      "occupancy": {
+        "@type": "QuantitativeValue",
+        "maxValue": 2,
+        "unitCode": "C62"
+      },
+      "floorSize": {
+        "@type": "QuantitativeValue",
+        "value": 17,
+        "unitCode": "MTK"
+      },
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Salle de bains privative avec douche",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Serviettes et articles de toilette fournis",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Sèche-cheveux",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Chauffage",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Armoire ou penderie",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Vue sur le jardin",
+          "value": true
+        }
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": 97,
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "url": "https://domainededen.fr/reservation.html?chambre=antichambre-nuit",
+        "description": "97 € la nuit pour deux, petit-déjeuner maison compris.",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": 97,
+          "priceCurrency": "EUR",
+          "unitText": "par nuit, pour deux personnes"
+        }
+      }
+    },
+    {
+      "@type": "HotelRoom",
+      "@id": "https://domainededen.fr/chambres.html#boudoir-reves",
+      "name": "Boudoir des Rêves",
+      "description": "17 m² aux couleurs douces, armoire ou penderie, salle de bains privative avec douche, vue sur la montagne.",
+      "url": "https://domainededen.fr/chambres.html#boudoir-reves",
+      "image": "https://domainededen.fr/assets/img/chambre-boudoir-alt-930.jpg",
+      "containedInPlace": {
+        "@id": "https://domainededen.fr/#etablissement"
+      },
+      "bed": {
+        "@type": "BedDetails",
+        "numberOfBeds": 1,
+        "typeOfBed": "1 grand lit double"
+      },
+      "occupancy": {
+        "@type": "QuantitativeValue",
+        "maxValue": 2,
+        "unitCode": "C62"
+      },
+      "floorSize": {
+        "@type": "QuantitativeValue",
+        "value": 17,
+        "unitCode": "MTK"
+      },
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Salle de bains privative avec douche",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Serviettes et articles de toilette fournis",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Sèche-cheveux",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Chauffage",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Armoire ou penderie",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Vue sur la montagne",
+          "value": true
+        }
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": 90,
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "url": "https://domainededen.fr/reservation.html?chambre=boudoir-reves",
+        "description": "90 € la nuit pour deux, petit-déjeuner maison compris.",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": 90,
+          "priceCurrency": "EUR",
+          "unitText": "par nuit, pour deux personnes"
+        }
+      }
+    },
+    {
+      "@type": "HotelRoom",
+      "@id": "https://domainededen.fr/chambres.html#refuge-brumes",
+      "name": "Refuge des Brumes",
+      "description": "17 m² à l’ambiance feutrée, armoire ou penderie, salle de bains privative avec douche, vue sur la montagne.",
+      "url": "https://domainededen.fr/chambres.html#refuge-brumes",
+      "image": "https://domainededen.fr/assets/img/chambre-brumes-alt-930.jpg",
+      "containedInPlace": {
+        "@id": "https://domainededen.fr/#etablissement"
+      },
+      "bed": {
+        "@type": "BedDetails",
+        "numberOfBeds": 1,
+        "typeOfBed": "1 grand lit double"
+      },
+      "occupancy": {
+        "@type": "QuantitativeValue",
+        "maxValue": 2,
+        "unitCode": "C62"
+      },
+      "floorSize": {
+        "@type": "QuantitativeValue",
+        "value": 17,
+        "unitCode": "MTK"
+      },
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Salle de bains privative avec douche",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Serviettes et articles de toilette fournis",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Sèche-cheveux",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Chauffage",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Armoire ou penderie",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Vue sur la montagne",
+          "value": true
+        }
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": 90,
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "url": "https://domainededen.fr/reservation.html?chambre=refuge-brumes",
+        "description": "90 € la nuit pour deux, petit-déjeuner maison compris.",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": 90,
+          "priceCurrency": "EUR",
+          "unitText": "par nuit, pour deux personnes"
+        }
+      }
+    },
+    {
+      "@type": "HotelRoom",
+      "@id": "https://domainededen.fr/chambres.html#repaire-songes",
+      "name": "Repaire des Songes",
+      "description": "14 m² nichés sous les toits, armoire ou penderie, salle de bains privative avec douche, vue sur le jardin.",
+      "url": "https://domainededen.fr/chambres.html#repaire-songes",
+      "image": "https://domainededen.fr/assets/img/chambre-songes-alt-930.jpg",
+      "containedInPlace": {
+        "@id": "https://domainededen.fr/#etablissement"
+      },
+      "bed": {
+        "@type": "BedDetails",
+        "numberOfBeds": 1,
+        "typeOfBed": "1 grand lit double"
+      },
+      "occupancy": {
+        "@type": "QuantitativeValue",
+        "maxValue": 2,
+        "unitCode": "C62"
+      },
+      "floorSize": {
+        "@type": "QuantitativeValue",
+        "value": 14,
+        "unitCode": "MTK"
+      },
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Salle de bains privative avec douche",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Serviettes et articles de toilette fournis",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Sèche-cheveux",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Chauffage",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Armoire ou penderie",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Vue sur le jardin",
+          "value": true
+        }
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": 97,
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "url": "https://domainededen.fr/reservation.html?chambre=repaire-songes",
+        "description": "97 € la nuit pour deux, petit-déjeuner maison compris.",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": 97,
+          "priceCurrency": "EUR",
+          "unitText": "par nuit, pour deux personnes"
+        }
+      }
+    }
+  ]
+}
+</script>
+<!-- /SEO -->
 <script>
 /* Rideau d'ouverture : une seule fois par visite, décidé avant le premier paint. */
 (function () {
@@ -43,6 +583,7 @@
 </script>
 </head>
 <body>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
 
 <!-- Marque du domaine — généré par tools/generer-logo.py, ne pas retoucher à la main.
      Appelée par <use href="#eden-marque"> dans l'en-tête, le pied de page et le rideau.
@@ -73,8 +614,8 @@
   <div class="header-top">
     <div class="container">
       <ul class="header-social">
-        <li><a class="icon-btn" href="https://www.instagram.com/domaine_deden43/" target="_blank" rel="noopener" aria-label="Le Domaine d’Éden sur Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.59-.01-4.86-.07c-1.17-.06-1.81-.26-2.23-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.05-1.26-.06-1.65-.06-4.84s.02-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42 1.28-.05 1.65-.06 4.86-.06zM12 0C8.74 0 8.33.02 7.05.07c-1.28.06-2.15.26-2.91.56-.79.3-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.02 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.02 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.05-1.28.07-1.69.07-4.95s-.02-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13-.67-.67-1.34-1.08-2.13-1.38-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a></li>
-        <li><a class="icon-btn" href="https://www.facebook.com/profile.php?id=61585112267469&amp;rdid=SBCicJ9Dxieiu7z4&amp;share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F17yi88Gemj%2F#" target="_blank" rel="noopener" aria-label="Le Domaine d’Éden sur Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.02 24V13.05h3.68l.55-4.27h-4.23V6.05c0-1.24.34-2.08 2.12-2.08h2.26V.17A30.3 30.3 0 0 0 15.1 0c-3.26 0-5.5 1.99-5.5 5.64v3.14H5.91v4.27H9.6V24z"/></svg></a></li>
+        <li><a class="icon-btn" href="https://www.instagram.com/domaine_deden43/" target="_blank" rel="me noopener" aria-label="Le Domaine d’Éden sur Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.59-.01-4.86-.07c-1.17-.06-1.81-.26-2.23-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.05-1.26-.06-1.65-.06-4.84s.02-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42 1.28-.05 1.65-.06 4.86-.06zM12 0C8.74 0 8.33.02 7.05.07c-1.28.06-2.15.26-2.91.56-.79.3-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.02 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.02 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.05-1.28.07-1.69.07-4.95s-.02-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13-.67-.67-1.34-1.08-2.13-1.38-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a></li>
+        <li><a class="icon-btn" href="https://www.facebook.com/profile.php?id=61585112267469" target="_blank" rel="me noopener" aria-label="Le Domaine d’Éden sur Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.02 24V13.05h3.68l.55-4.27h-4.23V6.05c0-1.24.34-2.08 2.12-2.08h2.26V.17A30.3 30.3 0 0 0 15.1 0c-3.26 0-5.5 1.99-5.5 5.64v3.14H5.91v4.27H9.6V24z"/></svg></a></li>
       </ul>
       <a class="brand" href="index.html" aria-label="Domaine d’Éden — accueil">
         <svg class="eden-marque brand-mark" viewBox="0 0 1024 917" aria-hidden="true" focusable="false"><use href="#eden-marque"/></svg>
@@ -94,16 +635,16 @@
       <nav class="main-nav" aria-label="Navigation principale">
         <a href="index.html">Accueil</a>
         <a href="index.html#domaine">Le domaine</a>
-        <a href="index.html#chambres">Les chambres</a>
-        <a href="index.html#evenements">Événements</a>
+        <a href="chambres.html" aria-current="page">Les chambres</a>
+        <a href="evenements.html">Événements</a>
         <a href="index.html#galerie">Galerie</a>
         <a href="index.html#contact">Contact</a>
         <a class="nav-cta" href="reservation.html">Réserver</a>
         <div class="nav-extra">
           <a class="header-phone" href="tel:+33665329261"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02z"/></svg><span>06 65 32 92 61</span></a>
           <ul class="header-social">
-        <li><a class="icon-btn" href="https://www.instagram.com/domaine_deden43/" target="_blank" rel="noopener" aria-label="Le Domaine d’Éden sur Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.59-.01-4.86-.07c-1.17-.06-1.81-.26-2.23-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.05-1.26-.06-1.65-.06-4.84s.02-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42 1.28-.05 1.65-.06 4.86-.06zM12 0C8.74 0 8.33.02 7.05.07c-1.28.06-2.15.26-2.91.56-.79.3-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.02 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.02 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.05-1.28.07-1.69.07-4.95s-.02-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13-.67-.67-1.34-1.08-2.13-1.38-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a></li>
-        <li><a class="icon-btn" href="https://www.facebook.com/profile.php?id=61585112267469&amp;rdid=SBCicJ9Dxieiu7z4&amp;share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F17yi88Gemj%2F#" target="_blank" rel="noopener" aria-label="Le Domaine d’Éden sur Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.02 24V13.05h3.68l.55-4.27h-4.23V6.05c0-1.24.34-2.08 2.12-2.08h2.26V.17A30.3 30.3 0 0 0 15.1 0c-3.26 0-5.5 1.99-5.5 5.64v3.14H5.91v4.27H9.6V24z"/></svg></a></li>
+        <li><a class="icon-btn" href="https://www.instagram.com/domaine_deden43/" target="_blank" rel="me noopener" aria-label="Le Domaine d’Éden sur Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.59-.01-4.86-.07c-1.17-.06-1.81-.26-2.23-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.05-1.26-.06-1.65-.06-4.84s.02-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42 1.28-.05 1.65-.06 4.86-.06zM12 0C8.74 0 8.33.02 7.05.07c-1.28.06-2.15.26-2.91.56-.79.3-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.02 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.02 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.05-1.28.07-1.69.07-4.95s-.02-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13-.67-.67-1.34-1.08-2.13-1.38-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a></li>
+        <li><a class="icon-btn" href="https://www.facebook.com/profile.php?id=61585112267469" target="_blank" rel="me noopener" aria-label="Le Domaine d’Éden sur Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.02 24V13.05h3.68l.55-4.27h-4.23V6.05c0-1.24.34-2.08 2.12-2.08h2.26V.17A30.3 30.3 0 0 0 15.1 0c-3.26 0-5.5 1.99-5.5 5.64v3.14H5.91v4.27H9.6V24z"/></svg></a></li>
       </ul>
         </div>
       </nav>
@@ -113,17 +654,17 @@
   <span class="scroll-progress" aria-hidden="true"></span>
 </header>
 
-<main>
+<main id="contenu">
 
   <!-- ======================= BANDEAU DE TITRE ======================= -->
   <section class="page-hero">
-    <div class="bg"><picture><source type="image/avif" srcset="assets/img/chambre-suite-240.avif 240w, assets/img/chambre-suite-480.avif 480w, assets/img/chambre-suite-768.avif 768w, assets/img/chambre-suite-1100.avif 1100w, assets/img/chambre-suite-1250.avif 1250w, assets/img/chambre-suite-2000.avif 2000w" sizes="100vw"><source type="image/webp" srcset="assets/img/chambre-suite-240.webp 240w, assets/img/chambre-suite-480.webp 480w, assets/img/chambre-suite-768.webp 768w, assets/img/chambre-suite-1100.webp 1100w, assets/img/chambre-suite-1250.webp 1250w, assets/img/chambre-suite-1500.webp 1500w, assets/img/chambre-suite-2000.webp 2000w" sizes="100vw"><img srcset="assets/img/chambre-suite-240.jpg 240w, assets/img/chambre-suite-480.jpg 480w, assets/img/chambre-suite-768.jpg 768w, assets/img/chambre-suite-1100.jpg 1100w, assets/img/chambre-suite-1250.jpg 1250w, assets/img/chambre-suite-2000.jpg 2000w" sizes="100vw" src="assets/img/chambre-suite-1500.jpg" width="1500" height="1125" alt="" aria-hidden="true" fetchpriority="high"></picture></div>
+    <div class="bg"><picture><source type="image/avif" srcset="assets/img/chambre-chateau-240.avif 240w, assets/img/chambre-chateau-480.avif 480w, assets/img/chambre-chateau-768.avif 768w, assets/img/chambre-chateau-1100.avif 1100w, assets/img/chambre-chateau-1250.avif 1250w, assets/img/chambre-chateau-2000.avif 2000w" sizes="100vw"><source type="image/webp" srcset="assets/img/chambre-chateau-240.webp 240w, assets/img/chambre-chateau-480.webp 480w, assets/img/chambre-chateau-768.webp 768w, assets/img/chambre-chateau-1100.webp 1100w, assets/img/chambre-chateau-1250.webp 1250w, assets/img/chambre-chateau-1500.webp 1500w, assets/img/chambre-chateau-2000.webp 2000w" sizes="100vw"><img srcset="assets/img/chambre-chateau-240.jpg 240w, assets/img/chambre-chateau-480.jpg 480w, assets/img/chambre-chateau-768.jpg 768w, assets/img/chambre-chateau-1100.jpg 1100w, assets/img/chambre-chateau-1250.jpg 1250w, assets/img/chambre-chateau-2000.jpg 2000w" sizes="100vw" src="assets/img/chambre-chateau-1500.jpg" width="1500" height="1125" alt="" aria-hidden="true" fetchpriority="high"></picture></div>
     <div class="disques" aria-hidden="true">
       <span class="disque disque--xl disque--doux pos-bg disque--flotte"></span>
       <span class="disque disque--l disque--vert pos-hd"></span>
     </div>
     <div class="container">
-      <p class="crumb"><a href="index.html">Accueil</a><span>·</span>Les chambres</p>
+      <nav class="crumb" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span>·</span>Les chambres</nav>
       <p class="eyebrow">L’hébergement</p>
       <h1><span class="ln"><span>Cinq chambres,</span></span><span class="ln"><span><em>cinq univers</em></span></span></h1>
       <p class="lede">Chacune porte un nom, une lumière et une humeur.
@@ -202,7 +743,7 @@
             <summary>Voir les équipements</summary>
             <div class="room-amenities-groups">
               <div>
-                <h4>Salle de bains privative</h4>
+                <h3>Salle de bains privative</h3>
                 <ul>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Articles de toilette gratuits</li>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Toilettes</li>
@@ -212,7 +753,7 @@
                 </ul>
               </div>
               <div>
-                <h4>Dans la chambre</h4>
+                <h3>Dans la chambre</h3>
                 <ul>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Linge de maison</li>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Chauffage</li>
@@ -254,7 +795,7 @@
             <summary>Voir les équipements</summary>
             <div class="room-amenities-groups">
               <div>
-                <h4>Salle de bains privative</h4>
+                <h3>Salle de bains privative</h3>
                 <ul>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Articles de toilette gratuits</li>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Toilettes</li>
@@ -264,7 +805,7 @@
                 </ul>
               </div>
               <div>
-                <h4>Dans la chambre</h4>
+                <h3>Dans la chambre</h3>
                 <ul>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Linge de maison</li>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Chauffage</li>
@@ -306,7 +847,7 @@
             <summary>Voir les équipements</summary>
             <div class="room-amenities-groups">
               <div>
-                <h4>Salle de bains privative</h4>
+                <h3>Salle de bains privative</h3>
                 <ul>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Articles de toilette gratuits</li>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Toilettes</li>
@@ -316,7 +857,7 @@
                 </ul>
               </div>
               <div>
-                <h4>Dans la chambre</h4>
+                <h3>Dans la chambre</h3>
                 <ul>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Linge de maison</li>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Chauffage</li>
@@ -358,7 +899,7 @@
             <summary>Voir les équipements</summary>
             <div class="room-amenities-groups">
               <div>
-                <h4>Salle de bains privative</h4>
+                <h3>Salle de bains privative</h3>
                 <ul>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Articles de toilette gratuits</li>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Toilettes</li>
@@ -368,7 +909,7 @@
                 </ul>
               </div>
               <div>
-                <h4>Dans la chambre</h4>
+                <h3>Dans la chambre</h3>
                 <ul>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Linge de maison</li>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Chauffage</li>
@@ -410,7 +951,7 @@
             <summary>Voir les équipements</summary>
             <div class="room-amenities-groups">
               <div>
-                <h4>Salle de bains privative</h4>
+                <h3>Salle de bains privative</h3>
                 <ul>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Articles de toilette gratuits</li>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Toilettes</li>
@@ -420,7 +961,7 @@
                 </ul>
               </div>
               <div>
-                <h4>Dans la chambre</h4>
+                <h3>Dans la chambre</h3>
                 <ul>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Linge de maison</li>
                   <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Chauffage</li>
@@ -450,7 +991,7 @@
         <figure><picture><source type="image/avif" srcset="assets/img/table-hotes-240.avif 240w, assets/img/table-hotes-480.avif 480w, assets/img/table-hotes-768.avif 768w, assets/img/table-hotes-1100.avif 1100w, assets/img/table-hotes-1250.avif 1250w, assets/img/table-hotes-1500.avif 1500w, assets/img/table-hotes-2000.avif 2000w" sizes="(min-width: 1025px) 1140px, (min-width: 941px) 950px, (min-width: 901px) 870px, (min-width: 641px) 830px, min(92vw, 590px)"><source type="image/webp" srcset="assets/img/table-hotes-240.webp 240w, assets/img/table-hotes-480.webp 480w, assets/img/table-hotes-768.webp 768w, assets/img/table-hotes-1100.webp 1100w, assets/img/table-hotes-1250.webp 1250w, assets/img/table-hotes-1500.webp 1500w, assets/img/table-hotes-2000.webp 2000w" sizes="(min-width: 1025px) 1140px, (min-width: 941px) 950px, (min-width: 901px) 870px, (min-width: 641px) 830px, min(92vw, 590px)"><img srcset="assets/img/table-hotes-240.jpg 240w, assets/img/table-hotes-480.jpg 480w, assets/img/table-hotes-768.jpg 768w, assets/img/table-hotes-1100.jpg 1100w, assets/img/table-hotes-1250.jpg 1250w, assets/img/table-hotes-1500.jpg 1500w, assets/img/table-hotes-2000.jpg 2000w" sizes="(min-width: 1025px) 1140px, (min-width: 941px) 950px, (min-width: 901px) 870px, (min-width: 641px) 830px, min(92vw, 590px)" src="assets/img/table-hotes-1500.jpg" width="1500" height="1125" alt="La table d’hôtes dans la salle à manger du château" loading="lazy" decoding="async" fetchpriority="low"></picture></figure>
         <div class="aside-band-text">
           <p class="eyebrow">La table d’hôtes</p>
-          <h3>Les saveurs locales,<br>à la table du château</h3>
+          <h2>Les saveurs locales,<br>à la table du château</h2>
           <p style="margin-top: 1.3rem">Sur réservation 24 à 48 h avant votre arrivée,
           partagez une table d’hôtes préparée avec les produits de la région —
           25 € par personne, dans la grande salle à manger ou sous les arbres du parc.</p>
@@ -518,8 +1059,8 @@
         Un château pour rêver, un domaine pour se ressourcer.</p>
       </div>
       <div class="footer-col">
-        <h4>Le site</h4>
-        <ul>
+        <h3>Le site</h3>
+<nav aria-label="Navigation du pied de page">        <ul>
           <li><a href="index.html">Accueil</a></li>
           <li><a href="index.html#domaine">Le domaine</a></li>
           <li><a href="chambres.html">Les chambres</a></li>
@@ -527,18 +1068,18 @@
           <li><a href="index.html#galerie">Galerie</a></li>
           <li><a href="index.html#contact">Contact &amp; accès</a></li>
           <li><a href="reservation.html">Demander une disponibilité</a></li>
-        </ul>
+        </ul></nav>
       </div>
       <div class="footer-col">
-        <h4>Contact</h4>
+        <h3>Contact</h3>
         <ul>
           <li><a href="tel:+33665329261">06 65 32 92 61</a></li>
           <li><a href="mailto:chateaulestourelles43@gmail.com">chateaulestourelles43@gmail.com</a></li>
-          <li>2562 Avenue de Bazac<br>43800 Beaulieu</li>
+          <li>2562 Avenue de Bazac,<br>43800 Beaulieu</li>
           <li style="margin-top: 1.2rem">
             <span class="footer-social">
-              <a class="icon-btn" href="https://www.facebook.com/profile.php?id=61585112267469&amp;rdid=SBCicJ9Dxieiu7z4&amp;share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F17yi88Gemj%2F#" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.02 24V13.05h3.68l.55-4.27h-4.23V6.05c0-1.24.34-2.08 2.12-2.08h2.26V.17A30.3 30.3 0 0 0 15.1 0c-3.26 0-5.5 1.99-5.5 5.64v3.14H5.91v4.27H9.6V24z"/></svg></a>
-              <a class="icon-btn" href="https://www.instagram.com/domaine_deden43/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.59-.01-4.86-.07c-1.17-.06-1.81-.26-2.23-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.05-1.26-.06-1.65-.06-4.84s.02-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42 1.28-.05 1.65-.06 4.86-.06zM12 0C8.74 0 8.33.02 7.05.07c-1.28.06-2.15.26-2.91.56-.79.3-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.02 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.02 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.05-1.28.07-1.69.07-4.95s-.02-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13-.67-.67-1.34-1.08-2.13-1.38-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a>
+              <a class="icon-btn" href="https://www.facebook.com/profile.php?id=61585112267469" target="_blank" rel="me noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.02 24V13.05h3.68l.55-4.27h-4.23V6.05c0-1.24.34-2.08 2.12-2.08h2.26V.17A30.3 30.3 0 0 0 15.1 0c-3.26 0-5.5 1.99-5.5 5.64v3.14H5.91v4.27H9.6V24z"/></svg></a>
+              <a class="icon-btn" href="https://www.instagram.com/domaine_deden43/" target="_blank" rel="me noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.59-.01-4.86-.07c-1.17-.06-1.81-.26-2.23-.42-.57-.22-.96-.48-1.38-.9-.42-.42-.69-.82-.9-1.38-.16-.42-.36-1.06-.42-2.23-.05-1.26-.06-1.65-.06-4.84s.02-3.59.06-4.86c.06-1.17.26-1.81.42-2.23.21-.57.48-.96.9-1.38.42-.42.81-.69 1.38-.9.42-.17 1.05-.36 2.22-.42 1.28-.05 1.65-.06 4.86-.06zM12 0C8.74 0 8.33.02 7.05.07c-1.28.06-2.15.26-2.91.56-.79.3-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.02 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.02 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.63.56-2.91.05-1.28.07-1.69.07-4.95s-.02-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13-.67-.67-1.34-1.08-2.13-1.38-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a>
             </span>
           </li>
         </ul>

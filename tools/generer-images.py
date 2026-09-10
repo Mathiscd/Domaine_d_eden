@@ -35,34 +35,47 @@ except ImportError:
 SOURCES = 'photos-sources'
 SORTIE = 'site/assets/img'
 
-# Quelle source alimente quel nom d'image du site. Deux noms peuvent pointer sur
-# la même photo : une seule chambre a été photographiée pour l'instant.
+# Quelle source alimente quel nom d'image du site.
 #
 # Les chambres sont illustrées par les captures Booking (plus bas), seules à
 # montrer les cinq pièces distinctes. Les vues Gîtes de France ne servent donc
-# que le château, les salons et le jardin — plus `chambre-brumes` et
-# `chambre-suite`, gardées pour les bandeaux de chambres.html.
+# que le château, les salons et le jardin — plus `chambre-chateau`, la seule
+# chambre qu'elles montrent, employée en décor : fond du hero de chambres.html
+# et tuile de la galerie de l'accueil.
+#
+# Ce nom en a remplacé deux. `chambre-brumes` et `chambre-suite` pointaient tous
+# deux sur gdf-0.jpg et produisaient 20 fichiers identiques octet pour octet, sous
+# deux noms qui annonçaient une chambre qu'ils ne montraient pas : la Suite du Roi
+# et de la Reine est cramoisie, le Refuge des Brumes vert de gris. Les vraies vues
+# de ces deux chambres sont `chambre-suite-alt/-sdb` et `chambre-brumes-alt/-sdb`,
+# plus bas — ne pas rétablir les noms courts pour les bandeaux.
 CORRESPONDANCE = {
-    'chambre-brumes':  'gdf-0.jpg',   'chambre-suite':  'gdf-0.jpg',
+    'chambre-chateau': 'gdf-0.jpg',
     'chateau-angle':   'gdf-12.jpg',  'chateau-tour':   'gdf-10.jpg',
     'cour-roues':      'gdf-13.jpg',  'hero-chateau':   'gdf-11.jpg',
     'jardin':          'gdf-14.jpg',  'salle-a-manger': 'gdf-8.jpg',
     'salon':           'gdf-5.jpg',   'salon-piano':    'gdf-6.jpg',
     'table-hotes':     'gdf-9.jpg',
 
-    # Deuxième vue (chambre) + salle de bains, une paire par chambre — issues des
-    # captures Booking fournies par le client (photos-sources/Chambres/), bien plus
-    # petites que les gdf-*.jpg : leur srcset s'arrête donc plus tôt.
-    'chambre-suite-alt':   'chambre-suite-alt.jpg',
-    'chambre-suite-sdb':   'chambre-suite-sdb.jpg',
-    'chambre-nuit-alt':    'chambre-nuit-alt.jpg',
-    'chambre-nuit-sdb':    'chambre-nuit-sdb.jpg',
-    'chambre-boudoir-alt': 'chambre-boudoir-alt.jpg',
-    'chambre-boudoir-sdb': 'chambre-boudoir-sdb.jpg',
-    'chambre-brumes-alt':  'chambre-brumes-alt.jpg',
-    'chambre-brumes-sdb':  'chambre-brumes-sdb.jpg',
-    'chambre-songes-alt':  'chambre-songes-alt.jpg',
-    'chambre-songes-sdb':  'chambre-songes-sdb.jpg',
+    # Deuxième vue (chambre) + salle de bains, une paire par chambre — les captures
+    # Booking fournies par le client, bien plus petites que les gdf-*.jpg : leur
+    # srcset s'arrête donc plus tôt.
+    #
+    # Ce sont des **PNG**, et c'est la seule forme acceptable ici. Ces captures ont
+    # d'abord été versionnées en JPEG à côté du PNG d'origine ; encoder depuis ces
+    # JPEG revenait à dépenser des bits pour reproduire les artefacts d'un
+    # intermédiaire — exactement ce que la règle d'or interdit. Les JPEG ont été
+    # supprimés, le PNG sans perte porte désormais le nom de la chambre.
+    'chambre-suite-alt':   'chambre-suite-alt.png',
+    'chambre-suite-sdb':   'chambre-suite-sdb.png',
+    'chambre-nuit-alt':    'chambre-nuit-alt.png',
+    'chambre-nuit-sdb':    'chambre-nuit-sdb.png',
+    'chambre-boudoir-alt': 'chambre-boudoir-alt.png',
+    'chambre-boudoir-sdb': 'chambre-boudoir-sdb.png',
+    'chambre-brumes-alt':  'chambre-brumes-alt.png',
+    'chambre-brumes-sdb':  'chambre-brumes-sdb.png',
+    'chambre-songes-alt':  'chambre-songes-alt.png',
+    'chambre-songes-sdb':  'chambre-songes-sdb.png',
 
     # Fond de l'encart « Thomas Ploton » (accueil et événements). Seule source
     # disponible : le WebP 1600 px servi par thomasploton.fr — le client n'a pas
@@ -210,11 +223,26 @@ def main():
         # Une variante plus lourde qu'une plus grande n'a rien à faire dans un
         # srcset : le navigateur téléchargerait plus d'octets pour moins de pixels.
         # On élague format par format, chacun ayant son propre <source>.
+        #
+        # Et on efface du disque celles qui ne peuvent servir à rien d'autre.
+        # Sortie du manifeste, une variante n'est plus déclarée par aucun srcset :
+        # elle ne pèse plus que sur le dépôt, et `verifier-srcset.py` a pour
+        # consigne de ne pas la réclamer — un poids mort que plus rien ne signale.
+        #
+        # **Sauf en JPEG.** L'attribut `src` de l'`<img>` est le repli des
+        # navigateurs sans srcset, et c'est toujours un JPEG : `chambre-chateau`,
+        # `salon` et `salle-a-manger` s'y replient justement sur leur 1500,
+        # élagué du srcset parce qu'il pèse plus lourd que le 2000. L'effacer
+        # viderait leur `src`. AVIF et WebP n'apparaissent, eux, que dans un
+        # <source srcset> : hors du manifeste, ils ne sont plus rien.
         for fmt in ('avif', 'webp', 'jpeg'):
             lst = sorted([v for v in sortie if v['format'] == fmt], key=lambda v: v['width'])
             for i, v in enumerate(lst[:-1]):
                 if any(p['bytes'] <= v['bytes'] for p in lst[i + 1:]):
                     sortie.remove(v)
+                    if args.ecrire and fmt != 'jpeg':
+                        mort = os.path.join(SORTIE, '%s-%d.%s' % (nom, v['width'], EXT[fmt]))
+                        os.path.exists(mort) and os.remove(mort)
                     print('  élaguée  %s-%d.%s (plus lourde qu\'une plus grande)'
                           % (nom, v['width'], EXT[fmt]))
         manifeste[nom] = {'source': src, 'width': larg_src, 'height': haut_src,

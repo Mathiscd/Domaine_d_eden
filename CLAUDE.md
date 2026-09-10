@@ -4,8 +4,9 @@
 
 Refonte complète du site du **Domaine d'Éden – Château les Tourelles**, maison d'hôtes
 et lieu événementiel à Beaulieu (Haute-Loire, Auvergne), tenue par Grégory et Thomas.
-Prestation cadrée par la proposition commerciale MarketFrame
-([proposition-domaine-eden-onepage.pdf](proposition-domaine-eden-onepage.pdf)) validée par le client.
+Prestation cadrée par la proposition commerciale MarketFrame validée par le client
+(le PDF ne fait plus partie du dépôt ; son contenu tient dans ce fichier et dans
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)).
 
 **Livrable** : un site éditorial de **quatre pages** — accueil (le déroulé complet),
 chambres, événements — plus une page de réservation dédiée avec formulaire multi-étapes.
@@ -29,8 +30,10 @@ l'inverse. Il veut retrouver l'esprit de sa propre maquette :
   d'hôtes tenue par deux hôtes, pas un palace. Le rond, la générosité des formes et la
   présence franche du vert servent ça.
 
-Ce qui **n'a pas** changé : l'ancien site du client (captures `Capture*.PNG` à la racine)
-reste **uniquement une source de contenu** — textes, informations, photos. On lui reprend
+Ce qui **n'a pas** changé : l'ancien site du client reste **uniquement une source de
+contenu** — textes, informations, photos. Ses captures ne sont plus versionnées ; ce
+qu'on en a retenu est déjà passé dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) et
+dans [docs/CHARTE-GRAPHIQUE.md](docs/CHARTE-GRAPHIQUE.md). On lui reprend
 son langage de formes et sa couleur, jamais sa mise en page (composition chargée, texte
 sur photo non voilée). La structure de l'en-tête reste celle de Grand Lauron (réseaux à
 gauche, signature centrée, téléphone à droite, nav en second rang) : elle a été validée et
@@ -54,6 +57,13 @@ site/
   chambres.html        les 5 chambres en détail (ancres #suite-roi-reine, #boudoir-reves…)
   evenements.html      les formats, le cadre, le déroulé, la table
   reservation.html     formulaire de demande multi-étapes (cible de tous les CTA)
+  mentions-legales.html         ⎫ hors livrable éditorial, liées depuis le pied de page
+  politique-confidentialite.html ⎭ des six pages
+  404.html             page d'erreur, sur le gabarit des pages légales — Netlify la sert seule
+  robots.txt           politique de crawl, moteurs et robots d'IA (voir « Référencement »)
+  sitemap.xml          généré — les 4 pages indexables et leurs photos
+  llms.txt             la fiche factuelle du domaine, en clair, pour les assistants
+  _headers             en-têtes Netlify : cache des images, des polices, du CSS/JS
   favicon.ico          la marque, rendue pour 16/32/48 px   ⎫
   favicon.svg          la marque, réglée pour l'onglet       ⎬ générés — voir « Le logo »
   apple-touch-icon.png 180 px                                ⎭
@@ -62,25 +72,37 @@ site/
     css/styles.css     styles globaux (variables CSS en tête de fichier)
     js/main.js         animations scroll, header, navigation, diaporama du hero
     js/reservation.js  logique du formulaire multi-étapes et envoi au webhook
+    fonts/             Cormorant Garamond et Jost, sous-ensembles latin et latin-ext
     img/               variantes responsives `<nom>-<largeur>.{avif,webp,jpg}`,
                        plus `logo-eden.svg`, `logo-email.png` (la marque servie
-                       aux clients mail) et les icônes du manifeste
-photos-sources/        photos sources 1500px (Gîtes de France), le logo fourni par le
-                       client (`logo-domaine-eden.png`) et le logo qu'il remplace
-                       (`…-ancien.png`) — hors `site/` : versionnés, jamais publiés
+                       aux clients mail), `og-*.jpg` (les cartes de partage en
+                       1200×630) et les icônes du manifeste
+photos-sources/        les sources, hors `site/` : versionnées, jamais publiées.
+                       `gdf-*.jpg` (Gîtes de France, 2000px), `chambre-*.png` (captures
+                       Booking, ~930px, sans perte), `chevaux-aube.webp`, le logo fourni
+                       par le client (`logo-domaine-eden.png`), celui qu'il remplace
+                       (`…-ancien.png`), `urls.txt` et `chambres-booking.md` (provenance)
 tools/
   generer-images.py    régénère les variantes depuis photos-sources/ (voir « Images »)
   verifier-srcset.py   contrôle que le balisage déclare bien toutes les variantes
   generer-logo.py      vectorise la marque et produit ses déclinaisons (voir « Le logo »)
   extrait-logo.html    bloc <symbol> produit par le script, à recopier dans les pages
   verifier-mails.py    rejoue le formulaire, évalue les expressions n8n, rend les mails
+  verifier-sizes.py    confronte les `sizes` du balisage aux largeurs vraiment rendues
+  audit-responsive.py  banc d'essai : chaque page à chaque taille d'écran, écrit .audit/
+  verifier-desktop.py  prouve qu'une passe responsive n'a pas bougé le rendu > 900px
+  generer-sitemap.py   régénère site/sitemap.xml depuis les pages et git
+  generer-og.py        produit les cartes de partage 1200×630 depuis photos-sources/
+  verifier-seo.py      canonical, Open Graph, JSON-LD, sitemap, robots, liens, plan
 docs/
   CHARTE-GRAPHIQUE.md  couleurs, marque, typos, espacements, composants, ton
   ARCHITECTURE.md      plan des pages, sections, contenus validés
   WEBHOOK-N8N.md       contrat du webhook, réglages des nœuds, forme du payload
+  RESPONSIVE.md        les rails, les seuils, ce que le banc d'essai contrôle
   emails/
     mail-client.html   accusé de réception du visiteur   ⎫ à coller dans le champ
     mail-interne.html  fiche complète pour les hôtes     ⎭ HTML des nœuds SMTP
+netlify.toml           publie `site/` et relaie `/api/demande` vers n8n (voir plus bas)
 ```
 
 ## Contraintes techniques
@@ -145,7 +167,11 @@ liserés sur les arêtes contrastées — les encadrements de fenêtre sur le ci
 Trois règles à ne pas casser :
 
 - **Encoder depuis `photos-sources/`, jamais depuis un JPEG déjà compressé** —
-  sinon les bits partent à reproduire les artefacts du fichier intermédiaire.
+  sinon les bits partent à reproduire les artefacts du fichier intermédiaire. Les
+  captures de chambres ont longtemps enfreint cette règle sans que ça se voie : le
+  PNG d'origine dormait dans un sous-dossier pendant que le générateur lisait un
+  ré-encodage JPEG posé à côté. Elles repartent du PNG depuis le 10 septembre 2026,
+  et le JPEG a été supprimé pour que l'erreur ne puisse pas se refaire.
 - **`speed=4` pour l'AVIF** (le défaut de Pillow est 6) : ~3 % de moins à qualité
   égale. Changer ce réglage oblige à régénérer tout le jeu.
 - **Un srcset doit rester monotone** : une variante plus lourde qu'une plus grande
@@ -208,7 +234,90 @@ au client. Deux variables règlent le rendu, toutes deux héritées jusque dans 
 (épaississement optique). Le viewBox est `0 0 1024 917` et il est répété sur chaque
 `<svg class="eden-marque">` : le régénérer oblige à le propager dans les six pages.
 
+## Référencement (SEO et GEO)
+
+Le site vise deux publics de machines : les moteurs classiques, et les assistants
+d'IA — ChatGPT, Perplexity, Google AI Overviews, Claude — qui recommandent des
+hébergements. Les seconds ont une particularité qui commande tout le reste :
+**ils n'exécutent pas JavaScript.** GPTBot, ClaudeBot, PerplexityBot,
+OAI-SearchBot récupèrent le HTML servi, l'analysent, et passent. Le parti pris
+« statique pur, pas de build » du projet est donc, ici, un atout : tout le texte
+est dans le document. Corollaire : **ce qui n'est pas dans le HTML livré
+n'existe pas**, et le texte visible pèse plus lourd que le balisage.
+
+**Les URLs gardent leur `.html`.** Les liens internes ne peuvent pas s'en passer
+(ouverture en `file://`), donc `netlify.toml` fige `pretty_urls = false` et les
+canonicals déclarent la même forme. Les trois — liens, canonicals, sitemap —
+doivent changer ensemble ou pas du tout. Voir le commentaire de `netlify.toml`.
+
+**Les données structurées sont répétées sur chaque page**, et non référencées par
+`@id` d'une page à l'autre : sans build, une page peut être lue seule, et un `@id`
+défini ailleurs ne se résout pas. `verifier-seo.py` refuse toute référence
+pendante. Le nœud central est un `BedAndBreakfast` ; `chambres.html` y accroche
+cinq `HotelRoom` avec leur `Offer`, `evenements.html` un `Service` et son
+`OfferCatalog`.
+
+**Le bloc SEO se pose après `<link rel="stylesheet">`.** L'ordre du `<head>` est
+mesuré (voir « Pièges ») : preload de l'image de tête, puis la feuille de style.
+Glisser 4 Ko de JSON-LD avant elle retarderait sa découverte. Ni le canonical ni
+les `og:*` n'ont besoin d'arriver tôt.
+
+**La FAQ de l'accueil n'est écrite qu'une fois.** Section visible et `FAQPage`
+JSON-LD sortent de la même liste — les retoucher séparément les ferait diverger,
+ce que Google sanctionne et qui fait perdre confiance à un assistant.
+`verifier-seo.py` compare les deux, question par question.
+
+**Ce que la FAQ ne dit pas, elle ne l'invente pas.** Dix questions parmi les plus
+posées à un assistant sur un hébergement restent sans réponse faute
+d'information : Wi-Fi, période d'ouverture, moyens de paiement, langues parlées,
+séjour minimum, conditions d'annulation, accessibilité PMR, tarif de la
+privatisation, taxe de séjour, horaire de fin de soirée. Elles sont listées en
+fin de `llms.txt`. **Les faire arbitrer par le client est le geste le plus
+rentable qui reste** — chacune est aujourd'hui une réponse qu'un assistant donne
+à propos d'un concurrent.
+
+**`robots.txt` autorise largement, y compris l'entraînement.** Pour une maison
+d'hôtes, être connue d'un modèle vaut mieux que d'en être absente. Attention à
+deux confusions courantes, expliquées dans le fichier : bloquer `GPTBot`
+(entraînement) ne retire pas de ChatGPT Search (`OAI-SearchBot`), et
+`Google-Extended` ne gouverne pas les AI Overviews, qui dépendent de `Googlebot`.
+Seuls les aspirateurs qui ne citent ni ne renvoient jamais sont écartés.
+
+**Après toute retouche : `python tools/verifier-seo.py`.** Il attrape ce qui ne
+se voit pas à l'écran — une page absente du sitemap, une `og:image` renommée, une
+ancre morte, un saut de niveau de titre, un canonical qui ne pointe pas sur
+lui-même. Sortie 1 s'il reste une anomalie. Et après un `generer-images.py` ou un
+changement d'`alt`, relancer `generer-sitemap.py --ecrire` : les légendes des
+photos du sitemap en sortent.
+
+**Ce qui reste à faire, et qui ne dépend pas du code** : la fiche Google Business
+Profile (le levier le plus fort, et le seul terrain que le site est certain de
+gagner), les fiches Booking et Gîtes de France dont les équipements cochés sont
+repris tels quels par les moteurs, un nœud OpenStreetMap, et les annuaires
+régionaux — Haute-Loire Tourisme, Via Fluvia, annuaires de lieux de réception.
+Près de la moitié des citations d'IA sur l'hôtellerie viennent des plateformes,
+pas du site de l'établissement. La cohérence nom-adresse-téléphone entre toutes
+ces fiches et le site compte plus que leur nombre.
+
 ## Pièges — ne pas « nettoyer » sans comprendre
+
+- **Le JSON-LD est volontairement répété à l'identique sur les quatre pages
+  indexables.** Ce n'est pas une duplication à factoriser : sans build, il n'y a
+  pas d'endroit commun où le mettre, et surtout un `@id` défini sur une autre
+  page ne se résout pas — les moteurs reconstruisent le graphe page par page.
+  Une page doit pouvoir être lue seule, c'est précisément ce que font les
+  assistants d'IA quand ils n'en ouvrent qu'une.
+
+- **Les réponses de la FAQ sont en clair dans le HTML, dans des `<details>`
+  fermés.** Repliées à l'écran, présentes dans le document : c'est ce qui compte,
+  les robots d'IA ne rendant pas le JavaScript. Ne pas « alléger la page » en les
+  chargeant à la demande — elles disparaîtraient pour eux, et c'est le contenu le
+  plus citable du site.
+
+- **`pretty_urls = false` dans `netlify.toml` n'est pas un réglage oublié.** Sans
+  lui, Netlify redirige `/chambres.html` vers `/chambres` : chaque lien interne
+  du site — tous en `.html`, contrainte `file://` — paierait un 301, et les
+  canonicals désigneraient une URL qui n'est pas celle servie.
 
 - **`picture { display: contents }`** : sans ça le `<picture>` s'interpose entre
   l'image et son conteneur, et tous les `height:100%` + `object-fit:cover`, plus
@@ -378,8 +487,8 @@ Comparer l'intention à la charte avant toute itération de design.
   des Songes ; 90 € le Boudoir des Rêves et le Refuge des Brumes).
 - Les photos actuelles proviennent de deux sources : la fiche Gîtes de France
   (2000px, une seule chambre photographiée — les vues du château, salons, jardin)
-  et des captures Booking (`photos-sources/Chambres/`, ~930px) qui, elles, montrent
-  les cinq chambres distinctes. **Ces captures plafonnent à 930px** : c'est la
+  et des captures Booking (`photos-sources/chambre-*-{alt,sdb}.png`, ~930px) qui,
+  elles, montrent les cinq chambres distinctes. **Elles plafonnent à 930px** : c'est la
   limite de netteté restante du site, et aucun réencodage ne la lèvera. Sur mobile
   DPR 3 elles servent 86–89 % des pixels demandés (écart peu visible) ; sur desktop
   elles suffisent. À remplacer dès que le client fournit ses photos définitives —

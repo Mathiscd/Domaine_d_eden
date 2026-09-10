@@ -58,7 +58,7 @@
 
   /* — Les disques : voiles réglés une fois pour toutes —
      Ce sont des fonds décoratifs ; le texte ne se pose jamais dessus sans
-     passer par --vert-profond (cf. .bloc-vert). */
+     passer par --vert-profond. */
   --disque-vert: rgba(116, 150, 61, 0.92);
   --disque-doux: rgba(143, 178, 92, 0.85);
   --disque-pale: rgba(116, 150, 61, 0.13);
@@ -342,11 +342,47 @@ a { color: var(--vert-fonce); text-decoration: none; }
 .final-cta :focus-visible,
 .hero :focus-visible,
 .page-hero :focus-visible,
-.bloc-vert :focus-visible,
 .site-footer :focus-visible { outline-color: var(--vert-tendre); }
 
 /* Complément de libellé réservé aux lecteurs d'écran (« — faire une
    demande » derrière le titre d'une carte format). */
+/* Lien d'évitement — l'en-tête aligne une quarantaine de liens avant le
+   contenu (réseaux, signature, téléphone, sept liens de nav, puis tout cela une
+   seconde fois au second rang). Sans ce lien, une navigation au clavier les
+   traverse tous, sur chaque page.
+
+   Il reste hors de l'écran jusqu'à recevoir le focus : ni `display: none` ni
+   `visibility: hidden`, qui le retireraient de l'ordre de tabulation et le
+   rendraient inatteignable. Au focus, il descend en pilule verte, au-dessus du
+   header — dont le z-index est plus bas. */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 200;
+  transform: translate(-50%, -140%);
+  padding: 0.85rem 1.8rem;
+  border-radius: 0 0 var(--r-pilule) var(--r-pilule);
+  background: var(--vert-profond);
+  color: var(--ivoire);
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: translate(-50%, 0);
+  outline: 2px solid var(--vert-tendre);
+  outline-offset: -5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-link { transition: none; }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -366,8 +402,6 @@ a { color: var(--vert-fonce); text-decoration: none; }
   padding-inline: var(--gutter);
   position: relative;
 }
-
-.container--wide { max-width: 1480px; }
 
 /* ---------- Les disques ----------
    Le motif du client : de larges cercles verts qui débordent du cadre, se
@@ -440,9 +474,6 @@ a { color: var(--vert-fonce); text-decoration: none; }
 .pos-bg { bottom: 0; left: 0; translate: -36% 42%; }
 .pos-bd { bottom: 0; right: 0; translate: 36% 42%; }
 .pos-g  { top: 50%; left: 0; translate: -46% -50%; }
-.pos-d  { top: 50%; right: 0; translate: 46% -50%; }
-.pos-h  { top: 0; left: 50%; translate: -50% -56%; }
-.pos-b  { bottom: 0; left: 50%; translate: -50% 56%; }
 
 /* Le pétale : deux disques de tailles différentes décalés d'environ un tiers.
    Leur recouvrement dessine la forme organique de la maquette du client. */
@@ -463,31 +494,6 @@ a { color: var(--vert-fonce); text-decoration: none; }
   from { transform: translate3d(0, 0, 0) scale(1); }
   to   { transform: translate3d(0, -3.5%, 0) scale(1.045); }
 }
-
-/* ---------- Les blocs verts ----------
-   Un aplat vert qui porte du texte courant en blanc n'a qu'une teinte
-   possible : --vert-profond (7,9:1). Le vert de marque, à 3,3:1, ne tient
-   que sous un grand titre — d'où ce composant, et non un `background: var(--vert)`
-   posé au cas par cas. Les disques plus clairs se contentent d'y jouer en
-   fond, sous le texte, jamais derrière lui. */
-.bloc-vert {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background-color: var(--vert-profond);
-  background-image:
-    radial-gradient(circle at 12% 8%, rgba(143, 178, 92, 0.12), transparent 46%),
-    radial-gradient(circle at 92% 96%, rgba(116, 150, 61, 0.16), transparent 52%);
-  color: var(--ivoire-82);
-  border-radius: var(--r-xl);
-}
-
-.bloc-vert h2, .bloc-vert h3, .bloc-vert h4, .bloc-vert blockquote { color: var(--ivoire); }
-.bloc-vert .eyebrow { color: var(--vert-tendre); }
-.bloc-vert .eyebrow::before { background: linear-gradient(90deg, transparent, var(--vert-tendre)); }
-.bloc-vert .eyebrow--center::after { background: linear-gradient(90deg, var(--vert-tendre), transparent); }
-.bloc-vert .em-italic, .bloc-vert em { color: var(--vert-tendre); }
-.bloc-vert > * { position: relative; z-index: 1; }
 
 /* ---------- Typographie ---------- */
 
@@ -708,9 +714,6 @@ h2 em, h1 em, .em-italic {
 .btn--light { background: var(--ivoire); color: var(--vert-profond); }
 .btn--light::before { background: var(--vert-fonce); }
 .btn--light:hover { color: var(--ivoire); }
-
-.btn--vert { background: var(--vert-fonce); color: var(--ivoire); }
-.btn--vert::before { background: var(--vert-profond); }
 
 .link-arrow {
   display: inline-flex;
@@ -1616,7 +1619,7 @@ h2 em, h1 em, .em-italic {
 /* Les bandes de couleur deviennent de grandes tuiles aux quatre coins arrondis.
    Elles restent pleine largeur : arrondir des coins ne change pas la largeur du
    contenu, donc aucun `sizes` d'image n'est à remesurer. */
-.section--lin, .section--sable, .section--dark { border-radius: var(--r-2xl); }
+.section--lin, .section--dark { border-radius: var(--r-2xl); }
 
 /* Deux bandes de même teinte qui se suivent (le cadre puis le déroulé, sur
    evenements.html) : on soude la couture, sinon le fond de page apparaît en
@@ -1630,7 +1633,6 @@ h2 em, h1 em, .em-italic {
   background: var(--blanc-vert);
   background-image: radial-gradient(ellipse 60% 55% at 85% 8%, rgba(116, 150, 61, 0.07), transparent 62%);
 }
-.section--sable { background: var(--gris-vert); }
 
 /* Crème réchauffée : évite les longues plages d'aplat mort sans toucher aux contrastes */
 .section--warm {
@@ -2129,6 +2131,7 @@ h2 em, h1 em, .em-italic {
 }
 
 .aside-band-text { padding: clamp(2rem, 4.5vw, 3.4rem); }
+.aside-band-text h2,
 .aside-band-text h3 { color: var(--ivoire); }
 .aside-band-text .eyebrow { color: var(--vert-tendre); }
 .aside-band-text .eyebrow::before { background: linear-gradient(90deg, transparent, var(--vert-tendre)); }
@@ -2481,6 +2484,14 @@ h2 em, h1 em, .em-italic {
 }
 
 .band-ploton .eyebrow { color: var(--vert-tendre); }
+/* Ces titres ouvrent des sections autonomes : ce sont donc des h2, et non des
+   h3 rattachés à la section précédente. Leur TAILLE reste celle d'un h3 —
+   c'est une décision de composition, pas une conséquence du niveau sémantique,
+   et le h2 du site (jusqu'à 4,3 rem) écraserait la bande. */
+.band-ploton h2,
+.aside-band-text h2 { font-size: clamp(1.5rem, 2.3vw, 1.9rem); }
+
+.band-ploton h2,
 .band-ploton h3 { color: var(--ivoire); }
 .band-ploton p { max-width: 46ch; color: var(--ivoire-82); }
 .band-ploton .btn { flex: none; }
@@ -2640,7 +2651,7 @@ h2 em, h1 em, .em-italic {
 
 .footer-brand p { margin-top: 1.5rem; max-width: 34ch; font-weight: 300; }
 
-.footer-col h4 {
+.footer-col h3 {
   font-family: var(--sans);
   font-size: 0.7rem;
   font-weight: 500;
@@ -2730,6 +2741,101 @@ h2 em, h1 em, .em-italic {
 
 /* Parallaxe douce */
 [data-parallax] { will-change: transform; }
+
+/* ==========================================================================
+   Questions fréquentes (accueil, section 07)
+
+   En <details> : replié, le texte des réponses reste dans le HTML servi. C'est
+   ce qui compte ici — la plupart des robots d'IA ne rendent pas le JavaScript et
+   lisent le document tel qu'il arrive. La page, elle, reste respirante.
+
+   Le même contenu alimente le FAQPage JSON-LD du <head> : les deux sont générés
+   ensemble. Retoucher une réponse ici sans toucher au balisage les ferait
+   diverger — ce que les moteurs pénalisent.
+   ========================================================================== */
+
+.faq-list {
+  max-width: 52rem;
+  margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.faq-item {
+  background: var(--ivoire);
+  border: 1px solid var(--encre-12);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: border-color 0.35s, box-shadow 0.35s;
+}
+
+.faq-item:hover { border-color: rgba(116, 150, 61, 0.4); }
+
+.faq-item[open] {
+  border-color: rgba(116, 150, 61, 0.4);
+  box-shadow: 0 1.4rem 3rem -1.6rem rgba(64, 87, 30, 0.28);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: clamp(1.1rem, 2.4vw, 1.5rem) clamp(1.3rem, 3vw, 2rem);
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 1.9vw, 1.4rem);
+  line-height: 1.25;
+  color: var(--encre);
+  transition: color 0.35s;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: var(--vert-txt); }
+.faq-item summary > span { flex: 1; }
+
+/* La pastille ronde : un médaillon parfaitement circulaire, comme le reste du
+   site. Le signe est fait de deux barres en ::before/::after — la verticale
+   disparaît à l'ouverture, le + devient un −. */
+.faq-item summary::after {
+  content: "";
+  flex: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: var(--r-cercle);
+  background: var(--vert-08);
+  box-shadow: inset 0 0 0 1px rgba(116, 150, 61, 0.3);
+  background-image:
+    linear-gradient(var(--vert-txt), var(--vert-txt)),
+    linear-gradient(var(--vert-txt), var(--vert-txt));
+  background-size: 0.75rem 1.4px, 1.4px 0.75rem;
+  background-position: center, center;
+  background-repeat: no-repeat;
+  transition: transform 0.4s var(--ease-out), background-size 0.4s var(--ease-out);
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(180deg);
+  background-size: 0.75rem 1.4px, 1.4px 0;
+}
+
+.faq-reponse {
+  padding: 0 clamp(1.3rem, 3vw, 2rem) clamp(1.3rem, 2.8vw, 1.8rem);
+  /* Aligné sur le texte de la question, pas sur la pastille. */
+  padding-right: clamp(3.6rem, 6vw, 5.3rem);
+}
+
+.faq-reponse p {
+  margin: 0;
+  color: var(--encre-72);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .faq-reponse { padding-right: clamp(1.3rem, 3vw, 2rem); }
+}
 
 /* ==========================================================================
    Page réservation
@@ -3214,28 +3320,6 @@ h2 em, h1 em, .em-italic {
 .room-detail .room-note { margin-top: 0.5rem; }
 .room-detail p.intro { margin-top: 1.4rem; color: var(--encre-72); max-width: 50ch; }
 
-.spec-list {
-  list-style: none;
-  margin-top: 1.9rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--sauge);
-}
-
-.spec-list li { display: inline-flex; align-items: center; gap: 0.6rem; }
-.spec-list li::before {
-  content: "";
-  width: 0.5em;
-  height: 0.5em;
-  border-radius: var(--r-cercle);
-  background: var(--vert);
-  flex: none;
-}
-
 /* Prix + bouton. `space-between` faisait sauter le bouton d'un bord à l'autre
    selon que la ligne tenait ou non : à gauche sous le prix quand elle passait
    à la ligne, collé au bord droit sinon. Aligné à gauche, le bloc est le même
@@ -3376,7 +3460,7 @@ h2 em, h1 em, .em-italic {
   gap: 1.6rem 2rem;
 }
 
-.room-amenities-groups h4 {
+.room-amenities-groups h3 {
   font-family: var(--sans);
   font-weight: 500;
   font-size: 0.68rem;
@@ -3958,7 +4042,6 @@ h2 em, h1 em, .em-italic {
 .section--dark .rail-puce[aria-current="true"]::before { background: var(--vert-clair); }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-rail].is-rail { scroll-behavior: auto; }
   .rail-puce::before { transition: none; }
   .rail-puce[aria-current="true"]::before { transform: none; box-shadow: 0 0 0 3px var(--vert-16); }
 }
