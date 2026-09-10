@@ -18,16 +18,18 @@
      commentant une ligne — une ligne commentée finit toujours par partir en
      production.
 
-     SITE_URL : repli utilisé quand la page est ouverte en `file://`
-     (`location.origin` vaut alors la chaîne "null"). Elle voyage dans le
-     payload : les mails y prennent l'adresse du logo et des liens, ce qui
-     évite d'écrire le domaine en dur dans les gabarits n8n.
+     SITE_URL : le domaine public. En ligne il ne sert jamais — le script prend
+     `location.origin` — mais c'est lui que reprennent les essais locaux et
+     l'ouverture en `file://` (où `location.origin` vaut la chaîne "null"). Le
+     logo d'un mail d'essai pointe ainsi sur une adresse réellement joignable :
+     un client mail ne charge pas l'image lui-même, ce sont les serveurs de
+     Gmail ou d'Outlook qui vont la chercher, et `localhost` leur est fermé.
      ===================================================================== */
   var WEBHOOK = 'https://n8n.srv1107413.hstgr.cloud/webhook/771531e2-ed8a-4f64-b110-beedd81cd96d';
   var WEBHOOK_TEST = 'https://n8n.srv1107413.hstgr.cloud/webhook-test/771531e2-ed8a-4f64-b110-beedd81cd96d';
   var PROXY = '/api/demande';
   var LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
-  var SITE_URL = 'https://www.domaine-eden.fr';
+  var SITE_URL = 'https://domainededen.fr';
 
   /* La table d'hôtes est annoncée à 25 € par personne dans le formulaire
      (étape 1). Le chiffre ne sert qu'à l'estimation portée par le mail

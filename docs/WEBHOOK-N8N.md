@@ -29,8 +29,10 @@ ligne à commenter, qui finit toujours par partir en ligne un jour. L'adresse
 d'essai n'écoute que le temps d'un clic sur « Listen for test event » ; en
 dehors elle répond 404 et le formulaire affiche son message d'échec.
 
-Reste **`SITE_URL`** : le domaine public du site. C'est lui que les emails
-utilisent pour le logo et les liens, via `public_url` dans le payload.
+**`SITE_URL`** vaut `https://domainededen.fr`, le domaine public du site. En
+ligne il ne sert jamais — le script prend `location.origin` — mais il est ce
+sur quoi retombent les essais locaux, pour que le logo des mails d'essai pointe
+sur une adresse réellement joignable.
 
 **Le logo des emails a besoin d'une adresse publique, et c'est la seule chose
 du montage qui l'exige.** Un client mail ne va pas chercher l'image lui-même :
