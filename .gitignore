@@ -15,3 +15,6 @@ __pycache__/
 
 # serveur local jetable des essais de compression
 .srv*.tmp.py
+
+# rendus des emails (tools/verifier-mails.py)
+.verif-mails/

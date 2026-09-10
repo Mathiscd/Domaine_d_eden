@@ -1,2 +1,24 @@
 [build]
   publish = "site"
+
+# ---------------------------------------------------------------------------
+# Le formulaire poste sur le domaine du site, pas sur l'instance n8n.
+#
+# Sans ça, le navigateur du visiteur doit joindre `n8n.srv….hstgr.cloud` — un
+# tiers, qu'un filtrage d'entreprise (FortiGate et consorts) bloque volontiers
+# parce qu'il est « non catégorisé ». Le formulaire échouerait alors sur un
+# réseau où le site s'affiche parfaitement. En passant par ce proxy, il n'y a
+# plus qu'un seul domaine à autoriser : celui du site.
+#
+# Effet de bord bienvenu : la requête devient de même origine, donc plus de
+# pré-vol CORS du tout. Le réglage « Allowed Origins » du nœud n8n ne sert plus
+# qu'au repli direct de `reservation.js` — le garder, ne pas s'y fier.
+#
+# Vérifié : Netlify transmet bien le corps d'un POST à travers un proxy
+# (status 200 vers une URL externe), en-tête `Content-Type` compris.
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/api/demande"
+  to = "https://n8n.srv1107413.hstgr.cloud/webhook/771531e2-ed8a-4f64-b110-beedd81cd96d"
+  status = 200
+  force = true

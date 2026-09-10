@@ -61,9 +61,10 @@ site/
   assets/
     css/styles.css     styles globaux (variables CSS en tête de fichier)
     js/main.js         animations scroll, header, navigation, diaporama du hero
-    js/reservation.js  logique du formulaire multi-étapes
+    js/reservation.js  logique du formulaire multi-étapes et envoi au webhook
     img/               variantes responsives `<nom>-<largeur>.{avif,webp,jpg}`,
-                       plus `logo-eden.svg` et les icônes du manifeste
+                       plus `logo-eden.svg`, `logo-email.png` (la marque servie
+                       aux clients mail) et les icônes du manifeste
 photos-sources/        photos sources 1500px (Gîtes de France), le logo fourni par le
                        client (`logo-domaine-eden.png`) et le logo qu'il remplace
                        (`…-ancien.png`) — hors `site/` : versionnés, jamais publiés
@@ -72,9 +73,14 @@ tools/
   verifier-srcset.py   contrôle que le balisage déclare bien toutes les variantes
   generer-logo.py      vectorise la marque et produit ses déclinaisons (voir « Le logo »)
   extrait-logo.html    bloc <symbol> produit par le script, à recopier dans les pages
+  verifier-mails.py    rejoue le formulaire, évalue les expressions n8n, rend les mails
 docs/
   CHARTE-GRAPHIQUE.md  couleurs, marque, typos, espacements, composants, ton
   ARCHITECTURE.md      plan des pages, sections, contenus validés
+  WEBHOOK-N8N.md       contrat du webhook, réglages des nœuds, forme du payload
+  emails/
+    mail-client.html   accusé de réception du visiteur   ⎫ à coller dans le champ
+    mail-interne.html  fiche complète pour les hôtes     ⎭ HTML des nœuds SMTP
 ```
 
 ## Contraintes techniques
@@ -82,9 +88,15 @@ docs/
 - **Statique pur** : ouvrable en `file://`, hébergeable n'importe où. Pas de npm, pas de build.
 - **Fonts** : Cormorant Garamond + Jost, **auto-hébergées** dans `site/assets/fonts/`
   (sous-ensembles latin et latin-ext seulement), avec stack de secours système.
-- **Formulaire** : front seul pour l'instant. L'envoi réel (boîte mail du client +
-  auto-réponse, cf. proposition) sera branché via Formspree/Brevo au déploiement —
-  point d'entrée unique dans `reservation.js` (`submitRequest()`).
+- **Formulaire** : toutes les demandes — séjours **et** événements — partent en
+  POST JSON vers un **webhook n8n**, qui envoie les deux mails de la proposition
+  (fiche complète aux hôtes, accusé de réception au visiteur). Point d'entrée
+  unique dans `reservation.js` (`submitRequest()`) ; contrat du payload, réglages
+  des nœuds et gabarits : [docs/WEBHOOK-N8N.md](docs/WEBHOOK-N8N.md). En ligne, la
+  demande ne sort pas du domaine du site : elle passe par `/api/demande`, que
+  `netlify.toml` relaie vers n8n. En local, le script tape l'adresse d'essai en
+  direct. `tools/verifier-mails.py` éprouve les deux chemins, le payload et les
+  expressions n8n à chaque passage.
 - **Responsive** : mobile d'abord vérifié à 390px, desktop à 1440px. Menu burger sous 900px.
 - **Accessibilité** : contrastes AA sur le texte, focus visibles, `prefers-reduced-motion` respecté.
 - **Performance** : pas de librairie JS externe. Voir « Images » et « Pièges » ci-dessous.
@@ -313,6 +325,25 @@ au client. Deux variables règlent le rendu, toutes deux héritées jusque dans 
   longueur ou un mot-clé (`closest-side`…), jamais un pourcentage — seule une ellipse en
   accepte. Toute la déclaration `background` est alors jetée **sans erreur visible**, et
   c'est ainsi que le voile sombre du CTA final avait disparu. Écrire `ellipse X% Y%`.
+
+- **Le formulaire poste sur `/api/demande`, pas sur l'adresse n8n.** Le proxy de
+  `netlify.toml` n'est pas une coquetterie : il évite au navigateur du visiteur
+  d'avoir à joindre `n8n.srv….hstgr.cloud`, un tiers qu'un filtrage d'entreprise
+  (FortiGate) bloque volontiers comme « non catégorisé » — le formulaire
+  échouerait alors sur un réseau où le site s'affiche parfaitement. Il supprime
+  aussi tout pré-vol CORS, la requête devenant de même origine. Le repli vers
+  l'adresse directe **ne joue que sur un 404** (proxy absent) : se rabattre sur
+  un 500, qui vient de n8n lui-même, ferait arriver la demande deux fois chez les
+  hôtes.
+
+- **Le mail du visiteur ne porte aucun montant, et ce n'est pas un oubli.** Le
+  payload transporte bien une `estimation` (tarif de la chambre × nuits, plus la
+  table d'hôtes), mais seul le gabarit interne l'affiche : le site ne chiffre rien
+  au visiteur, il n'y a ni paiement en ligne ni devis automatique, et la
+  réservation reste arbitrée par les hôtes. L'ajouter côté visiteur en ferait un
+  devis ferme. Même raison pour le récapitulatif : `recap` est construit par la
+  fonction qui remplit l'étape 3 du formulaire, si bien que ce qui part est
+  exactement ce que le visiteur a relu — ne pas recomposer ces lignes dans n8n.
 
 - **Le rayon d'une photo se pose sur son conteneur ou sur l'`<img>`, jamais sur le
   `<picture>`** : celui-ci est en `display: contents` et n'a pas de boîte à découper

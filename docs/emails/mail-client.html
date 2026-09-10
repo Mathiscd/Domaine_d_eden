@@ -1,0 +1,112 @@
+<!-- =========================================================================
+     Domaine d'Éden — accusé de réception envoyé au visiteur
+     À coller dans le champ HTML du nœud n8n « Send email client ».
+
+     Destinataire : {{ $json.body.client.email }}
+     Objet        : {{ $json.body.objet_client }}
+     Reply-To     : chateaulestourelles43@gmail.com
+
+     Le gabarit ne chiffre RIEN : la réservation reste arbitrée par les hôtes,
+     l'estimation tarifaire ne part que dans le mail interne.
+
+     Tables et styles en ligne : c'est la seule mise en page qu'Outlook, Gmail
+     et Apple Mail rendent tous les trois. Les `border-radius` — le rond, qui
+     est la marque de fabrique du site — sont honorés partout sauf par Outlook
+     pour Windows, qui les rend carrés sans rien casser d'autre.
+     ========================================================================= -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0;padding:0;background:#E4E9DA">
+<tr><td align="center" style="padding:28px 14px 40px">
+
+  <!-- Pré-en-tête : le texte gris affiché après l'objet dans la liste des mails -->
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;height:0;width:0">
+    Grégory et Thomas vous répondent personnellement sous 24 heures. Référence {{ $json.body.reference }}.
+    &#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;
+  </div>
+
+  <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#FDFDFB;border-radius:32px;overflow:hidden">
+
+    <!-- ============ En-tête : la marque ============ -->
+    <tr><td align="center" style="padding:40px 32px 26px">
+      <img src="{{ $json.body.public_url }}/assets/img/logo-email.png" width="112" height="100" alt="Domaine d’Éden" style="display:block;border:0;outline:none;width:112px;height:auto">
+      <div style="font:600 10px/1.6 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#4F5F38;padding:16px 0 4px">Château les Tourelles</div>
+      <div style="font:400 27px/1.2 Georgia,'Cormorant Garamond','Times New Roman',serif;color:#161B14">Domaine d’Éden</div>
+      <div style="padding-top:20px"><table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td width="54" height="4" style="background:#74963D;border-radius:999px;font-size:0;line-height:0">&nbsp;</td></tr></table></div>
+    </td></tr>
+
+    <!-- ============ Bandeau vert : l'accusé de réception ============ -->
+    <tr><td style="padding:6px 24px 0">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#40571E;border-radius:28px">
+        <tr><td style="padding:36px 34px 34px">
+          <div style="font:600 10px/1.6 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#D7E5B8;padding-bottom:12px">Demande bien reçue</div>
+          <div style="font:400 30px/1.25 Georgia,'Cormorant Garamond','Times New Roman',serif;color:#FDFDFB;padding-bottom:16px">Votre demande est entre nos mains</div>
+          <div style="font:400 15px/1.75 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#E4E9DA">
+            Bonjour {{ $json.body.client.prenom }},<br><br>
+            Merci de nous avoir écrit. Nous avons bien reçu votre demande et nous la regardons
+            de près : <strong style="color:#FDFDFB;font-weight:600">Grégory et Thomas vous répondent
+            personnellement sous 24&nbsp;heures</strong>, avec nos disponibilités et tout ce qu’il
+            faut pour préparer votre venue.
+          </div>
+          <div style="padding-top:22px">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr><td style="background:#34491A;border-radius:999px;padding:9px 20px;font:600 11px/1.4 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#D7E5B8">Référence&nbsp;·&nbsp;{{ $json.body.reference }}</td></tr>
+            </table>
+          </div>
+        </td></tr>
+      </table>
+    </td></tr>
+
+    <!-- ============ Récapitulatif ============ -->
+    <tr><td style="padding:34px 34px 6px">
+      <div style="font:600 10px/1.6 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#4F5F38;padding-bottom:14px">Ce que nous avons noté</div>
+      {{ $json.body.recap.map(r => { const e = s => String(s == null ? '' : s).split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('\n').join('<br>'); return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;margin-bottom:7px"><tr><td width="36%" style="background:#F2F5EC;border-radius:18px 0 0 18px;padding:13px 10px 13px 20px;font:600 10px/1.6 Jost,Helvetica,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#4F5F38;vertical-align:top">' + e(r.label) + '</td><td style="background:#F2F5EC;border-radius:0 18px 18px 0;padding:13px 20px 13px 10px;font:400 15px/1.55 Jost,Helvetica,Arial,sans-serif;color:#161B14;vertical-align:top">' + e(r.valeur) + '</td></tr></table>'; }).join('') }}
+      <div style="font:400 13px/1.7 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#4F5F38;padding-top:10px">
+        Une coquille s’est glissée dans ces lignes&nbsp;? Répondez simplement à cet email, nous corrigerons.
+      </div>
+    </td></tr>
+
+    <!-- ============ Informations pratiques ============ -->
+    <tr><td style="padding:26px 34px 0">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F2F5EC;border-radius:24px">
+        <tr><td style="padding:26px 26px 24px">
+          <div style="font:600 10px/1.6 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#4F5F38;padding-bottom:14px">En pratique</div>
+          <div style="font:400 14px/1.9 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#161B14">
+            <strong style="font-weight:600">Arrivée</strong> entre 16&nbsp;h et 20&nbsp;h &nbsp;·&nbsp; <strong style="font-weight:600">départ</strong> entre 9&nbsp;h et 10&nbsp;h<br>
+            2562 Avenue de Bazac, 43800 Beaulieu — Haute-Loire<br>
+            <a href="tel:+33665329261" style="color:#4F6B26;text-decoration:none;font-weight:600">06 65 32 92 61</a> &nbsp;·&nbsp;
+            <a href="mailto:chateaulestourelles43@gmail.com" style="color:#4F6B26;text-decoration:none;font-weight:600">chateaulestourelles43@gmail.com</a>
+          </div>
+        </td></tr>
+      </table>
+    </td></tr>
+
+    <!-- ============ Bouton + signature ============ -->
+    <tr><td align="center" style="padding:30px 34px 8px">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+        <tr><td style="background:#5C7A2E;border-radius:999px">
+          <a href="{{ $json.body.public_url }}/index.html" style="display:inline-block;padding:15px 34px;font:600 13px/1 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#FDFDFB;text-decoration:none;border-radius:999px">Revoir le domaine</a>
+        </td></tr>
+      </table>
+    </td></tr>
+
+    <tr><td align="center" style="padding:26px 34px 40px">
+      <div style="font:italic 400 21px/1.4 Georgia,'Cormorant Garamond','Times New Roman',serif;color:#161B14">Grégory &amp; Thomas</div>
+      <div style="font:600 10px/1.6 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#4F5F38;padding-top:8px">Vos hôtes au Château les Tourelles</div>
+    </td></tr>
+
+  </table>
+
+  <!-- ============ Pied de page, hors carte ============ -->
+  <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px">
+    <tr><td align="center" style="padding:26px 24px 8px;font:400 12px/1.8 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#4F5F38">
+      Vous recevez cet email parce qu’une demande a été envoyée depuis
+      <a href="{{ $json.body.public_url }}" style="color:#4F6B26;text-decoration:none">notre site</a>
+      le {{ $json.body.envoye_le_fr }}.<br>
+      Vos informations servent uniquement à vous répondre et ne sont transmises à personne —
+      <a href="{{ $json.body.public_url }}/politique-confidentialite.html" style="color:#4F6B26;text-decoration:none">politique de confidentialité</a>
+      &nbsp;·&nbsp;
+      <a href="{{ $json.body.public_url }}/mentions-legales.html" style="color:#4F6B26;text-decoration:none">mentions légales</a>
+    </td></tr>
+  </table>
+
+</td></tr>
+</table>

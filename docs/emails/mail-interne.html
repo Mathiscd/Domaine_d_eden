@@ -1,0 +1,112 @@
+<!-- =========================================================================
+     Domaine d'Éden — fiche de demande envoyée aux hôtes (mail interne)
+     À coller dans le champ HTML du nœud n8n « Send email MarketFrame ».
+
+     Destinataire : chateaulestourelles43@gmail.com
+     Objet        : {{ $json.body.objet_interne }}
+     Reply-To     : {{ $json.body.client.email }}   ← important : « Répondre »
+                    dans la boîte des hôtes écrit alors directement au visiteur.
+
+     Ce mail-ci porte tout : l'estimation tarifaire, le message brut, la trace
+     du consentement RGPD et la provenance. C'est le seul des deux à chiffrer
+     quoi que ce soit — le mail du visiteur n'annonce aucun montant.
+     ========================================================================= -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0;padding:0;background:#E4E9DA">
+<tr><td align="center" style="padding:28px 14px 40px">
+
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;height:0;width:0">
+    {{ $json.body.client.nom_complet }} — {{ $json.body.reference }} — reçue le {{ $json.body.envoye_le_fr }}.
+    &#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;
+  </div>
+
+  <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#FDFDFB;border-radius:32px;overflow:hidden">
+
+    <!-- ============ En-tête compact ============ -->
+    <tr><td style="padding:26px 30px 20px">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td width="56" style="vertical-align:middle">
+            <img src="{{ $json.body.public_url }}/assets/img/logo-email.png" width="52" height="47" alt="" style="display:block;border:0;outline:none;width:52px;height:auto">
+          </td>
+          <td style="vertical-align:middle;padding-left:14px">
+            <div style="font:600 9.5px/1.6 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#4F5F38">Château les Tourelles</div>
+            <div style="font:400 19px/1.3 Georgia,'Cormorant Garamond','Times New Roman',serif;color:#161B14">Domaine d’Éden</div>
+          </td>
+          <td align="right" style="vertical-align:middle">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="right">
+              <tr><td style="background:#40571E;border-radius:999px;padding:8px 16px;font:600 10px/1.4 Jost,Helvetica,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#D7E5B8">{{ $json.body.type === 'evenement' ? 'Événement' : 'Séjour' }}</td></tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+
+    <!-- ============ L'essentiel ============ -->
+    <tr><td style="padding:0 24px">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#40571E;border-radius:28px">
+        <tr><td style="padding:30px 32px 28px">
+          <div style="font:600 10px/1.6 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#D7E5B8;padding-bottom:10px">Nouvelle demande · {{ $json.body.reference }}</div>
+          <div style="font:400 28px/1.25 Georgia,'Cormorant Garamond','Times New Roman',serif;color:#FDFDFB">{{ $json.body.client.nom_complet }}</div>
+          <div style="font:400 14px/1.7 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#D7E5B8;padding-top:10px">
+            {{ $json.body.type === 'evenement' ? ($json.body.evenement.type + ' · ' + ($json.body.evenement.nb_personnes ? $json.body.evenement.nb_personnes + ' personnes' : 'nombre non précisé') + ' · ' + $json.body.evenement.date_fr) : ($json.body.sejour.chambre + ' · ' + $json.body.sejour.nuits + ' nuit(s) · ' + $json.body.sejour.voyageurs + ' voyageur(s)') }}
+          </div>
+          <div style="font:400 13px/1.7 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#9DBA6A;padding-top:14px">Reçue le {{ $json.body.envoye_le_fr }} · réponse attendue sous 24 h</div>
+        </td></tr>
+      </table>
+    </td></tr>
+
+    <!-- ============ Joindre le visiteur ============ -->
+    <tr><td style="padding:22px 30px 0">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F2F5EC;border-radius:24px">
+        <tr><td style="padding:22px 24px">
+          <div style="font:600 10px/1.6 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#4F5F38;padding-bottom:12px">Le joindre</div>
+          <div style="font:400 15px/1.9 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#161B14">
+            <a href="mailto:{{ $json.body.client.email }}?subject={{ encodeURIComponent('Votre demande au Domaine d’Éden — ' + $json.body.reference) }}" style="color:#4F6B26;text-decoration:none;font-weight:600">{{ $json.body.client.email }}</a>
+            {{ $json.body.client.telephone ? '<br><a href="tel:' + ($json.body.client.telephone_e164 || $json.body.client.telephone) + '" style="color:#4F6B26;text-decoration:none;font-weight:600">' + $json.body.client.telephone + '</a>' : '<br><span style="color:#4F5F38">Aucun téléphone communiqué</span>' }}
+          </div>
+          <div style="padding-top:16px">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr><td style="background:#5C7A2E;border-radius:999px">
+                <a href="mailto:{{ $json.body.client.email }}?subject={{ encodeURIComponent('Votre demande au Domaine d’Éden — ' + $json.body.reference) }}" style="display:inline-block;padding:13px 28px;font:600 12px/1 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#FDFDFB;text-decoration:none;border-radius:999px">Répondre à {{ $json.body.client.prenom }}</a>
+              </td></tr>
+            </table>
+          </div>
+        </td></tr>
+      </table>
+    </td></tr>
+
+    <!-- ============ La demande, ligne à ligne ============ -->
+    <tr><td style="padding:24px 30px 0">
+      <div style="font:600 10px/1.6 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#4F5F38;padding-bottom:14px">La demande</div>
+      {{ $json.body.recap.filter(r => r.bloc === 'demande').map(r => { const e = s => String(s == null ? '' : s).split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('\n').join('<br>'); return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;margin-bottom:7px"><tr><td width="36%" style="background:#F2F5EC;border-radius:18px 0 0 18px;padding:13px 10px 13px 20px;font:600 10px/1.6 Jost,Helvetica,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#4F5F38;vertical-align:top">' + e(r.label) + '</td><td style="background:#F2F5EC;border-radius:0 18px 18px 0;padding:13px 20px 13px 10px;font:400 15px/1.55 Jost,Helvetica,Arial,sans-serif;color:#161B14;vertical-align:top">' + e(r.valeur) + '</td></tr></table>'; }).join('') }}
+    </td></tr>
+
+    <!-- ============ Estimation — séjours seulement ============ -->
+    <tr><td style="padding:0 30px">{{ ($json.body.sejour && $json.body.sejour.estimation.total) ? '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:16px;border-radius:24px;background:#FDFDFB;border:1.5px solid #C8D6AE"><tr><td style="padding:22px 24px"><div style="font:600 10px/1.6 Jost,Helvetica,Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#4F5F38;padding-bottom:10px">Estimation automatique — à confirmer</div><div style="font:400 30px/1.2 Georgia,Times New Roman,serif;color:#40571E">' + $json.body.sejour.estimation.total + ' €</div><div style="font:400 13px/1.7 Jost,Helvetica,Arial,sans-serif;color:#4F5F38;padding-top:8px">' + $json.body.sejour.estimation.detail + '<br>Hébergement ' + $json.body.sejour.estimation.hebergement + ' € · table d’hôtes ' + $json.body.sejour.estimation.table + ' €</div><div style="font:400 12px/1.6 Jost,Helvetica,Arial,sans-serif;color:#4F5F38;padding-top:10px">Calcul du site, à partir des tarifs affichés. Rien n’a été annoncé au visiteur : son email ne porte aucun montant.</div></td></tr></table>' : '' }}</td></tr>
+
+    <!-- ============ Message libre — seulement s'il y en a un ============ -->
+    <tr><td style="padding:0 30px">{{ $json.body.client.message ? '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:16px;background:#F2F5EC;border-radius:24px"><tr><td width="6" style="background:#74963D;border-radius:999px;font-size:0;line-height:0">&nbsp;</td><td style="padding:22px 24px"><div style="font:600 10px/1.6 Jost,Helvetica,Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#4F5F38;padding-bottom:10px">Son message</div><div style="font:italic 400 17px/1.7 Georgia,Times New Roman,serif;color:#161B14">' + String($json.body.client.message).split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('\n').join('<br>') + '</div></td></tr></table>' : '' }}</td></tr>
+
+    <!-- ============ Provenance et consentement ============ -->
+    <tr><td style="padding:22px 30px 34px">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F2F5EC;border-radius:24px">
+        <tr><td style="padding:20px 24px;font:400 12.5px/1.9 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#4F5F38">
+          <span style="font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:9.5px">Provenance</span><br>
+          Page&nbsp;: <a href="{{ $json.body.page }}" style="color:#4F6B26;text-decoration:none">{{ $json.body.page }}</a><br>
+          {{ $json.body.technique.referrer ? 'Venu de : ' + $json.body.technique.referrer + '<br>' : '' }}{{ $json.body.technique.utm.source ? 'Campagne : ' + $json.body.technique.utm.source + ' / ' + ($json.body.technique.utm.medium || '—') + ' / ' + ($json.body.technique.utm.campaign || '—') + '<br>' : '' }}Saisie en {{ $json.body.technique.duree_saisie_s }} s · écran {{ $json.body.technique.ecran }} · {{ $json.body.technique.langue }}<br>
+          Consentement RGPD&nbsp;: <strong style="color:#4F6B26">{{ $json.body.rgpd.consenti ? 'accordé' : 'NON ACCORDÉ' }}</strong> le {{ $json.body.envoye_le_fr }}
+        </td></tr>
+      </table>
+    </td></tr>
+
+  </table>
+
+  <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px">
+    <tr><td align="center" style="padding:22px 24px 8px;font:400 12px/1.8 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#4F5F38">
+      Message automatique du formulaire de réservation · Domaine d’Éden<br>
+      Répondre à ce mail écrit directement à {{ $json.body.client.prenom }}.
+    </td></tr>
+  </table>
+
+</td></tr>
+</table>
