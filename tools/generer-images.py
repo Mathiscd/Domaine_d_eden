@@ -63,6 +63,13 @@ CORRESPONDANCE = {
     'chambre-brumes-sdb':  'chambre-brumes-sdb.jpg',
     'chambre-songes-alt':  'chambre-songes-alt.jpg',
     'chambre-songes-sdb':  'chambre-songes-sdb.jpg',
+
+    # Fond de l'encart « Thomas Ploton » (accueil et événements). Seule source
+    # disponible : le WebP 1600 px servi par thomasploton.fr — le client n'a pas
+    # d'original plus grand. C'est bien une source, pas un fichier que nous
+    # aurions nous-mêmes compressé : la règle « jamais depuis un JPEG déjà
+    # compressé » vise nos intermédiaires, pas l'original du photographe.
+    'chevaux-aube':        'chevaux-aube.webp',
 }
 
 # 1500 et 2000 servent les écrans à haute densité (DPR 2), où une carte de
@@ -147,13 +154,25 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--ecrire', action='store_true', help='écrit vraiment les fichiers')
     ap.add_argument('--manifeste', default='', help='chemin où déposer un manifeste JSON')
+    # Une seule photo ajoutée ne justifie pas de rebissecter les 21 autres : à
+    # réglages inchangés le script réécrirait des fichiers identiques, pour une
+    # heure de calcul. Sans l'option, tout le jeu est traité, comme avant.
+    ap.add_argument('--seulement', nargs='*', metavar='NOM',
+                    help="ne traiter que ces noms d'image")
     args = ap.parse_args()
 
     if not os.path.isdir(SOURCES):
         sys.exit('Dossier introuvable : %s (lancer depuis la racine du dépôt)' % SOURCES)
 
+    noms = sorted(CORRESPONDANCE)
+    if args.seulement:
+        inconnus = [n for n in args.seulement if n not in CORRESPONDANCE]
+        if inconnus:
+            sys.exit('Nom inconnu de CORRESPONDANCE : ' + ', '.join(inconnus))
+        noms = [n for n in noms if n in args.seulement]
+
     manifeste, total = {}, 0
-    for nom in sorted(CORRESPONDANCE):
+    for nom in noms:
         src = os.path.join(SOURCES, CORRESPONDANCE[nom])
         if not os.path.exists(src):
             print('  ABSENTE  %-16s -> %s' % (nom, src))

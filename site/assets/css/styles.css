@@ -578,7 +578,7 @@ h2 em, h1 em, .em-italic {
 
 /* sur fond sombre, le filet passe au vert clair pour rester lisible */
 .section--dark .eyebrow::before, .final-cta .eyebrow::before, .hero .eyebrow::before,
-.aside-band-text .eyebrow::before {
+.aside-band-text .eyebrow::before, .band-ploton .eyebrow::before {
   background: linear-gradient(90deg, transparent, var(--vert-clair));
 }
 .section--dark .eyebrow--center::after, .final-cta .eyebrow--center::after,
@@ -2402,63 +2402,89 @@ h2 em, h1 em, .em-italic {
 .lb-prev:hover { transform: translateY(-50%) translateX(-4px); }
 .lb-next:hover { transform: translateY(-50%) translateX(4px); }
 
-/* ---------- Espace Soreï ---------- */
+/* ---------- La bande Thomas Ploton ---------- */
 
-/* L'encart Soreï : une grande tuile ronde. Le liseré vertical de 3 px qui la
-   marquait à gauche a disparu — un trait droit sur un coin rond se voit — et
-   c'est le disque du fond qui tient désormais ce rôle. */
-.sorei {
+/* Le partenaire du domaine — équicoaching à pied, à l'Espace Soreï — tient son
+   propre site : cette bande est un lien sortant, jamais du contenu réintégré.
+   Elle porte SON nom et non celui du lieu : « Espace Soreï » ne dit rien à qui
+   arrive ici, « Thomas Ploton » et ses chevaux, si.
+
+   C'était une tuile ronde de la largeur du conteneur, avec la photo enfermée
+   dedans : trois fois plus large que haute, elle n'en montrait qu'une lanière
+   d'herbe sous un voile épais. C'est désormais une BANDE pleine largeur bâtie
+   sur le patron de `.final-cta` — la photo est le fond de la section, le texte
+   se pose dessus. C'est aussi la façon dont son propre site traite ses images.
+   La bande reste courte à la lecture : un titre, deux phrases, un lien. */
+.band-ploton {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--r-2xl);
+  /* couleur de repli : c'est elle qu'on voit si la photo n'arrive pas */
+  background: var(--vert-profond);
+  color: var(--ivoire-82);
+  padding-block: clamp(4.5rem, 9vw, 7.5rem);
+}
+
+/* La photo est un élément et non un `background-image` : elle a besoin de son
+   <picture> et de son srcset. `z-index: -1` la range sous les disques et sous le
+   texte, mais au-dessus du fond de la bande — le contexte d'empilement est celui
+   de `.band-ploton`, d'où l'`isolation` ci-dessus. */
+.band-ploton__bg { position: absolute; inset: 0; z-index: -1; }
+
+/* Le cadrage remonte un peu au-dessus du milieu : la bande est deux fois et
+   demie plus large que haute, la photo une fois et demie ; `cover` en jette donc
+   la plus grande part en hauteur, et le réglage par défaut ne laissait voir que
+   de l'herbe. À 42 % on garde la ligne d'horizon, la brume et les chevaux. */
+.band-ploton__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+}
+
+/* Le voile. Dense à gauche, où se lit le texte ; il s'ouvre vers la droite, où il
+   n'y a que le bouton en ivoire plein — la photo y garde ses chevaux, sa brume et
+   son contre-jour. Les alphas sont réglés sur la page RENDUE et non sur la
+   feuille de style : un soleil bas sous un mot ne se voit dans aucun CSS. */
+.band-ploton__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(100deg, rgba(24, 36, 11, 0.93) 0%, rgba(27, 40, 13, 0.86) 40%, rgba(40, 55, 19, 0.5) 100%),
+    linear-gradient(180deg, rgba(24, 36, 11, 0.18), rgba(24, 36, 11, 0.42));
+}
+
+/* Les disques passent au-dessus du voile mais sous le texte, comme sur le CTA
+   final. Ils sont ici les seuls du site à avoir un bord FONDU plutôt que net, et
+   c'est la photo qui l'impose : le CTA final voile la sienne presque à plat, si
+   bien qu'un aplat à 0,2 y réchauffe le fond sans qu'on distingue son contour.
+   Ici la photo reste lisible sur toute la moitié droite, et le même aplat y
+   traçait un arc franc en travers du ciel et du cheval. Le même disque en
+   dégradé radial garde la forme et la chaleur, et perd la couture.
+   Ne pas le repasser en aplat sans regarder la photo. */
+.band-ploton .disques { z-index: -1; }
+.band-ploton .disque--vert {
+  background: radial-gradient(circle closest-side, rgba(116, 150, 61, 0.26), rgba(116, 150, 61, 0) 78%);
+}
+.band-ploton .disque--doux {
+  background: radial-gradient(circle closest-side, rgba(157, 186, 106, 0.2), rgba(157, 186, 106, 0) 78%);
+}
+
+.band-ploton__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: clamp(2rem, 5vw, 3.5rem);
   flex-wrap: wrap;
-  background: var(--blanc-vert);
-  border: 1.5px solid rgba(116, 150, 61, 0.26);
-  border-radius: var(--r-xl);
-  padding: clamp(2.2rem, 5vw, 3.6rem) clamp(1.8rem, 4vw, 3.4rem);
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
 }
 
-/* Deux disques francs dans le coin droit de l'encart : ils tiennent le rôle du
-   liseré vertical supprimé. `z-index: 0` + le rappel sur les enfants, sans quoi
-   le pseudo-élément — positionné — passerait au-dessus du texte, qui ne l'est pas. */
-.sorei::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  bottom: 0;
-  right: 0;
-  width: clamp(150px, 30vw, 340px);
-  aspect-ratio: 1;
-  translate: 32% 40%;
-  border-radius: var(--r-cercle);
-  background: var(--disque-doux);
-  pointer-events: none;
-}
+.band-ploton .eyebrow { color: var(--vert-tendre); }
+.band-ploton h3 { color: var(--ivoire); }
+.band-ploton p { max-width: 46ch; color: var(--ivoire-82); }
+.band-ploton .btn { flex: none; }
 
-.sorei::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  bottom: 0;
-  left: 0;
-  width: clamp(120px, 18vw, 200px);
-  aspect-ratio: 1;
-  translate: -34% 40%;
-  border-radius: var(--r-cercle);
-  background: var(--disque-pale);
-  pointer-events: none;
-}
-
-.sorei > * { position: relative; z-index: 1; }
-
-.sorei .eyebrow { color: var(--vert-txt); }
-.sorei h3 { color: var(--vert-txt); }
-.sorei p { max-width: 56ch; color: var(--encre-72); }
-.sorei .btn { flex: none; }
 
 /* petite flèche sortante sur les liens vers un autre site */
 .btn--out::after {
@@ -4021,7 +4047,16 @@ h2 em, h1 em, .em-italic {
 
   .gallery { grid-template-columns: 1fr; grid-auto-rows: 220px; }
   .gallery figure:nth-child(1) { grid-column: auto !important; }
-  .sorei { flex-direction: column; align-items: flex-start; }
+  /* En colonne, le texte occupe aussi la moitié droite, là où le voile
+     s'ouvrait sur la photo : il redevient uniforme, sinon les dernières lignes
+     tomberaient sous 4,5:1 dans les éclaircies. */
+  .band-ploton__inner { flex-direction: column; align-items: flex-start; }
+  /* En colonne, le texte occupe aussi la moitié droite, là où le voile s'ouvrait
+     sur la photo : il redevient uniforme, sinon les dernières lignes tomberaient
+     sous 4,5:1 dans les éclaircies du contre-jour. */
+  .band-ploton__bg::after {
+    background: linear-gradient(180deg, rgba(24, 36, 11, 0.84), rgba(33, 46, 16, 0.8));
+  }
   .contact-rows li { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
   .contact-rows .value { text-align: left; }
   .step-dot { font-size: 0.55rem; letter-spacing: 0.12em; }

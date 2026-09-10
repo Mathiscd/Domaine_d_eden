@@ -100,7 +100,12 @@ dernier recours. Nommage `assets/img/<nom>-<largeur>.<ext>`.
 ```
 python tools/generer-images.py            # simulation
 python tools/generer-images.py --ecrire   # produit les fichiers
+python tools/generer-images.py --seulement chevaux-aube --ecrire   # une seule photo
 ```
+
+`--seulement` sert à ajouter une image sans rebissecter les vingt autres : à réglages
+inchangés le script les réécrirait à l'identique, pour une heure de calcul. Sans
+l'option, tout le jeu est traité, comme avant.
 
 Le script cherche la qualité par bissection, image par image et format par format
 — la plus basse qui tienne le plancher SSIM (0,97 ; 0,95 en 240px, largeur qui ne
@@ -210,6 +215,19 @@ au client. Deux variables règlent le rendu, toutes deux héritées jusque dans 
 - **Le diaporama du hero charge ses vues à la main** (`data-src` / `data-srcset`,
   promus par `main.js`). Elles sont empilées en absolu, donc « dans le viewport » :
   `loading="lazy"` ne les différerait pas et les cinq partiraient d'un coup.
+- **Et il se tait sur lien étroit, ou dès qu'on l'a dépassé.** Ses vues pèsent 0,4 à
+  0,6 Mo pièce en DPR 2, et deux d'entre elles — `chateau-angle`, `jardin` — sont
+  **les mêmes photos que le collage de la section 01**, servies là en 1100 et 768 px.
+  Mesuré en 3G bridée : la vue 2 (`chateau-angle-1962`, 449 ko) tenait le tuyau de
+  8,9 s à 20,2 s, et le collage — `lazy`, priorité basse — attendait derrière
+  **7,4 s et 9,5 s après qu'on l'ait atteint**. D'où deux garde-fous dans `main.js` :
+  un appel *spéculatif* (`charge(n, true)`) ne part que si le hero est encore à
+  l'écran, et `play()` s'abstient si `navigator.connection` annonce `saveData` ou
+  2g/3g — première vue seule, les puces chargeant à la demande. Résultat : collage à
+  5,6 s / 6,6 s, LCP inchangé (6,85 s contre 6,80 s).
+  **Ne pas « corriger ça » en rendant le collage `eager`** : essai fait, les deux
+  photos arrivent alors avant le scroll, mais elles se disputent la bande passante
+  avec l'image de tête et le LCP passe de 6,8 à 11,5 s.
 - **Le rideau d'ouverture ne joue qu'à l'arrivée sur le site**, pas à chaque page.
   Un script de garde dans le `<head>` tranche avant le premier paint (sessionStorage,
   repli sur le référent) et pose `no-curtain` + `is-loaded` sur `<html>`. Il doit
@@ -324,7 +342,9 @@ Comparer l'intention à la charte avant toute itération de design.
 ## Contenus — points de vigilance
 
 - 5 chambres : Suite du Roi et de la Reine, Antichambre de la Nuit, Boudoir des Rêves,
-  Refuge des Brumes, Repaire des Songes. Tarifs indicatifs 90–99 € petit-déjeuner compris.
+  Refuge des Brumes, Repaire des Songes. Tarifs 90 — 104 € petit-déjeuner compris
+  (104 € la Suite du Roi et de la Reine ; 97 € l'Antichambre de la Nuit et le Repaire
+  des Songes ; 90 € le Boudoir des Rêves et le Refuge des Brumes).
 - Les photos actuelles proviennent de deux sources : la fiche Gîtes de France
   (2000px, une seule chambre photographiée — les vues du château, salons, jardin)
   et des captures Booking (`photos-sources/Chambres/`, ~930px) qui, elles, montrent
@@ -336,8 +356,16 @@ Comparer l'intention à la charte avant toute itération de design.
 - Les trois bandeaux pleine largeur (hero, `chateau-angle`) restent à ~65 % des
   pixels d'un Retina : la source 2000px est le plafond. Sans photos plus grandes,
   il n'y a rien à corriger là.
-- Espace Soreï : site séparé (<https://thomasploton.fr/>), uniquement un lien sortant.
-  Ne pas réintégrer son contenu.
+- **Thomas Ploton** (équicoaching à pied, à l'Espace Soreï, au sein du domaine) : son
+  site est séparé (<https://thomasploton.fr/>), uniquement un lien sortant. L'encart
+  porte **son nom**, pas celui du lieu — « Espace Soreï » ne dit rien à qui arrive
+  sur la page, le client l'a fait remarquer. Il reste court : deux phrases, un lien.
+  Ne pas réintégrer ses formules ni ses tarifs. La photo de fond de l'encart
+  (`chevaux-aube`) vient de son site — seule source disponible, et elle plafonne à
+  **1600 px**, là où les vues du château montent à 2000. Elle est voilée de vert profond
+  et cadrée à 42 % de sa hauteur : le défaut de `cover` ne montrait que de l'herbe.
+  Et elle est le fond de la SECTION, pas une vignette dans une tuile — essayé, la tuile
+  faisait trois fois sa hauteur en largeur et n'en laissait voir qu'une lanière.
 - Un seul geste attendu du visiteur : **envoyer une demande** (pas de paiement en ligne,
   pas de calendrier de disponibilités). La réservation reste gérée par les hôtes.
 - Coordonnées : 2562 Avenue de Bazac, 43800 Beaulieu · 06 65 32 92 61 ·

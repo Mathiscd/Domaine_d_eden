@@ -39,16 +39,19 @@ l'événementiel.
    Sous la grille : deux CTA — « Visiter les cinq chambres » (page dédiée) et
    « Composer votre séjour » (réservation) — puis l'encart **table d'hôtes**
    (25 €/pers, sur réservation 24–48 h) + **gîte 2–4 personnes à venir en 2027**.
-6. **L'événementiel** (`#evenements`) — bande sombre : mariages intimistes, cousinades,
-   séminaires, privatisation jusqu'à 30 personnes, formule traiteur.
+6. **L'événementiel** (`#evenements`) — bande sombre : les trois formats de privatisation
+   (week-end, midi ou soirée, entreprise) jusqu'à 30 personnes, formule traiteur.
    CTA « Découvrir l'événementiel » (page dédiée) + « Demander un devis ».
 7. **Les alentours** (`#alentours`) — Le Puy-en-Velay (17 km), la Via Fluvia à vélo,
    gorges de la Loire / villages, tables locales (La Galoche…).
 8. **Galerie** (`#galerie`) — mosaïque 7 photos à placement explicite (4×3, remplissage exact),
    visionneuse plein écran maison (clavier + flèches + Échap).
-9. **Espace Soreï** — encart vert : centre de médiation équine et d'accompagnement au
-   sein du domaine ; **bouton sortant vers <https://thomasploton.fr/>** (`target="_blank"`).
-   Rien de plus : le contenu du site Soreï ne se réintègre pas ici.
+9. **Thomas Ploton** — bande pleine largeur dont la PHOTO est le fond (les chevaux
+   à l'aube, voilée de vert profond), sur le patron de `.final-cta` :
+   l'équicoaching à pied, à l'Espace Soreï, au sein du domaine ; **bouton sortant vers
+   <https://thomasploton.fr/>** (`target="_blank"`). L'encart porte le nom de la personne
+   et non celui du lieu — « Espace Soreï » ne dit rien à qui arrive ici. Rien de plus :
+   le contenu de son site ne se réintègre pas ici.
 10. **Contact & accès** (`#contact`) — adresse, tel, mail, horaires arrivée/départ,
    carte (lien Google Maps, pas d'iframe lourde), CTA final pleine largeur
    « Composer votre séjour ».
@@ -58,7 +61,7 @@ l'événementiel.
 ## chambres.html — l'hébergement en détail
 
 1. **Bandeau de titre** — photo chambre, fil d'Ariane, « Cinq chambres, *cinq univers* ».
-2. **Ce qui est compris** — 3 faits : 90–99 € la nuit petit-déjeuner compris ·
+2. **Ce qui est compris** — 3 faits : 90 — 104 € la nuit petit-déjeuner compris ·
    arrivées 16 h–20 h / départs 9 h–10 h · parking, abri vélos, salons, animaux.
 3. **Les cinq chambres** — un bloc pleine largeur par chambre, grille alternée,
    ancre par chambre (`#suite-roi-reine`, `#antichambre-nuit`, `#boudoir-reves`,
@@ -71,18 +74,29 @@ l'événementiel.
 ## evenements.html — l'événementiel en détail
 
 1. **Bandeau de titre** — « Vos plus beaux jours, *entre parc et tourelles* ».
-2. **Recevoir ici** — éditorial : un seul événement à la fois, le domaine entier.
-3. **Les trois formats** — mariages & privatisation · cousinades & anniversaires ·
-   séminaires & journées d'équipe. Chaque carte porte 3 repères concrets
-   (capacité, durée, inclus). Mariage et privatisation ne font qu'un : réserver
-   un mariage, c'est déjà réserver le domaine entier.
-4. **Le cadre** (bande sombre) — 30 personnes reçues · 5 chambres sur place ·
+2. **Un décor d'exception** — éditorial, texte du client : le charme du château, chaque
+   moment son ambiance, et les proches qui dorment sur place.
+3. **Les trois formats** — découpés **par durée de privatisation**, à la demande du
+   client, et non plus par type d'événement : *un week-end entier* (mariages & grandes
+   réceptions) · *un midi ou une soirée* (anniversaires, cousinades, baptêmes) ·
+   *le format entreprise* (soirée en semaine, journée de formation, séminaire
+   résidentiel). Les trois sont des privatisations : le domaine entier, un seul
+   événement à la fois. Chaque carte porte 3 repères concrets et mène à
+   `reservation.html?motif=evenement&format=<mariage|cousinade|seminaire>` — les
+   `data-slug` du select n'ont pas changé.
+   Après la grille, **bande de partenariat Thomas Ploton** (prolongement de la carte
+   entreprise) : l'équicoaching en équipe, lien sortant vers <https://thomasploton.fr/>.
+   Elle est hors de la section des formats — le lien de titre des cartes s'étend en
+   `::after` sur toute leur surface, un lien imbriqué y serait mort.
+4. **La promesse** (`quote-band`) — « vous ne venez pas simplement louer un espace ».
+5. **Le cadre** (bande sombre) — 30 personnes reçues · 5 chambres sur place ·
    1 événement à la fois.
-5. **Comment ça se passe** — 4 temps : votre message → la visite → le devis → le jour J.
-6. **À table** — formule traiteur simple (planches, produits locaux), traiteur extérieur
+6. **Comment ça se passe** — 4 temps : votre message → la visite → le devis → le jour J.
+7. **À table** — formule traiteur simple (planches, produits locaux), traiteur extérieur
    possible. La table d'hôtes à 25 €/pers. reste l'affaire des chambres : en
    réception, on parle de service traiteur.
-7. **CTA final** — « Demander un devis » → `reservation.html?motif=evenement`.
+8. **CTA final** — « Imaginez votre événement *au château* », « Demander un devis »
+   → `reservation.html?motif=evenement`.
 
 ## reservation.html — formulaire multi-étapes
 
@@ -112,7 +126,12 @@ pré-remplissent l'étape 1.
 - Tél : 06 65 32 92 61 · Mail : chateaulestourelles43@gmail.com
 - Arrivée 16 h–20 h · Départ 9 h–10 h · Animaux admis sur demande · Parking privé gratuit.
 - Notes Booking (preuve sociale, usage discret) : 8,8/10 « Superbe », Personnel 9,8.
-- Espace Soreï : espacesorei43@gmail.com — site propre : <https://thomasploton.fr/>.
+- Thomas Ploton (Espace Soreï, au sein du domaine) : ploton.thomas@gmail.com,
+  06 65 32 92 61 — site propre : <https://thomasploton.fr/>. Équicoaching à pied :
+  séances individuelles (Équi Émotion, 90 €), constellations familiales avec les chevaux
+  (Équanima, soirées), parcours Renaissance, soins énergétiques, et formats en équipe.
+  Aucun prérequis équestre. La photo de fond de l'encart (`chevaux-aube`) vient de son
+  site — c'est la seule source disponible, 1600 px.
 - Réseaux sociaux : comptes Facebook et Instagram existants — **URL exactes à fournir par
   le client** ; en attendant, les pictogrammes du header et du footer pointent vers
   l'accueil des deux plateformes (`parts` du générateur → constantes `FB` / `IG`).

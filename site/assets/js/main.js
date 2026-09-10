@@ -325,13 +325,28 @@
     var dots = Array.prototype.slice.call(document.querySelectorAll('.hero-dots button'));
     var idx = 0;
     var timer = null;
+    var aLEcran = true;
+
+    /* Cinq vues pleine largeur, c'est 0,4 à 0,6 Mo pièce en DPR 2. Sur un lien
+       étroit, les faire défiler affame tout le reste de la page : mesuré en 3G
+       bridée, la vue 2 (chateau-angle-1962, 449 ko) tient le tuyau de 8,9 s à
+       20,2 s, et le collage de la section 01 — qui reprend LA MÊME photo en
+       1100 px — attendait derrière, neuf secondes après qu'on l'ait atteint.
+       On s'en tient alors à la première vue ; les puces restent actives et
+       chargent à la demande. `navigator.connection` est absent hors Chromium :
+       le comportement d'origine y est conservé. */
+    var lien = navigator.connection;
+    var reseauMaigre = !!lien && (lien.saveData === true ||
+      /^(slow-2g|2g|3g)$/.test(lien.effectiveType || ''));
     var demande = 0;
     var DUREE = 6800; // temps d'affichage d'une vue, fondu compris
 
     /* Les vues sont empilées en absolu : toutes sont « dans le viewport », si bien
        que loading="lazy" ne les différerait pas — les cinq images partaient d'un coup.
        On les appelle donc à la main, chacune juste avant son tour. */
-    var charge = function (n) {
+    var charge = function (n, speculatif) {
+      // une vue appelée d'avance ne se télécharge que si elle a des chances de servir
+      if (speculatif && (reseauMaigre || !aLEcran)) return;
       var vue = slides[(n + slides.length) % slides.length];
       var img = vue.querySelector('img[data-src]');
       if (!img) return;
@@ -349,7 +364,7 @@
       idx = n;
       slides.forEach(function (s, k) { s.classList.toggle('is-active', k === idx); });
       dots.forEach(function (d, k) { d.setAttribute('aria-current', k === idx ? 'true' : 'false'); });
-      charge(idx + 1); // la suivante s'amorce pendant que celle-ci est à l'écran
+      charge(idx + 1, true); // la suivante s'amorce pendant que celle-ci est à l'écran
     };
 
     var goTo = function (i) {
@@ -368,8 +383,15 @@
       applique(n);
     };
 
+    /* Le diaporama ne tourne que s'il est à l'écran. Une fois le hero dépassé, il
+       continuait sinon d'appeler ses vues suivantes — pleine largeur, un demi-Mo
+       pièce en DPR 2 — dans le dos du visiteur, qui regarde alors la section 01 :
+       ses deux photos, servies en `lazy` et en priorité basse, passaient derrière
+       et mettaient près de dix secondes à venir. */
     var play = function () {
       if (timer) clearInterval(timer);
+      timer = null;
+      if (document.hidden || !aLEcran || reseauMaigre) return;
       timer = setInterval(function () { goTo(idx + 1); }, DUREE);
     };
 
@@ -379,14 +401,20 @@
 
     if (slides.length > 1 && !reduce) {
       // on ne fait défiler que si l'onglet est visible : pas d'images qui sautent au retour
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) { clearInterval(timer); timer = null; }
-        else play();
-      });
+      document.addEventListener('visibilitychange', play);
+
+      // ... ni si le hero est sorti du champ (cf. `play`)
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entrees) {
+          aLEcran = entrees[0].isIntersecting;
+          play();
+        }, { threshold: 0 }).observe(show);
+      }
+
       /* La deuxième vue s'amorce après le chargement de la page, puis au premier
          temps mort : plus tôt, elle se disputerait la bande passante avec l'image
          de tete, qui est le LCP. La première bascule n'a lieu qu'à 6,8 s. */
-      var amorce = function () { charge(1); };
+      var amorce = function () { charge(1, true); };
       var auCalme = function () {
         if ('requestIdleCallback' in window) requestIdleCallback(amorce, { timeout: 2000 });
         else setTimeout(amorce, 600);
