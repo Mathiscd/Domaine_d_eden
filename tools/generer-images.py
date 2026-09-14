@@ -57,21 +57,36 @@ CORRESPONDANCE = {
     'salon':           'gdf-5.jpg',   'salon-piano':    'gdf-6.jpg',
     'table-hotes':     'gdf-9.jpg',
 
-    # Deuxième vue (chambre) + salle de bains, une paire par chambre — les captures
-    # Booking fournies par le client, bien plus petites que les gdf-*.jpg : leur
-    # srcset s'arrête donc plus tôt.
-    #
-    # Ce sont des **PNG**, et c'est la seule forme acceptable ici. Ces captures ont
-    # d'abord été versionnées en JPEG à côté du PNG d'origine ; encoder depuis ces
-    # JPEG revenait à dépenser des bits pour reproduire les artefacts d'un
-    # intermédiaire — exactement ce que la règle d'or interdit. Les JPEG ont été
-    # supprimés, le PNG sans perte porte désormais le nom de la chambre.
-    'chambre-suite-alt':   'chambre-suite-alt.png',
-    'chambre-suite-sdb':   'chambre-suite-sdb.png',
-    'chambre-nuit-alt':    'chambre-nuit-alt.png',
-    'chambre-nuit-sdb':    'chambre-nuit-sdb.png',
-    'chambre-boudoir-alt': 'chambre-boudoir-alt.png',
-    'chambre-boudoir-sdb': 'chambre-boudoir-sdb.png',
+    # Les photos du client (septembre 2026), 2048 × 1536, pour trois chambres :
+    # la Suite du Roi et de la Reine (la rouge), l'Antichambre de la Nuit (la bleu
+    # nuit) et le Boudoir des Rêves (la bleu pâle). La vue `-lit` ouvre chaque
+    # fiche ; les autres ne se voient qu'au rail mobile et dans la visionneuse.
+    # Ce sont les JPEG tels que le client les a envoyés : des originaux, pas un
+    # intermédiaire de notre main.
+    'chambre-suite-lit':       'chambre-suite-lit.jpg',
+    'chambre-suite-cheminee':  'chambre-suite-cheminee.jpg',
+    'chambre-suite-enfilade':  'chambre-suite-enfilade.jpg',
+    'chambre-suite-bureau':    'chambre-suite-bureau.jpg',
+    'chambre-suite-sdb':       'chambre-suite-sdb.jpg',
+    'chambre-nuit-lit':        'chambre-nuit-lit.jpg',
+    'chambre-nuit-armoire':    'chambre-nuit-armoire.jpg',
+    'chambre-nuit-fenetre':    'chambre-nuit-fenetre.jpg',
+    'chambre-nuit-tableau':    'chambre-nuit-tableau.jpg',
+    'chambre-nuit-sdb':        'chambre-nuit-sdb.jpg',
+    'chambre-boudoir-lit':     'chambre-boudoir-lit.jpg',
+    'chambre-boudoir-armoire': 'chambre-boudoir-armoire.jpg',
+    'chambre-boudoir-sdb':     'chambre-boudoir-sdb.jpg',
+
+    # Les soirées au domaine (evenements.html), photos du client : la cour et son
+    # arche fleurie, l'allée sous les guirlandes (portrait), la façade éclairée.
+    'evenement-cour-arche':       'evenement-cour-arche.jpg',
+    'evenement-allee-guirlandes': 'evenement-allee-guirlandes.jpg',
+    'evenement-facade-nuit':      'evenement-facade-nuit.jpg',
+
+    # Refuge des Brumes et Repaire des Songes : toujours les captures Booking,
+    # bien plus petites (~930 px) — leur srcset s'arrête donc plus tôt. Ce sont
+    # des **PNG** : encoder depuis un ré-encodage JPEG reproduirait ses artefacts,
+    # ce que la règle d'or interdit.
     'chambre-brumes-alt':  'chambre-brumes-alt.png',
     'chambre-brumes-sdb':  'chambre-brumes-sdb.png',
     'chambre-songes-alt':  'chambre-songes-alt.png',

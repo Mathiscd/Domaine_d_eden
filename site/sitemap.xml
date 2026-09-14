@@ -10,27 +10,55 @@
       <image:loc>https://domainededen.fr/assets/img/chambre-chateau-2000.jpg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://domainededen.fr/assets/img/chambre-suite-alt-908.jpg</image:loc>
-      <image:title>La Suite du Roi et de la Reine, lit double et tête de lit en pierre</image:title>
+      <image:loc>https://domainededen.fr/assets/img/chambre-suite-lit-2048.jpg</image:loc>
+      <image:title>La Suite du Roi et de la Reine, grand lit ancien en bois sculpté et murs rouges à moulures dorées</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://domainededen.fr/assets/img/chambre-suite-sdb-930.jpg</image:loc>
+      <image:loc>https://domainededen.fr/assets/img/chambre-suite-cheminee-2048.jpg</image:loc>
+      <image:title>La Suite du Roi et de la Reine, cheminée ancienne et rideaux en toile de Jouy</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-suite-enfilade-2048.jpg</image:loc>
+      <image:title>La Suite du Roi et de la Reine vue en longueur, du lit à l’armoire à glace</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-suite-bureau-2048.jpg</image:loc>
+      <image:title>La Suite du Roi et de la Reine, secrétaire et guéridon près des fenêtres</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-suite-sdb-2048.jpg</image:loc>
       <image:title>La Suite du Roi et de la Reine, salle de bains privative avec douche</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-alt-935.jpg</image:loc>
-      <image:title>L’Antichambre de la Nuit, murs bleus et toile de Jouy</image:title>
+      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-lit-2048.jpg</image:loc>
+      <image:title>L’Antichambre de la Nuit, murs bleu nuit et tête de lit en toile de Jouy</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-sdb-931.jpg</image:loc>
+      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-armoire-2048.jpg</image:loc>
+      <image:title>L’Antichambre de la Nuit, armoire à glace ancienne et commode peinte</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-fenetre-2048.jpg</image:loc>
+      <image:title>L’Antichambre de la Nuit, le lit dans la lumière de la fenêtre</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-tableau-2048.jpg</image:loc>
+      <image:title>L’Antichambre de la Nuit, tableau ancien et armoire à glace</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-sdb-2048.jpg</image:loc>
       <image:title>L’Antichambre de la Nuit, salle de bains privative avec douche</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://domainededen.fr/assets/img/chambre-boudoir-alt-923.jpg</image:loc>
+      <image:loc>https://domainededen.fr/assets/img/chambre-boudoir-lit-2048.jpg</image:loc>
       <image:title>Le Boudoir des Rêves, murs bleu pâle et tête de lit en toile de Jouy</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://domainededen.fr/assets/img/chambre-boudoir-sdb-928.jpg</image:loc>
+      <image:loc>https://domainededen.fr/assets/img/chambre-boudoir-armoire-2048.jpg</image:loc>
+      <image:title>Le Boudoir des Rêves, armoire ancienne et petite fenêtre ouverte sur la verdure</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chambre-boudoir-sdb-2048.jpg</image:loc>
       <image:title>Le Boudoir des Rêves, salle de bains privative avec douche</image:title>
     </image:image>
     <image:image>
@@ -82,6 +110,18 @@
       <image:title>La cour du domaine et ses roues de charrette</image:title>
     </image:image>
     <image:image>
+      <image:loc>https://domainededen.fr/assets/img/evenement-allee-guirlandes-1536.jpg</image:loc>
+      <image:title>L’allée du parc sous les guirlandes lumineuses, un soir de fête au domaine</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/evenement-cour-arche-2048.jpg</image:loc>
+      <image:title>La cour du château de nuit, son arche fleurie et ses lumières</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/evenement-facade-nuit-2048.jpg</image:loc>
+      <image:title>La façade du Château les Tourelles éclairée à la nuit tombée</image:title>
+    </image:image>
+    <image:image>
       <image:loc>https://domainededen.fr/assets/img/salle-a-manger-2000.jpg</image:loc>
       <image:title>La grande salle à manger du château dressée pour un repas</image:title>
     </image:image>
@@ -115,15 +155,15 @@
       <image:title>La tour du château depuis le parc</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://domainededen.fr/assets/img/chambre-suite-alt-908.jpg</image:loc>
+      <image:loc>https://domainededen.fr/assets/img/chambre-suite-lit-2048.jpg</image:loc>
       <image:title>La Suite du Roi et de la Reine</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-alt-935.jpg</image:loc>
+      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-lit-2048.jpg</image:loc>
       <image:title>L’Antichambre de la Nuit</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://domainededen.fr/assets/img/chambre-boudoir-alt-923.jpg</image:loc>
+      <image:loc>https://domainededen.fr/assets/img/chambre-boudoir-lit-2048.jpg</image:loc>
       <image:title>Le Boudoir des Rêves</image:title>
     </image:image>
     <image:image>
@@ -164,13 +204,13 @@
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://domainededen.fr/assets/img/chambre-suite-alt-908.jpg</image:loc>
+      <image:loc>https://domainededen.fr/assets/img/chambre-suite-lit-2048.jpg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-alt-935.jpg</image:loc>
+      <image:loc>https://domainededen.fr/assets/img/chambre-nuit-lit-2048.jpg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://domainededen.fr/assets/img/chambre-boudoir-alt-923.jpg</image:loc>
+      <image:loc>https://domainededen.fr/assets/img/chambre-boudoir-lit-2048.jpg</image:loc>
     </image:image>
     <image:image>
       <image:loc>https://domainededen.fr/assets/img/chambre-brumes-alt-921.jpg</image:loc>

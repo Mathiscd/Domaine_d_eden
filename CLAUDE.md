@@ -78,8 +78,10 @@ site/
                        aux clients mail), `og-*.jpg` (les cartes de partage en
                        1200×630) et les icônes du manifeste
 photos-sources/        les sources, hors `site/` : versionnées, jamais publiées.
-                       `gdf-*.jpg` (Gîtes de France, 2000px), `chambre-*.png` (captures
-                       Booking, ~930px, sans perte), `chevaux-aube.webp`, le logo fourni
+                       `gdf-*.jpg` (Gîtes de France, 2000px), `chambre-{suite,nuit,
+                       boudoir}-*.jpg` et `evenement-*.jpg` (photos du client, 2048px),
+                       `chambre-{brumes,songes}-*.png` (captures Booking, ~930px, sans
+                       perte), `chevaux-aube.webp`, le logo fourni
                        par le client (`logo-domaine-eden.png`), celui qu'il remplace
                        (`…-ancien.png`), `urls.txt` et `chambres-booking.md` (provenance)
 tools/
@@ -485,14 +487,22 @@ Comparer l'intention à la charte avant toute itération de design.
   Refuge des Brumes, Repaire des Songes. Tarifs 90 — 104 € petit-déjeuner compris
   (104 € la Suite du Roi et de la Reine ; 97 € l'Antichambre de la Nuit et le Repaire
   des Songes ; 90 € le Boudoir des Rêves et le Refuge des Brumes).
-- Les photos actuelles proviennent de deux sources : la fiche Gîtes de France
-  (2000px, une seule chambre photographiée — les vues du château, salons, jardin)
-  et des captures Booking (`photos-sources/chambre-*-{alt,sdb}.png`, ~930px) qui,
-  elles, montrent les cinq chambres distinctes. **Elles plafonnent à 930px** : c'est la
-  limite de netteté restante du site, et aucun réencodage ne la lèvera. Sur mobile
-  DPR 3 elles servent 86–89 % des pixels demandés (écart peu visible) ; sur desktop
-  elles suffisent. À remplacer dès que le client fournit ses photos définitives —
-  c'est le seul vrai correctif. Booking bloque la récupération automatique.
+- Les photos actuelles proviennent de trois sources : la fiche Gîtes de France
+  (2000px, une seule chambre photographiée — les vues du château, salons, jardin),
+  les **photos du client** (2048px, septembre 2026) pour la Suite du Roi et de la Reine
+  (la rouge), l'Antichambre de la Nuit (la bleu nuit), le Boudoir des Rêves (la bleu
+  pâle) et les trois vues de soirée d'`evenements.html`, et des captures Booking
+  (`photos-sources/chambre-{brumes,songes}-{alt,sdb}.png`, ~930px) pour les deux
+  chambres restantes. **Ces captures plafonnent à 930px** : c'est la limite de netteté
+  restante du site, et aucun réencodage ne la lèvera. À remplacer dès que le client
+  fournit les photos du Refuge des Brumes et du Repaire des Songes — c'est le seul vrai
+  correctif. Booking bloque la récupération automatique.
+- **Chaque fiche chambre montre une photo au desktop, toutes au rail mobile.** Au-dessus
+  de 900px, seule la première `.room-photo` s'affiche (les autres sont `lazy` sous un
+  parent masqué, donc jamais téléchargées) ; la visionneuse les lit toutes dans
+  `data-room-photos`. Ajouter une vue, c'est l'ajouter aux deux endroits et corriger
+  « Voir les N photos ». La première porte les `sizes` de la colonne, les suivantes
+  ceux du rail.
 - Les trois bandeaux pleine largeur (hero, `chateau-angle`) restent à ~65 % des
   pixels d'un Retina : la source 2000px est le plafond. Sans photos plus grandes,
   il n'y a rien à corriger là.

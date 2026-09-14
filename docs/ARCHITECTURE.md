@@ -88,8 +88,11 @@ l'événementiel.
    entreprise) : l'équicoaching en équipe, lien sortant vers <https://thomasploton.fr/>.
    Elle est hors de la section des formats — le lien de titre des cartes s'étend en
    `::after` sur toute leur surface, un lien imbriqué y serait mort.
-4. **La promesse** (`quote-band`) — « vous ne venez pas simplement louer un espace ».
-5. **Le cadre** (bande sombre) — 30 personnes reçues · 5 chambres sur place ·
+4. **À la nuit tombée** (bande sombre) — les trois photos de soirée fournies par le
+   client : l'allée sous les guirlandes (portrait, sur deux rangs), la cour et son
+   arche fleurie, la façade éclairée. Légendes en pilule sur les photos.
+5. **La promesse** (`quote-band`) — « vous ne venez pas simplement louer un espace ».
+6. **Le cadre** (bande sombre) — 30 personnes reçues · 5 chambres sur place ·
    1 événement à la fois.
 6. **Comment ça se passe** — 4 temps : votre message → la visite → le devis → le jour J.
 7. **À table** — formule traiteur simple (planches, produits locaux), traiteur extérieur
