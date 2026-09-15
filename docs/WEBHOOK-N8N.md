@@ -6,7 +6,7 @@ webhook n8n**, qui déclenche deux envois SMTP :
 
 | Nœud n8n | Destinataire | Rôle |
 |---|---|---|
-| « Send email MarketFrame » | `chateaulestourelles43@gmail.com` | la fiche complète pour Grégory et Thomas |
+| « Send email MarketFrame » | `info@domainededen.fr` | la fiche complète pour Grégory et Thomas |
 | « Send email client » | le visiteur | l'accusé de réception |
 
 Les deux gabarits sont dans [docs/emails/](emails/) et se collent tels quels
@@ -117,9 +117,9 @@ En local il n'y a pas de proxy : le script tape l'adresse d'essai en direct.
 
 |  | Mail interne | Mail visiteur |
 |---|---|---|
-| **To** | `chateaulestourelles43@gmail.com` | `{{ $json.body.client.email }}` |
+| **To** | `info@domainededen.fr` | `{{ $json.body.client.email }}` |
 | **Subject** | `{{ $json.body.objet_interne }}` | `{{ $json.body.objet_client }}` |
-| **Reply-To** | `{{ $json.body.client.email }}` | `chateaulestourelles43@gmail.com` |
+| **Reply-To** | `{{ $json.body.client.email }}` | `info@domainededen.fr` |
 | **Email Format** | HTML | HTML |
 | **Gabarit** | [emails/mail-interne.html](emails/mail-interne.html) | [emails/mail-client.html](emails/mail-client.html) |
 

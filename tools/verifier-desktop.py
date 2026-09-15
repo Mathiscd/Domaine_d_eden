@@ -87,8 +87,14 @@ def rendre(nav, port, nom, largeur):
             timeout=8000)
     except Exception:
         pass
+    # `decode()` d'une image `lazy` jamais chargée — les vues masquées des fiches
+    # chambres au-dessus de 900 px — ne se résout ni ne se rejette : sans borne,
+    # le Promise.all attendait indéfiniment et le script restait figé.
     try:
-        pg.evaluate("() => Promise.all([...document.images].map(i => i.decode().catch(() => {})))")
+        pg.evaluate("""() => Promise.race([
+          Promise.all([...document.images].map(i => i.decode().catch(() => {}))),
+          new Promise(r => setTimeout(r, 5000))
+        ])""")
     except Exception:
         pass
     pg.wait_for_timeout(400)

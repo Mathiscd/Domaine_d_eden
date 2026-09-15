@@ -11,7 +11,7 @@ et deux pages dédiées approfondissent l'hébergement et l'événementiel.
 | Réservation | `reservation.html` | formulaire multi-étapes, cible de tous les CTA |
 
 Navigation commune (deux rangs, cf. charte §6) : Accueil · Le domaine · Les chambres ·
-Événements · Galerie · Contact + bouton « Réserver ». Depuis les pages intérieures,
+Événements · Activités · Galerie · Contact + bouton « Réserver ». Depuis les pages intérieures,
 « Le domaine », « Galerie » et « Contact » pointent vers les ancres de `index.html`.
 
 Tous les CTA convergent vers `reservation.html` — avec paramètre d'URL quand le contexte
@@ -42,8 +42,12 @@ l'événementiel.
 6. **L'événementiel** (`#evenements`) — bande sombre : les trois formats de privatisation
    (week-end, midi ou soirée, entreprise) jusqu'à 30 personnes, formule traiteur.
    CTA « Découvrir l'événementiel » (page dédiée) + « Demander un devis ».
-7. **Les alentours** (`#alentours`) — Le Puy-en-Velay (17 km), la Via Fluvia à vélo,
-   gorges de la Loire / villages, tables locales (La Galoche…).
+7. **Activités & alentours** (`#alentours`, « Activités » dans la nav) — carrousel de
+   quatre cartes, chacune avec son lien sortant : Le Puy-en-Velay (17 km, office de
+   tourisme), la Via Fluvia à vélo (viafluvia.fr), gorges de la Loire / villages et
+   La Galoche (itinéraire Google Maps), le ravin de Corboeuf à Rosières (fiche de
+   l'office de tourisme). Lecture automatique, flèches et puces ; le premier geste
+   du visiteur la fait passer en manuel.
 8. **Galerie** (`#galerie`) — mosaïque 7 photos à placement explicite (4×3, remplissage exact),
    visionneuse plein écran maison (clavier + flèches + Échap).
 9. **Thomas Ploton** — bande pleine largeur dont la PHOTO est le fond (les chevaux
@@ -62,7 +66,7 @@ l'événementiel.
 
 1. **Bandeau de titre** — photo chambre, fil d'Ariane, « Cinq chambres, *cinq univers* ».
 2. **Ce qui est compris** — 3 faits : 90 — 104 € la nuit petit-déjeuner compris ·
-   arrivées 16 h–20 h / départs 9 h–10 h · parking, abri vélos, salons, animaux.
+   arrivées 17 h–20 h / départs 9 h–10 h · parking, abri vélos, salons, animaux.
 3. **Les cinq chambres** — un bloc pleine largeur par chambre, grille alternée,
    ancre par chambre (`#suite-roi-reine`, `#antichambre-nuit`, `#boudoir-reves`,
    `#refuge-brumes`, `#repaire-songes`), spécifications, prix, CTA
@@ -126,14 +130,14 @@ pré-remplissent l'étape 1.
 ## Données de référence
 
 - Adresse : 2562 Avenue de Bazac, 43800 Beaulieu (lieu-dit Adiac) — Haute-Loire.
-- Tél : 06 65 32 92 61 · Mail : chateaulestourelles43@gmail.com
-- Arrivée 16 h–20 h · Départ 9 h–10 h · Animaux admis sur demande · Parking privé gratuit.
+- Tél : 06 65 32 92 61 · Mail : info@domainededen.fr
+- Arrivée 17 h–20 h · Départ 9 h–10 h · Animaux admis sur demande (5 €/nuit) · Parking privé gratuit.
 - Notes Booking (preuve sociale, usage discret) : 8,8/10 « Superbe », Personnel 9,8.
 - Thomas Ploton (Espace Soreï, au sein du domaine) : ploton.thomas@gmail.com,
   06 65 32 92 61 — site propre : <https://thomasploton.fr/>. Équicoaching à pied :
   séances individuelles (Équi Émotion, 90 €), constellations familiales avec les chevaux
   (Équanima, soirées), parcours Renaissance, soins énergétiques, et formats en équipe.
-  Aucun prérequis équestre. La photo de fond de l'encart (`chevaux-aube`) vient de son
+  La photo de fond de l'encart (`chevaux-aube`) vient de son
   site — c'est la seule source disponible, 1600 px.
 - Réseaux sociaux : comptes Facebook et Instagram existants — **URL exactes à fournir par
   le client** ; en attendant, les pictogrammes du header et du footer pointent vers

@@ -58,10 +58,10 @@
         window.scrollTo({ top: vise, behavior: 'auto' });
       };
 
-      /* La feuille Google Fonts est chargée en `media="print"` puis promue :
-         `document.fonts.ready` résout donc une première fois avant même que
-         les @font-face existent. On repasse après `load`, quand la feuille
-         est appliquée, puis une dernière fois au repos. */
+      /* Les webfonts arrivent après le premier rendu (doublures métriques en
+         attendant) et `document.fonts.ready` peut résoudre avant qu'elles
+         soient toutes demandées. On repasse après `load`, puis à `fonts.ready`,
+         puis une dernière fois au repos. */
       window.addEventListener('load', function () {
         recaler();
         if (document.fonts && document.fonts.ready) document.fonts.ready.then(recaler);
@@ -140,7 +140,7 @@
      4. Révélations au scroll (up / mask / fade + titres à masque)
      ------------------------------------------------------------------ */
   var revealed = Array.prototype.slice.call(
-    document.querySelectorAll('[data-reveal], .reveal, .around-item')
+    document.querySelectorAll('[data-reveal], .reveal')
   );
 
   /* Un élément en « volet » a un clip-path replié : son aire d'intersection est nulle,
@@ -773,6 +773,148 @@
       reprise = setTimeout(function () {
         railsAArbitrer.forEach(function (f) { f(true); });
       }, 160);
+    });
+  }
+  /* ------------------------------------------------------------------
+     12. Alentours : le carrousel qui défile seul
+     Le défilement est natif (scroll-snap) ; ce module pose les puces, branche
+     les flèches et fait tourner la lecture automatique.
+
+     Pas de minuterie : la puce courante porte une jauge animée en CSS, et
+     c'est sa fin (`animationend`) qui fait avancer. Mettre la jauge en pause
+     — survol, focus, carrousel hors écran, onglet caché — met donc aussi le
+     défilement en pause, sans rien à resynchroniser.
+
+     La première action de la personne — flèche, puce, glissé — fait passer
+     en manuel, pour de bon : on ne reprend pas la main à qui l'a prise. Pas de
+     lecture automatique du tout si `prefers-reduced-motion` est demandé.
+
+     Les arrêts sont les positions de défilement atteignables, pas les
+     cartes : trois cartes à l'écran sur quatre ne laissent que deux arrêts.
+     ------------------------------------------------------------------ */
+  var carrousel = document.querySelector('[data-around-slider]');
+  if (carrousel) {
+    var piste = carrousel.querySelector('.around-track');
+    var cartes = Array.prototype.slice.call(piste.children);
+    var commandes = carrousel.querySelector('.around-controls');
+    var boitePuces = carrousel.querySelector('.around-puces');
+    var positions = [];
+    var ici = 0;
+    var auto = !reduce;
+    var enCours = false;   // défilement lancé par le script, pas par le doigt
+    var cadre = 0;
+    var raisonsPause = { horsChamp: 'IntersectionObserver' in window, survol: false, focus: false };
+
+    var pauser = function () {
+      var p = document.hidden || raisonsPause.horsChamp || raisonsPause.survol || raisonsPause.focus;
+      carrousel.classList.toggle('is-paused', p);
+    };
+
+    var mesurer = function () {
+      var max = piste.scrollWidth - piste.clientWidth;
+      var base = piste.getBoundingClientRect().left - piste.scrollLeft;
+      var out = [];
+      cartes.forEach(function (c) {
+        var x = Math.max(0, Math.min(Math.round(c.getBoundingClientRect().left - base), max));
+        if (!out.length || Math.abs(out[out.length - 1] - x) > 8) out.push(x);
+      });
+      return out;
+    };
+
+    var marquer = function (i) {
+      ici = i;
+      Array.prototype.forEach.call(boitePuces.children, function (b, n) {
+        b.setAttribute('aria-current', n === i ? 'true' : 'false');
+      });
+    };
+
+    var aller = function (i, instantane) {
+      if (!positions.length) return;
+      i = (i + positions.length) % positions.length;
+      enCours = true;
+      marquer(i);
+      piste.scrollTo({ left: positions[i], behavior: instantane || reduce ? 'auto' : 'smooth' });
+    };
+
+    var manuel = function () {
+      enCours = false;
+      if (!auto) return;
+      auto = false;
+      carrousel.classList.remove('is-auto');
+      piste.setAttribute('aria-live', 'polite');
+    };
+
+    var construire = function () {
+      positions = mesurer();
+      boitePuces.textContent = '';
+      positions.forEach(function (x, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'around-puce';
+        b.setAttribute('aria-controls', piste.id);
+        b.setAttribute('aria-label', 'Vue ' + (i + 1) + ' sur ' + positions.length);
+        b.appendChild(document.createElement('span'));
+        b.addEventListener('click', function () { manuel(); aller(i); });
+        boitePuces.appendChild(b);
+      });
+      commandes.hidden = positions.length < 2;
+      if (positions.length < 2) manuel();
+      aller(Math.min(ici, positions.length - 1), true);
+    };
+
+    /* Au défilement, la puce suit la position réelle. Pendant un défilement
+       lancé par le script on la laisse sur la cible : sinon, en revenant de la
+       dernière vue à la première, elle passerait par toutes les autres et
+       relancerait leur jauge au passage. */
+    piste.addEventListener('scroll', function () {
+      if (cadre) return;
+      cadre = requestAnimationFrame(function () {
+        cadre = 0;
+        var meilleure = 0, ecart = Infinity;
+        positions.forEach(function (x, i) {
+          var d = Math.abs(x - piste.scrollLeft);
+          if (d < ecart) { ecart = d; meilleure = i; }
+        });
+        if (enCours) { if (meilleure === ici && ecart < 2) enCours = false; return; }
+        if (meilleure !== ici) marquer(meilleure);
+      });
+    }, { passive: true });
+
+    ['pointerdown', 'wheel', 'touchstart'].forEach(function (ev) {
+      piste.addEventListener(ev, manuel, { passive: true });
+    });
+
+    carrousel.querySelector('.around-arrow--prev').addEventListener('click', function () { manuel(); aller(ici - 1); });
+    carrousel.querySelector('.around-arrow--next').addEventListener('click', function () { manuel(); aller(ici + 1); });
+
+    boitePuces.addEventListener('animationend', function (e) {
+      if (auto && e.animationName === 'aroundJauge') aller(ici + 1);
+    });
+
+    carrousel.addEventListener('mouseenter', function () { raisonsPause.survol = true; pauser(); });
+    carrousel.addEventListener('mouseleave', function () { raisonsPause.survol = false; pauser(); });
+    carrousel.addEventListener('focusin', function () { raisonsPause.focus = true; pauser(); });
+    carrousel.addEventListener('focusout', function (e) {
+      if (!carrousel.contains(e.relatedTarget)) { raisonsPause.focus = false; pauser(); }
+    });
+    document.addEventListener('visibilitychange', pauser);
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entrees) {
+        raisonsPause.horsChamp = !entrees[0].isIntersecting;
+        pauser();
+      }, { threshold: 0.35 }).observe(carrousel);
+    }
+
+    piste.setAttribute('aria-live', auto ? 'off' : 'polite');
+    pauser();
+    construire();
+    if (auto && positions.length > 1) carrousel.classList.add('is-auto');
+
+    var refaire = 0;
+    window.addEventListener('resize', function () {
+      clearTimeout(refaire);
+      refaire = setTimeout(construire, 160);
     });
   }
 })();

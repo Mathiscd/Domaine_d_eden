@@ -4,7 +4,7 @@
 
      Destinataire : {{ $json.body.client.email }}
      Objet        : {{ $json.body.objet_client }}
-     Reply-To     : chateaulestourelles43@gmail.com
+     Reply-To     : info@domainededen.fr
 
      Le gabarit ne chiffre RIEN : la réservation reste arbitrée par les hôtes,
      l'estimation tarifaire ne part que dans le mail interne.
@@ -70,10 +70,10 @@
         <tr><td style="padding:26px 26px 24px">
           <div style="font:600 10px/1.6 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#4F5F38;padding-bottom:14px">En pratique</div>
           <div style="font:400 14px/1.9 Jost,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#161B14">
-            <strong style="font-weight:600">Arrivée</strong> entre 16&nbsp;h et 20&nbsp;h &nbsp;·&nbsp; <strong style="font-weight:600">départ</strong> entre 9&nbsp;h et 10&nbsp;h<br>
+            <strong style="font-weight:600">Arrivée</strong> entre 17&nbsp;h et 20&nbsp;h &nbsp;·&nbsp; <strong style="font-weight:600">départ</strong> entre 9&nbsp;h et 10&nbsp;h<br>
             2562 Avenue de Bazac, 43800 Beaulieu — Haute-Loire<br>
             <a href="tel:+33665329261" style="color:#4F6B26;text-decoration:none;font-weight:600">06 65 32 92 61</a> &nbsp;·&nbsp;
-            <a href="mailto:chateaulestourelles43@gmail.com" style="color:#4F6B26;text-decoration:none;font-weight:600">chateaulestourelles43@gmail.com</a>
+            <a href="mailto:info@domainededen.fr" style="color:#4F6B26;text-decoration:none;font-weight:600">info@domainededen.fr</a>
           </div>
         </td></tr>
       </table>
@@ -101,7 +101,7 @@
       Vous recevez cet email parce qu’une demande a été envoyée depuis
       <a href="{{ $json.body.public_url }}" style="color:#4F6B26;text-decoration:none">notre site</a>
       le {{ $json.body.envoye_le_fr }}.<br>
-      Vos informations servent uniquement à vous répondre et ne sont transmises à personne —
+      Vos informations servent uniquement à vous répondre et ne sont ni cédées ni revendues —
       <a href="{{ $json.body.public_url }}/politique-confidentialite.html" style="color:#4F6B26;text-decoration:none">politique de confidentialité</a>
       &nbsp;·&nbsp;
       <a href="{{ $json.body.public_url }}/mentions-legales.html" style="color:#4F6B26;text-decoration:none">mentions légales</a>

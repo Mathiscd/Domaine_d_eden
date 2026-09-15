@@ -456,6 +456,15 @@ ces fiches et le site compte plus que leur nombre.
   fonction qui remplit l'étape 3 du formulaire, si bien que ce qui part est
   exactement ce que le visiteur a relu — ne pas recomposer ces lignes dans n8n.
 
+- **Le carrousel des alentours n'a pas de minuterie.** C'est la fin de l'animation CSS
+  de la puce courante (`animationend` sur `aroundJauge`) qui le fait avancer : jauge et
+  défilement ne peuvent pas se désynchroniser, et `animation-play-state: paused`
+  (survol, focus, hors écran, onglet caché) arrête les deux d'un coup. Ne pas remplacer
+  ça par un `setInterval`. Ses cartes n'ont pas de `data-reveal` : hors champ du
+  défilement, l'observateur d'apparition ne les verrait jamais — c'est le carrousel
+  entier qui se révèle. Les puces comptent les **arrêts**, pas les cartes : trois
+  cartes visibles sur quatre au desktop ne font que deux positions.
+
 - **Le rayon d'une photo se pose sur son conteneur ou sur l'`<img>`, jamais sur le
   `<picture>`** : celui-ci est en `display: contents` et n'a pas de boîte à découper
   (même raison que le piège ci-dessus).
@@ -474,6 +483,18 @@ ces fiches et le site compte plus que leur nombre.
   `backdrop-filter` en fait déjà le bloc conteneur de ses descendants fixes, et le menu
   plein écran en dépend. La jauge de lecture est rentrée du rayon des coins plutôt que
   clippée.
+
+- **Les cibles tactiles de 44 px vivent dans `@media (pointer: coarse)`, pas sous un
+  seuil de largeur.** Un iPad en paysage rend l'en-tête desktop mais se touche au doigt ;
+  un portable étroit piloté à la souris n'a que faire de ces marges. Le bloc est en fin de
+  `styles.css` pour primer sur la mise en page, avec un revers : il écraserait aussi les
+  `min-height` plus grandes posées plus haut dans les `@media (max-width)` — d'où le
+  `summary` des équipements borné à `min-width: 901px`. Les listes empilées (pied de page)
+  prennent leur hauteur dans le lien et perdent leur marge ; les liens isolés (fil
+  d'Ariane, coordonnées du contact) gardent leur boîte et étendent une zone invisible en
+  `::after`. Les liens pris dans une phrase restent à la taille du texte : WCAG les
+  exempte, et le banc d'essai, qui ne sait pas les distinguer, continue de les compter.
+  `verifier-desktop.py` rend sans tactile : il reste le juge du desktop à la souris.
 
 ## Vérification visuelle
 
@@ -519,4 +540,4 @@ Comparer l'intention à la charte avant toute itération de design.
 - Un seul geste attendu du visiteur : **envoyer une demande** (pas de paiement en ligne,
   pas de calendrier de disponibilités). La réservation reste gérée par les hôtes.
 - Coordonnées : 2562 Avenue de Bazac, 43800 Beaulieu · 06 65 32 92 61 ·
-  chateaulestourelles43@gmail.com · Arrivée 16 h–20 h, départ 9 h–10 h.
+  info@domainededen.fr · Arrivée 17 h–20 h, départ 9 h–10 h.

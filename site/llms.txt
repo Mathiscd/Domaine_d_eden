@@ -16,7 +16,7 @@ prose. Il ne remplace pas les pages : il évite d'avoir à les interpréter.
 - Adresse : 2562 Avenue de Bazac, 43800 Beaulieu, France
 - Coordonnées : 45.127683, 3.963432 (Base Adresse Nationale)
 - Téléphone : +33 6 65 32 92 61
-- E-mail : chateaulestourelles43@gmail.com
+- E-mail : info@domainededen.fr
 - Site : https://domainededen.fr
 - Hôtes : Thomas Ploton (président) et Grégory Maillard (directeur général)
 
@@ -28,12 +28,14 @@ prose. Il ne remplace pas les pages : il évite d'avoir à les interpréter.
 - Boudoir des Rêves — 17 m² — 90 € la nuit — vue sur la montagne
 - Refuge des Brumes — 17 m² — 90 € la nuit — vue sur la montagne
 - Repaire des Songes — 14 m² — 97 € la nuit — sous les toits, vue sur le jardin
-- Petit-déjeuner maison compris dans tous les tarifs
+- Petit-déjeuner maison compris dans tous les tarifs, servi à l'intérieur, dans la salle à manger
 - Salle de bains privative avec douche dans chaque chambre
-- Arrivées de 16 h à 20 h · départs de 9 h à 10 h (autre horaire sur demande)
+- Arrivées entre 17 h et 20 h · départs entre 9 h et 10 h (autre horaire sur demande)
 - Parking privé gratuit · abri à vélos · salons ouverts aux hôtes · piano
-- Animaux admis sur demande
-- Table d'hôtes : 25 € par personne, sur réservation 24 à 48 h à l'avance
+- Animaux admis sur demande, supplément de 5 € par nuit
+- Table d'hôtes : 25 € par personne, sur réservation 24 à 48 h à l'avance,
+  servie dans la salle à manger ; pas de table d'hôtes le dimanche ni le lundi soir,
+  sauf exception
 - Un gîte pour 2 à 4 personnes doit ouvrir en 2027
 
 ## Réceptions et événements
@@ -63,6 +65,8 @@ réservation ni confirmation.
   Saint-Jacques-de-Compostelle
 - La Via Fluvia, voie verte entre Loire et Rhône, passe devant le domaine
 - Gorges de la Loire et Lavoûte-sur-Loire à 5 minutes
+- Ravin de Corboeuf, à Rosières : canyon d'argiles multicolores, site naturel
+  classé, accessible à pied par le sentier de la Galoche
 - Restaurant La Galoche à 3 minutes
 
 ## Pages
@@ -88,4 +92,4 @@ minimale de séjour, conditions d'annulation, accessibilité aux personnes à
 mobilité réduite, tarif de la privatisation événementielle, taxe de séjour,
 horaire de fin autorisé pour une soirée.
 
-Dernière mise à jour : 2026-09-10
+Dernière mise à jour : 2026-09-15

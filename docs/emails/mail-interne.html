@@ -2,7 +2,7 @@
      Domaine d'Éden — fiche de demande envoyée aux hôtes (mail interne)
      À coller dans le champ HTML du nœud n8n « Send email MarketFrame ».
 
-     Destinataire : chateaulestourelles43@gmail.com
+     Destinataire : info@domainededen.fr
      Objet        : {{ $json.body.objet_interne }}
      Reply-To     : {{ $json.body.client.email }}   ← important : « Répondre »
                     dans la boîte des hôtes écrit alors directement au visiteur.
@@ -94,7 +94,7 @@
           <span style="font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:9.5px">Provenance</span><br>
           Page&nbsp;: <a href="{{ $json.body.page }}" style="color:#4F6B26;text-decoration:none">{{ $json.body.page }}</a><br>
           {{ $json.body.technique.referrer ? 'Venu de : ' + $json.body.technique.referrer + '<br>' : '' }}{{ $json.body.technique.utm.source ? 'Campagne : ' + $json.body.technique.utm.source + ' / ' + ($json.body.technique.utm.medium || '—') + ' / ' + ($json.body.technique.utm.campaign || '—') + '<br>' : '' }}Saisie en {{ $json.body.technique.duree_saisie_s }} s · écran {{ $json.body.technique.ecran }} · {{ $json.body.technique.langue }}<br>
-          Consentement RGPD&nbsp;: <strong style="color:#4F6B26">{{ $json.body.rgpd.consenti ? 'accordé' : 'NON ACCORDÉ' }}</strong> le {{ $json.body.envoye_le_fr }}
+          Politique de confidentialité&nbsp;: <strong style="color:#4F6B26">{{ $json.body.rgpd.consenti ? 'lue et acceptée' : 'NON COCHÉE' }}</strong> le {{ $json.body.envoye_le_fr }}
         </td></tr>
       </table>
     </td></tr>

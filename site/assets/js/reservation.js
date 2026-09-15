@@ -329,7 +329,14 @@
     d.rgpd = {
       consenti: document.getElementById('rgpd').checked,
       horodatage: d.envoye_le,
-      texte: 'Informations utilisées uniquement pour répondre à la demande, non transmises à des tiers.'
+      /* Recopie de la case de l'étape 3. Ce n'est pas un consentement au sens
+         du RGPD — le traitement repose sur les mesures précontractuelles
+         (art. 6-1-b) — mais la trace que le visiteur a été informé : elle doit
+         porter le texte qu'il a coché, pas un résumé. `consenti` garde son nom
+         pour ne pas casser les expressions déjà collées dans n8n. */
+      texte: 'J’ai lu la politique de confidentialité : ces informations servent uniquement '
+        + 'à répondre à ma demande, ne sont ni cédées ni revendues, et je peux en demander '
+        + 'la suppression à tout moment.'
     };
 
     /* Objets des deux mails : composés ici pour que n8n n'ait qu'à les recopier. */
