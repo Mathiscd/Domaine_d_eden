@@ -4061,6 +4061,71 @@ h2 em, h1 em, .em-italic {
   translate: 0 -0.15em;
 }
 
+/* ---------- Plaquette événementielle ---------- */
+
+.brochure-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.25rem, 3vw, 2.2rem);
+  margin-block: clamp(1.6rem, 3vw, 2.4rem) clamp(2.2rem, 4vw, 3.4rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: var(--r-xl);
+  background:
+    radial-gradient(circle at top right, rgba(143, 178, 92, 0.18), transparent 42%),
+    linear-gradient(180deg, rgba(253, 253, 251, 0.95), rgba(242, 245, 236, 0.95));
+  border: 1.5px solid rgba(116, 150, 61, 0.18);
+  box-shadow: 0 32px 55px -42px rgba(64, 87, 30, 0.5);
+  overflow: hidden;
+}
+
+.brochure-card::after {
+  content: "";
+  position: absolute;
+  inset: auto auto -4.4rem -3.4rem;
+  width: clamp(6rem, 13vw, 9rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--disque-tendre);
+  pointer-events: none;
+}
+
+.brochure-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.brochure-copy {
+  max-width: 56rem;
+}
+
+.brochure-kicker {
+  margin: 0 0 0.5rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--vert-txt);
+}
+
+.brochure-copy h2 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.45rem);
+}
+
+.brochure-copy p {
+  margin: 0.65rem 0 0;
+  color: var(--encre-72);
+  max-width: 62ch;
+}
+
+.brochure-card .btn {
+  flex: none;
+  position: relative;
+  z-index: 1;
+}
+
 /* ---------- Frise en 4 temps ---------- */
 
 .steps-flow {
@@ -4280,12 +4345,14 @@ h2 em, h1 em, .em-italic {
   .room-detail:nth-child(even) { grid-template-columns: 1fr; }
   .room-detail:nth-child(even) .room-detail-media { order: 0; }
   .facts-grid, .steps-flow { grid-template-columns: 1fr 1fr; }
+  .brochure-card { align-items: flex-start; flex-direction: column; }
 }
 
 @media (max-width: 640px) {
   .facts-grid, .formats-grid, .steps-flow { grid-template-columns: 1fr; }
   .room-detail-foot { flex-direction: column; align-items: flex-start; }
   .hero-dots { display: none; }
+  .brochure-card .btn { width: 100%; }
 }
 
 /* ---------- Responsive ---------- */
