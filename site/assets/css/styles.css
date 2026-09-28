@@ -2070,6 +2070,41 @@ h2 em, h1 em, .em-italic {
   color: var(--vert-tendre);
 }
 
+/* Les soirs de fermeture sortent du paragraphe : noyés en fin de phrase, on ne
+   les voyait pas. `--vert-tendre` sur `--vert-profond` : 6,07:1. Même règle
+   dans la carte de l'accueil et dans l'encart de chambres.html. */
+.table-fermeture {
+  position: relative;
+  margin-top: 1.1rem;
+  padding-left: 1.3rem;
+  font-size: 0.94rem;
+  line-height: 1.95;
+  color: var(--ivoire);
+}
+.table-fermeture::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: var(--r-cercle);
+  background: var(--vert-tendre);
+}
+/* Les deux soirs en pastilles, comme le badge 2027 : `--vert-profond` sur
+   `--vert-tendre`, 6,07:1. `box-decoration-break` garde les deux bouts ronds
+   si une pastille se coupe en fin de ligne. */
+.table-fermeture strong {
+  font-weight: 500;
+  color: var(--vert-profond);
+  background: var(--vert-tendre);
+  padding: 0.12em 0.7em;
+  border-radius: var(--r-pilule);
+  white-space: nowrap;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
 /* La mention du gîte 2027 vivait dans l'encart supprimé : elle reste seule,
    centrée sous la grille, avant les boutons. */
 .rooms-2027 {
