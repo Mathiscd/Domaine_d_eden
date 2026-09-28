@@ -2721,6 +2721,115 @@ h2 em, h1 em, .em-italic {
 .band-ploton .btn { flex: none; }
 
 
+/* ---------- Avis Google ----------
+   Une petite section « livre d'or » entre le contact et la FAQ, sur le fond clair
+   de la page : un bandeau vert foncé plaqué entre deux sections claires faisait
+   bannière publicitaire. Le visuel reprend le langage du site — deux disques qui
+   se chevauchent en pétale, un anneau, un médaillon ivoire posé sur la couture —
+   et n'est fait que de CSS : rien à télécharger, aucun `sizes` à tenir.
+   Pas de padding bas : la FAQ qui suit apporte le sien. */
+.avis-google {
+  position: relative;
+  padding-top: clamp(4.5rem, 9vw, 7.5rem);
+}
+
+.avis-grid {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  align-items: center;
+  gap: clamp(2.5rem, 7vw, 7rem);
+}
+
+/* Le carré qui porte la composition : tout y est placé en pourcentage de SA
+   largeur (aspect-ratio 1), donc la composition garde ses proportions à toutes
+   les tailles. */
+.avis-visuel {
+  position: relative;
+  width: min(100%, 27rem);
+  aspect-ratio: 1;
+  justify-self: center;
+}
+
+.avis-disque {
+  position: absolute;
+  border-radius: var(--r-cercle);
+  aspect-ratio: 1;
+}
+.avis-disque--vert  { width: 74%; top: 0;   left: 0;   background: var(--disque-vert); }
+.avis-disque--doux  { width: 60%; right: 0; bottom: 2%; background: var(--disque-doux); }
+.avis-disque--anneau {
+  width: 30%; right: 4%; top: 6%;
+  border: clamp(5px, 0.9vw, 9px) solid var(--disque-pale);
+}
+
+/* Le médaillon : centré sur la couture des deux disques. Le texte y est en
+   `--vert-txt` sur ivoire (5,95:1) — il ne touche jamais le vert franc. */
+.avis-medaillon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 58%;
+  aspect-ratio: 1;
+  border-radius: var(--r-cercle);
+  background: var(--ivoire);
+  box-shadow: 0 0 0 clamp(7px, 1.2vw, 12px) var(--ivoire-56),
+              0 1.6rem 3rem -1.2rem rgba(64, 87, 30, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
+  text-align: center;
+}
+
+.avis-etoiles { width: 56%; fill: var(--vert); }
+
+.avis-merci {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.1rem, 4.2vw, 3.1rem);
+  line-height: 1;
+  color: var(--vert-txt);
+}
+
+.avis-signature {
+  font-family: var(--sans);
+  font-size: clamp(0.56rem, 0.9vw, 0.66rem);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sauge);
+}
+
+/* Titre un cran sous le h2 de section : c'est une petite section, elle ne doit
+   pas parler aussi fort que « Venir au domaine » juste au-dessus. */
+.avis-texte h2 { font-size: clamp(2.1rem, 4vw, 3.3rem); }
+.avis-texte .lede { margin-top: 1.4rem; max-width: 40ch; }
+
+.avis-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem 1.6rem;
+  margin-top: clamp(1.8rem, 3.5vw, 2.6rem);
+}
+.avis-note {
+  font-size: 0.86rem;
+  color: var(--sauge);
+}
+
+@media (max-width: 900px) {
+  .avis-grid { grid-template-columns: 1fr; }
+  .avis-visuel { width: min(78%, 19rem); }
+}
+
+@media (max-width: 640px) {
+  .avis-actions .btn { flex: 1 1 100%; }
+  .avis-note { flex: 1 1 100%; text-align: center; }
+}
+
 /* petite flèche sortante sur les liens vers un autre site */
 .btn--out::after {
   content: "↗";

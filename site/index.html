@@ -782,6 +782,48 @@
     </div>
   </section>
 
+  <!-- ======================= AVIS GOOGLE ======================= -->
+  <!-- Le lien est celui des QR codes d'avis : `writereview?placeid=`, qui ouvre
+       directement la fenêtre de notation de la fiche Google Business Profile.
+       Le Place ID a été dérivé de l'identifiant Maps de la fiche
+       (0x47f5ef9d3736050b:0xee98604a696a0108, /g/11xsk3cjjl) et vérifié : il
+       rouvre bien « Domaine d'Eden - Château les Tourelles » à Beaulieu.
+       Pas de note ni de nombre d'avis affichés : on ne recopie pas un chiffre
+       qui vivrait sa vie sans nous. -->
+  <section class="avis-google" id="avis" aria-labelledby="avis-titre">
+    <div class="container avis-grid">
+      <!-- Le visuel est tout en CSS : deux disques qui se chevauchent en pétale,
+           un médaillon ivoire posé sur leur couture. Aucune image à charger. -->
+      <div class="avis-visuel" aria-hidden="true" data-reveal="up">
+        <span class="avis-disque avis-disque--vert disque--flotte"></span>
+        <span class="avis-disque avis-disque--doux disque--flotte disque--lent"></span>
+        <span class="avis-disque avis-disque--anneau"></span>
+        <span class="avis-medaillon">
+          <svg class="avis-etoiles" viewBox="0 0 132 24" focusable="false">
+            <defs><path id="avis-etoile" d="M12 1.8l3.05 6.18 6.82.99-4.94 4.81 1.17 6.79L12 17.36l-6.1 3.21 1.17-6.79-4.94-4.81 6.82-.99z"/></defs>
+            <use href="#avis-etoile"/><use href="#avis-etoile" x="27"/><use href="#avis-etoile" x="54"/><use href="#avis-etoile" x="81"/><use href="#avis-etoile" x="108"/>
+          </svg>
+          <span class="avis-merci">merci&nbsp;!</span>
+          <span class="avis-signature">Grégory &amp; Thomas</span>
+        </span>
+      </div>
+      <div class="avis-texte" data-reveal="up" style="--reveal-delay: 120ms">
+        <p class="eyebrow">Livre d’or</p>
+        <h2 id="avis-titre">
+          <span class="ln"><span>Racontez-nous</span></span>
+          <span class="ln"><span><em>votre séjour</em></span></span>
+        </h2>
+        <p class="lede">Une nuit sous nos tourelles, une fête de famille au domaine ?
+        Quelques mots sur Google aident d’autres voyageurs à nous trouver — et nous
+        font, à tous les deux, un plaisir fou.</p>
+        <div class="avis-actions">
+          <a class="btn btn--primary btn--out" href="https://search.google.com/local/writereview?placeid=ChIJCwU2N53v9UcRCAFqaUpgmO4" target="_blank" rel="noopener">Laisser un avis Google</a>
+          <p class="avis-note">Deux minutes, depuis votre compte Google.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ======================= CTA FINAL ======================= -->
 
   <!-- FAQ : questions fréquentes (section 07) -->
