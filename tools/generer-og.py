@@ -53,6 +53,7 @@ CARTES = {
     "og-chambres":    ("gdf-0.jpg",  0.50),  # la chambre : le lit est au centre
     "og-evenements":  ("gdf-8.jpg",  0.50),  # la salle à manger dressée
     "og-reservation": ("gdf-13.jpg", 0.45),  # la cour et ses roues de charrette
+    "og-alentours":   ("gdf-10.jpg", 0.30),  # la tour côté jardin
 }
 
 

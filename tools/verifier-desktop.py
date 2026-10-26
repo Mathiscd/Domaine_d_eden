@@ -45,7 +45,7 @@ RACINE = Path(__file__).resolve().parent.parent
 SITE = RACINE / "site"
 SORTIE = RACINE / ".audit"
 REFERENCE = SORTIE / "desktop-ref"
-PAGES = ["index", "chambres", "evenements", "reservation"]
+PAGES = ["index", "chambres", "evenements", "alentours", "reservation"]
 LARGEURS = [901, 940, 1024, 1280, 1440, 1920]
 
 

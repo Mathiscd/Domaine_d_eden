@@ -2,6 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://domainededen.fr/alentours.html</loc>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/chateau-tour-2000.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/table-hotes-2000.jpg</image:loc>
+      <image:title>La table d’hôtes dressée dans la salle à manger du château</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/cour-roues-2000.jpg</image:loc>
+      <image:title>La cour du domaine et ses roues de charrette</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://domainededen.fr/assets/img/jardin-2000.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://domainededen.fr/chambres.html</loc>
     <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>

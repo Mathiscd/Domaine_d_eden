@@ -105,6 +105,24 @@ l'événementiel.
 8. **CTA final** — « Imaginez votre événement *au château* », « Demander un devis »
    → `reservation.html?motif=evenement`.
 
+## alentours.html — que faire autour du domaine
+
+Ajoutée le 26 octobre 2026, hors proposition, pour se positionner sur « où dormir
+près du Puy-en-Velay ». Bandeau (`chateau-tour`), puis :
+
+1. **Dormir près du Puy-en-Velay** — la réponse directe : Beaulieu, 17 km du Puy,
+   5 chambres de 90 à 104 €, parking, abri vélos, table d'hôtes. CTA chambres.
+2. **Le Puy-en-Velay** (`#le-puy`) — cathédrale, Aiguilhe, Notre-Dame de France,
+   Polignac ; les spécialités (lentille verte AOP, verveine, dentelle).
+3. **Le chemin de Compostelle** (`#compostelle`) — bande sombre, trois faits :
+   20 min de la cathédrale, GR 65, UNESCO 1998.
+4. **La Loire** (`#la-loire`) — Via Fluvia, Lavoûte, Corboeuf, Chamalières ;
+   La Galoche pour les soirs sans table d'hôtes.
+5. **Volcans & grands sites** (`#volcans`) — lac du Bouchet, Mézenc, Gerbier de
+   Jonc, La Chaise-Dieu.
+6. **Temps de trajet** (`#trajets`) — tableau de 12 lieux, en tuiles sous 640 px.
+7. CTA final vers la réservation.
+
 ## reservation.html — formulaire multi-étapes
 
 Page calme : photo en bandeau étroit ou colonne, formulaire au centre, header réduit

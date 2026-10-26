@@ -30,7 +30,7 @@ try:
 except ImportError:
     sys.exit('Il manque Playwright : pip install playwright && playwright install chromium')
 
-PAGES = ['index.html', 'chambres.html', 'evenements.html', 'reservation.html']
+PAGES = ['index.html', 'chambres.html', 'evenements.html', 'alentours.html', 'reservation.html']
 
 # Les breakpoints du CSS, plus les deux bornes de la fourchette d'usage. Une
 # largeur juste au-dessus et au-dessous de chaque bascule révèle les erreurs de

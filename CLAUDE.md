@@ -10,6 +10,8 @@ Prestation cadrée par la proposition commerciale MarketFrame validée par le cl
 
 **Livrable** : un site éditorial de **quatre pages** — accueil (le déroulé complet),
 chambres, événements — plus une page de réservation dédiée avec formulaire multi-étapes.
+Une cinquième, **alentours**, a été ajoutée hors proposition le 26 octobre 2026 pour le
+référencement (« où dormir près du Puy-en-Velay ») : voir « Référencement ».
 Statique (HTML/CSS/JS vanilla), sans framework, sans build.
 
 ## Règle d'or du design — **elle a changé, à la demande du client**
@@ -56,12 +58,13 @@ site/
   index.html           accueil : toutes les sections du déroulé
   chambres.html        les 5 chambres en détail (ancres #suite-roi-reine, #boudoir-reves…)
   evenements.html      les formats, le cadre, le déroulé, la table
+  alentours.html       Le Puy, Compostelle, la Loire, les volcans, temps de trajet
   reservation.html     formulaire de demande multi-étapes (cible de tous les CTA)
   mentions-legales.html         ⎫ hors livrable éditorial, liées depuis le pied de page
   politique-confidentialite.html ⎭ des six pages
   404.html             page d'erreur, sur le gabarit des pages légales — Netlify la sert seule
   robots.txt           politique de crawl, moteurs et robots d'IA (voir « Référencement »)
-  sitemap.xml          généré — les 4 pages indexables et leurs photos
+  sitemap.xml          généré — les 5 pages indexables et leurs photos
   llms.txt             la fiche factuelle du domaine, en clair, pour les assistants
   google745a1…7.html   jeton de propriété de la Search Console — ne pas supprimer,
                        ne pas retoucher (verifier-seo.py l'ignore)
@@ -273,6 +276,17 @@ JSON-LD sortent de la même liste — les retoucher séparément les ferait dive
 ce que Google sanctionne et qui fait perdre confiance à un assistant.
 `verifier-seo.py` compare les deux, question par question.
 
+**La page des alentours répond à « où dormir près du Puy-en-Velay ».** Elle
+porte la réponse en tête, en texte (distance, prix, parking), puis un tableau des
+temps de trajet — la forme la plus reprise par les assistants. Ces temps sont
+**calculés, pas estimés** : routage OSRM sur OpenStreetMap depuis le point de la
+Base Adresse Nationale du domaine, arrondis à 5 minutes (méthode en commentaire
+dans la page). Tout fait affirmé — UNESCO, 82 m et 268 marches d'Aiguilhe,
+1 753 m du Mézenc — a été recoupé ; ce qui ne l'était pas (heure de la
+bénédiction des pèlerins, saison d'ouverture de Lavoûte) n'est pas écrit.
+Son nœud JSON-LD propre est un `ItemList` de `TouristAttraction`. Dans le menu,
+« Activités » mène désormais à cette page ; le carrousel de l'accueil y renvoie.
+
 **Ce que la FAQ ne dit pas, elle ne l'invente pas.** Huit questions parmi les plus
 posées à un assistant sur un hébergement restent sans réponse faute
 d'information : Wi-Fi, moyens de paiement, séjour minimum, conditions
@@ -310,7 +324,7 @@ ces fiches et le site compte plus que leur nombre.
 
 ## Pièges — ne pas « nettoyer » sans comprendre
 
-- **Le JSON-LD est volontairement répété à l'identique sur les quatre pages
+- **Le JSON-LD est volontairement répété à l'identique sur les cinq pages
   indexables.** Ce n'est pas une duplication à factoriser : sans build, il n'y a
   pas d'endroit commun où le mettre, et surtout un `@id` défini sur une autre
   page ne se résout pas — les moteurs reconstruisent le graphe page par page.

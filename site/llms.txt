@@ -65,19 +65,29 @@ réservation ni confirmation.
 
 ## Alentours
 
-- Le Puy-en-Velay à 17 km : cathédrale, vieille ville, départ du chemin de
-  Saint-Jacques-de-Compostelle
-- La Via Fluvia, voie verte entre Loire et Rhône, passe devant le domaine
-- Gorges de la Loire et Lavoûte-sur-Loire à 5 minutes
+Temps en voiture depuis le domaine, arrondis à 5 minutes (détail et sources :
+https://domainededen.fr/alentours.html).
+
+- La Via Fluvia, voie verte entre Loire et Rhône : passe devant le domaine
+- Restaurant La Galoche : 3 min
+- Lavoûte-sur-Loire, son château des Polignac et les gorges de la Loire : 5 min
 - Ravin de Corboeuf, à Rosières : canyon d'argiles multicolores, site naturel
-  classé, accessible à pied par le sentier de la Galoche
-- Restaurant La Galoche à 3 minutes
+  classé, accessible à pied par le sentier de la Galoche : 10 min
+- Chamalières-sur-Loire, église romane : 15 min
+- Le Puy-en-Velay (17 km) : cathédrale Notre-Dame, inscrite au patrimoine
+  mondial de l'UNESCO au titre des chemins de Saint-Jacques-de-Compostelle,
+  départ de la via Podiensis (GR 65) : 20 min
+- Rocher Saint-Michel d'Aiguilhe, forteresse de Polignac : 20 min
+- Lac du Bouchet (lac de cratère), abbaye de La Chaise-Dieu : 40 min
+- Mont Mézenc (1 753 m) : 45 min
+- Mont Gerbier de Jonc, sources de la Loire : 55 min
 
 ## Pages
 
 - [Accueil](https://domainededen.fr/) : le domaine, les hôtes, les chambres, les alentours, la galerie, le contact
 - [Les chambres](https://domainededen.fr/chambres.html) : les cinq chambres en détail, équipements et tarifs
 - [Événements](https://domainededen.fr/evenements.html) : formats de privatisation, capacités, déroulé, table
+- [Alentours](https://domainededen.fr/alentours.html) : Le Puy-en-Velay, Compostelle, la Loire, les volcans, temps de trajet
 - [Réservation](https://domainededen.fr/reservation.html) : formulaire de demande en trois étapes
 - [Mentions légales](https://domainededen.fr/mentions-legales.html) : identité de l'exploitant
 

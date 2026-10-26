@@ -30,7 +30,7 @@ RACINE = Path(__file__).resolve().parent.parent
 SITE = RACINE / "site"
 SORTIE = RACINE / ".audit"
 
-PAGES = ["index", "chambres", "evenements", "reservation"]
+PAGES = ["index", "chambres", "evenements", "alentours", "reservation"]
 
 # Largeur, hauteur, DPR, classe. Les tailles sont celles d'appareils réels :
 # c'est là que le site sera vraiment vu, pas à des paliers ronds.
@@ -80,6 +80,11 @@ COMPOSANTS = {
         ("carte-format", ".format-card"),
         ("faits", ".facts-grid"),
         ("deroule", ".steps-flow"),
+    ],
+    "alentours": [
+        ("lieux", ".lieux-grid"),
+        ("faits", ".facts-grid"),
+        ("trajets", ".trajets"),
     ],
     "reservation": [
         ("formulaire", "form"),

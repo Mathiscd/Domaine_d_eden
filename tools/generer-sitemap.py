@@ -61,6 +61,7 @@ PAGES = {
     "index.html": ("1.0", "monthly"),
     "chambres.html": ("0.9", "monthly"),
     "evenements.html": ("0.9", "monthly"),
+    "alentours.html": ("0.8", "monthly"),
     "reservation.html": ("0.8", "yearly"),
 }
 

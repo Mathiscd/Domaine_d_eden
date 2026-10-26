@@ -2518,6 +2518,144 @@ h2 em, h1 em, .em-italic {
 
 .around-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; display: block; }
 
+/* Sur l'accueil, le renvoi vers la page des alentours, sous le carrousel. */
+.around-more { margin-top: 2.4rem; text-align: center; position: relative; z-index: 1; }
+
+
+/* ---------- Page « Alentours » ----------
+   Les tuiles du carrousel de l'accueil, posées cette fois en grille : deux
+   colonnes, puis une seule sous 900 px. Pas de rail : c'est une page qu'on lit,
+   pas un aperçu qu'on feuillette. */
+.lieux-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.4rem);
+  position: relative;
+  z-index: 1;
+}
+
+/* Hors carrousel, chaque tuile se révèle seule : la barre suit sa propre
+   apparition plutôt que celle du carrousel. */
+.lieux-grid .around-item.is-visible::before { width: 3.5rem; }
+
+.lieux-grid .around-item p { max-width: 46ch; }
+
+.lieux-note {
+  margin: clamp(2rem, 4vw, 2.8rem) auto 0;
+  max-width: 52ch;
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--vert-txt);
+  position: relative;
+  z-index: 1;
+}
+
+/* Le tableau des trajets : de vraies lignes de tableau pour les lecteurs
+   d'écran et les robots, dessinées en tuiles arrondies. `separate` est
+   obligatoire : en `collapse`, une cellule ne prend pas de rayon. */
+.trajets-wrap { position: relative; z-index: 1; }
+
+.trajets {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.65rem;
+}
+
+.trajets thead th {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sauge);
+  text-align: left;
+  padding: 0 1.5rem 0.2rem;
+}
+
+.trajets tbody th,
+.trajets tbody td {
+  background: var(--ivoire);
+  border-block: 1.5px solid rgba(116, 150, 61, 0.16);
+  padding: 1.05rem 1.5rem;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.trajets tbody th {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--encre);
+  border-inline-start: 1.5px solid rgba(116, 150, 61, 0.16);
+  border-start-start-radius: var(--r-md);
+  border-end-start-radius: var(--r-md);
+}
+
+.trajets tbody td:last-child {
+  color: var(--encre-72);
+  font-size: 0.98rem;
+  border-inline-end: 1.5px solid rgba(116, 150, 61, 0.16);
+  border-start-end-radius: var(--r-md);
+  border-end-end-radius: var(--r-md);
+}
+
+/* La durée en pilule pleine : c'est la donnée qu'on cherche des yeux. */
+.trajets-duree { white-space: nowrap; }
+.trajets-duree span {
+  display: inline-block;
+  padding: 0.4rem 0.95rem;
+  border-radius: var(--r-pilule);
+  background: var(--vert-fonce);
+  color: var(--ivoire);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.trajets-note {
+  margin-top: 1.2rem;
+  font-size: 0.92rem;
+  color: var(--encre-72);
+  max-width: 70ch;
+}
+
+@media (max-width: 900px) {
+  .lieux-grid { grid-template-columns: 1fr; }
+}
+
+/* Sous 640 px, chaque ligne devient une tuile : le lieu, la pilule, puis ce
+   qu'on y fait. L'en-tête de colonnes, devenu inutile à l'œil, reste lisible
+   par les lecteurs d'écran. */
+@media (max-width: 640px) {
+  .trajets, .trajets tbody, .trajets tr, .trajets tbody th, .trajets tbody td { display: block; }
+  .trajets thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .trajets tr {
+    background: var(--ivoire);
+    border: 1.5px solid rgba(116, 150, 61, 0.16);
+    border-radius: var(--r-md);
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 0.7rem;
+  }
+  .trajets tbody th,
+  .trajets tbody td,
+  .trajets tbody td:last-child {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: none;
+  }
+  .trajets-duree { margin: 0.55rem 0 0.45rem; }
+}
+
 /* ---------- Galerie ---------- */
 
 .gallery {
