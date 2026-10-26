@@ -348,6 +348,10 @@ def main() -> int:
 
     pages = {}
     for chemin in sorted(SITE.glob("*.html")):
+        # Jeton de validation de la Search Console : ce n'est pas une page,
+        # et Google exige qu'il reste en ligne tel quel.
+        if re.fullmatch(r"google[0-9a-f]+\.html", chemin.name):
+            continue
         pages[chemin.name] = controler_page(chemin)
 
     indexables = [n for n, p in pages.items() if not p["noindex"]]

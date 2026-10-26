@@ -63,6 +63,8 @@ site/
   robots.txt           politique de crawl, moteurs et robots d'IA (voir « Référencement »)
   sitemap.xml          généré — les 4 pages indexables et leurs photos
   llms.txt             la fiche factuelle du domaine, en clair, pour les assistants
+  google745a1…7.html   jeton de propriété de la Search Console — ne pas supprimer,
+                       ne pas retoucher (verifier-seo.py l'ignore)
   _headers             en-têtes Netlify : cache des images, des polices, du CSS/JS
   favicon.ico          la marque, rendue pour 16/32/48 px   ⎫
   favicon.svg          la marque, réglée pour l'onglet       ⎬ générés — voir « Le logo »
