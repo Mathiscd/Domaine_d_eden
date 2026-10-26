@@ -51,6 +51,34 @@
   print-color-adjust: exact;
 }
 
+/* Lien d'évitement : hors champ jusqu'au focus clavier, jamais imprimé. */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 10;
+  transform: translate(-50%, -140%);
+  padding: 0.85rem 1.8rem;
+  border-radius: 0 0 999px 999px;
+  background: var(--vert-profond);
+  color: var(--ivoire);
+  font-family: "Jost", system-ui, sans-serif;
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.skip-link:focus-visible {
+  transform: translate(-50%, 0);
+  outline: 2px solid var(--vert-tendre);
+  outline-offset: -5px;
+}
+
+@media print {
+  .skip-link { display: none; }
+}
+
 html,
 body {
   margin: 0;

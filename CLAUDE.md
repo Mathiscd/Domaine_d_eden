@@ -76,14 +76,16 @@ site/
     img/               variantes responsives `<nom>-<largeur>.{avif,webp,jpg}`,
                        plus `logo-eden.svg`, `logo-email.png` (la marque servie
                        aux clients mail), `og-*.jpg` (les cartes de partage en
-                       1200×630) et les icônes du manifeste
+                       1200×630) et les icônes du manifeste ;
+                       `partenaires/` : logos des financeurs du pied de page
 photos-sources/        les sources, hors `site/` : versionnées, jamais publiées.
                        `gdf-*.jpg` (Gîtes de France, 2000px), `chambre-{suite,nuit,
                        boudoir}-*.jpg` et `evenement-*.jpg` (photos du client, 2048px),
                        `chambre-{brumes,songes}-*.png` (captures Booking, ~930px, sans
                        perte), `chevaux-aube.webp`, le logo fourni
                        par le client (`logo-domaine-eden.png`), celui qu'il remplace
-                       (`…-ancien.png`), `urls.txt` et `chambres-booking.md` (provenance)
+                       (`…-ancien.png`), `urls.txt` et `chambres-booking.md` (provenance),
+                       `partenaires/` (logos des financeurs et leur `provenance.md`)
 tools/
   generer-images.py    régénère les variantes depuis photos-sources/ (voir « Images »)
   verifier-srcset.py   contrôle que le balisage déclare bien toutes les variantes
@@ -269,13 +271,16 @@ JSON-LD sortent de la même liste — les retoucher séparément les ferait dive
 ce que Google sanctionne et qui fait perdre confiance à un assistant.
 `verifier-seo.py` compare les deux, question par question.
 
-**Ce que la FAQ ne dit pas, elle ne l'invente pas.** Dix questions parmi les plus
+**Ce que la FAQ ne dit pas, elle ne l'invente pas.** Huit questions parmi les plus
 posées à un assistant sur un hébergement restent sans réponse faute
-d'information : Wi-Fi, période d'ouverture, moyens de paiement, langues parlées,
-séjour minimum, conditions d'annulation, accessibilité PMR, tarif de la
-privatisation, taxe de séjour, horaire de fin de soirée. Elles sont listées en
-fin de `llms.txt`. **Les faire arbitrer par le client est le geste le plus
-rentable qui reste** — chacune est aujourd'hui une réponse qu'un assistant donne
+d'information : Wi-Fi, moyens de paiement, séjour minimum, conditions
+d'annulation, accessibilité PMR, tarif de la privatisation, taxe de séjour,
+horaire de fin de soirée. Elles sont listées en fin de `llms.txt`. L'ouverture
+(toute l'année), le label (Gîtes de France 3 épis) et la langue (français) ont
+été tranchés le 26 octobre 2026 sur la fiche de l'office de tourisme du Puy,
+remplie par les hôtes et mise à jour le 29 juin 2026 : une réponse se reprend
+d'une source que le client a lui-même renseignée, jamais d'une supposition.
+**Les faire arbitrer par le client est le geste le plus rentable qui reste** — chacune est aujourd'hui une réponse qu'un assistant donne
 à propos d'un concurrent.
 
 **`robots.txt` autorise largement, y compris l'entraînement.** Pour une maison

@@ -316,7 +316,11 @@ une pastille ronde**. Les commandes de la visionneuse sont trois pastilles de 46
 vignettes, des médaillons ronds.
 
 **Pied de page** — **vert profond**, deux grands coins hauts arrondis, un pétale de disques
-qui remonte du coin bas gauche. C'est la dernière image qu'on emporte du site.
+qui remonte du coin bas gauche. C'est la dernière image qu'on emporte du site. Sous la grille,
+une **tuile blanche** en `--r-lg` porte les logos des financeurs (« Avec le soutien de » : Agglo
+du Puy-en-Velay ; « Financé par » : République française + ADEME, Fonds Chaleur). Blanc pur et
+non ivoire : le bloc-marque de l'État ne s'appose que sur blanc, et les logos raster ont un fond
+blanc opaque. Ce sont les seules couleurs non vertes du site, et elles ne se retouchent pas.
 
 ## 7. Mouvement
 

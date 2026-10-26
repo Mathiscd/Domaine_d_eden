@@ -77,8 +77,19 @@ def url_page(fichier: str) -> str:
 
 
 def derniere_retouche(fichier: str) -> str:
-    """Date du dernier commit ayant touché la page, au format ISO."""
+    """Date du dernier commit ayant touché la page, au format ISO.
+
+    Une page retouchée mais pas encore commitée prend la date du jour : le
+    sitemap se régénère juste avant le commit, et sans ça il partirait en
+    ligne avec la date de la retouche précédente.
+    """
     try:
+        statut = subprocess.run(
+            ["git", "status", "--porcelain", "--", f"site/{fichier}"],
+            cwd=RACINE, capture_output=True, text=True, timeout=10,
+        )
+        if statut.stdout.strip():
+            return date.today().isoformat()
         sortie = subprocess.run(
             ["git", "log", "-1", "--format=%cs", "--", f"site/{fichier}"],
             cwd=RACINE, capture_output=True, text=True, timeout=10,
