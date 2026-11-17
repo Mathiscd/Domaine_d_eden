@@ -458,8 +458,9 @@ ces fiches et le site compte plus que leur nombre.
   accepte. Toute la déclaration `background` est alors jetée **sans erreur visible**, et
   c'est ainsi que le voile sombre du CTA final avait disparu. Écrire `ellipse X% Y%`.
 
-- **Le formulaire poste sur `/api/demande`, pas sur l'adresse n8n.** Le proxy de
-  `netlify.toml` n'est pas une coquetterie : il évite au navigateur du visiteur
+- **Le formulaire poste sur `/api/demande`, pas sur l'adresse n8n.** Le relais
+  (`netlify/functions/demande.mts` depuis le 17/11/2026, qui prévient NZT-48 si n8n
+  ne prend pas la demande ; avant, une redirection de `netlify.toml`) n'est pas une coquetterie : il évite au navigateur du visiteur
   d'avoir à joindre `n8n.srv….hstgr.cloud`, un tiers qu'un filtrage d'entreprise
   (FortiGate) bloque volontiers comme « non catégorisé » — le formulaire
   échouerait alors sur un réseau où le site s'affiche parfaitement. Il supprime

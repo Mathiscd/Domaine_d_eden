@@ -35,11 +35,10 @@
 # pré-vol CORS du tout. Le réglage « Allowed Origins » du nœud n8n ne sert plus
 # qu'au repli direct de `reservation.js` — le garder, ne pas s'y fier.
 #
-# Vérifié : Netlify transmet bien le corps d'un POST à travers un proxy
-# (status 200 vers une URL externe), en-tête `Content-Type` compris.
+# Depuis le 17/11/2026, ce n'est plus une redirection mais une fonction :
+# `netlify/functions/demande.mts` (chemin `/api/demande`) transmet la demande à
+# n8n et, si n8n ne la prend pas (panne, délai, workflow désactivé), prévient
+# NZT-48 par une alerte signée. Une redirection ne pouvait prévenir personne.
+# Secret : NZT48_SECRET (posé par nzt48-alertes-secrets.py) ; sans lui, le
+# relais marche pareil, sans alerte. N8N_WEBHOOK_URL facultatif.
 # ---------------------------------------------------------------------------
-[[redirects]]
-  from = "/api/demande"
-  to = "https://n8n.srv1107413.hstgr.cloud/webhook/771531e2-ed8a-4f64-b110-beedd81cd96d"
-  status = 200
-  force = true

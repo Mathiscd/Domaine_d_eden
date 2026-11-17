@@ -82,16 +82,15 @@ curl -s -i -X OPTIONS "<url de production>" -H "Origin: https://<domaine du site
 
 ## 2 bis. Le proxy : le formulaire poste sur le domaine du site
 
-Le navigateur du visiteur ne parle **qu'au domaine du site**. Une redirection de
-`netlify.toml` relaie `POST /api/demande` vers le webhook n8n :
-
-```toml
-[[redirects]]
-  from = "/api/demande"
-  to = "https://n8n.srv1107413.hstgr.cloud/webhook/771531e2-…"
-  status = 200
-  force = true
-```
+Le navigateur du visiteur ne parle **qu'au domaine du site**. Depuis le 17/11/2026,
+une fonction Netlify, [`netlify/functions/demande.mts`](../netlify/functions/demande.mts),
+relaie `POST /api/demande` vers le webhook n8n (avant, c'était une simple redirection
+de `netlify.toml`). La différence : si n8n refuse la demande, ne répond pas en 8 s ou
+est injoignable, la fonction prévient **NZT-48** par une alerte signée
+`reservation-perdue` (critique, sans aucune donnée du visiteur). Une redirection ne
+prévenait personne : n8n en panne n'enregistre aucune exécution. Le relais répond
+toujours 502 en cas d'échec, jamais 404, pour ne pas déclencher le repli direct.
+Contrôle sans réseau : `node tools/test-alerte-nzt48.mjs`.
 
 **Pourquoi.** Sans elle, le navigateur doit joindre `n8n.srv….hstgr.cloud`, un
 tiers qu'un filtrage d'entreprise — FortiGate et consorts — bloque volontiers
